@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image } from 'react-native'
+import { View, TextInput, ImageBackground, StyleSheet, TouchableOpacity, Text, Button, Image } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, updateName, updateConfirmPassword, fetchUserObj} from '../actions/user'
-
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 class Signup extends React.Component {
 	handleSignUp = async () => {
 		try{
@@ -59,12 +59,16 @@ class Signup extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-			<Image
-		        style={styles.tinyLogo}
-		        source={require('../assets/logo1.png')}
-		      />
+				<ImageBackground source={require('../assets/register.jpg')} style={styles.image}>
+				</ImageBackground>
+				<Image
+					style={styles.tinyLogo}
+					source={require('../assets/logo-wh.png')}
+				/>
+				<Text style={styles.text}>Let's</Text>
+				<Text style={styles.subtext}>Start</Text>
 				<TextInput
-					style={styles.inputBox}
+					style={styles.inpBx}
 					value={this.props.user.name}
 					onChangeText={name => this.props.updateName(name)}
 					placeholder='Name'
@@ -72,7 +76,7 @@ class Signup extends React.Component {
 					autoCapitalize='none'
 				/>
 				<TextInput
-					style={styles.inputBox}
+					style={styles.inpBxTw}
 					value={this.props.user.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
@@ -80,46 +84,74 @@ class Signup extends React.Component {
 					autoCapitalize='none'
 				/>
 				<TextInput
-					style={styles.inputBox}
-					value={this.props.user.cfrmPassword}
-					onChangeText={cfrmPassword => this.props.updateConfirmPassword(cfrmPassword)}
+					style={styles.inpBxThr}
+					value={this.props.user.password}
+					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"
 					secureTextEntry={true}
 				/>
-				<TextInput
-					style={styles.inputBox}
-					value={this.props.user.password}
-					onChangeText={password => this.props.updatePassword(password)}
-					placeholder='Confirm Password'
-					placeholderTextColor="#8BB8CE"
-					secureTextEntry={true}
-				/>
 				<TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
-					<Text style={styles.buttonText}>Signup</Text>
+					<Text style={styles.buttonText}>Create Account</Text>
 				</TouchableOpacity>
-				<Button
-					title="Do you have an account? Login"
-					onPress={() => this.props.navigation.navigate('Login')}
-				/>
+				<TouchableOpacity style={styles.btnTw} onPress={() => this.props.navigation.navigate('Login')}>
+					<Text style={styles.btnTxt}>Have an account? Login</Text>
+				</TouchableOpacity>
 			</View>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        alignItems: 'center',
-        justifyContent: 'center',
+	tinyLogo: {
+		position: 'absolute',
+		top: vh(5),
+        width: 100,
+        height: 100
     },
-    tinyLogo: {
-        marginBottom: 20,
-        width: 200,
-        height: 200
-    },
-    inputBox:{
+	container: {
+		backgroundColor: 'black',
+		flex: 1,
+		flexDirection: 'column',
+	  },
+	image: {
+		flex: 1,
+		resizeMode: 'cover',
+		justifyContent: 'center',
+		opacity:.8,
+	  },
+	inpBx:{
+		position: 'absolute',
+		left: vw(4),
+		top:vh(37),
+        width:"80%",
+        fontWeight: 'bold',
+        backgroundColor:"#EFEFEF",
+        color:"#032c8e",
+        borderRadius:20,
+        height:55,
+        marginBottom:20,
+        justifyContent:"center",
+        padding:20
+	},
+	inpBxTw:{
+		position: 'absolute',
+		left: vw(4),
+		top:vh(45),
+        width:"80%",
+        fontWeight: 'bold',
+        backgroundColor:"#EFEFEF",
+        color:"#032c8e",
+        borderRadius:20,
+        height:55,
+        marginBottom:20,
+        justifyContent:"center",
+        padding:20
+	},
+	inpBxThr:{
+		position: 'absolute',
+		left: vw(4),
+		top:vh(53),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
@@ -134,23 +166,49 @@ const styles = StyleSheet.create({
         height:55,
         color:"black"
     },
-    forgot:{
-        color:"white",
-        fontSize:11
-    },
-    button:{
-        width:"80%",
-        backgroundColor:"#032c8e",
-        borderRadius:20,
-        height:55,
-        alignItems:"center",
-        justifyContent:"center",
-        marginTop:10,
-        marginBottom:10
-    },
-    buttonText:{
-        color:"white"
-    }
+	button: {
+		position: 'absolute',
+		top: vh(61),
+		left: vw(4),
+		width: "40%",
+		backgroundColor: "#0466C8",
+		borderRadius: 20,
+		height: 55,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	btnTw: {
+		position: 'absolute',
+		top: vh(69),
+		left: vw(4),
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	text: {
+		position: 'absolute',
+		top: vh(20),
+		marginLeft:20,
+		fontWeight: '800',
+		fontSize: 75,
+		color: '#FFFFFF',
+	},
+	subtext: {
+		position: 'absolute',
+		top: vh(30),
+		marginLeft:20,
+		fontWeight: '400',
+		fontSize: 44,
+		lineHeight: 45,
+		color: '#E1DDDD',
+	  },
+	buttonText: {
+		color: "white"
+	},
+	btnTxt: {
+		color: "white",
+		fontWeight: '200',
+		fontSize: 25,
+	},
 });
 
 const mapDispatchToProps = dispatch => {

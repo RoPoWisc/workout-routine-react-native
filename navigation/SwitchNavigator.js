@@ -4,6 +4,7 @@ import Login from '../screens/Login'
 import Signup from '../screens/Register'
 import Home from '../screens/Home'
 import ForgotPassword from '../screens/ForgotPassword'
+import initialScreen from '../screens/initial'
 
 const SwitchNavigator = createSwitchNavigator(
 	{
@@ -18,10 +19,13 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		Home: {
 			screen: Home
+		},
+		Initial: {
+			screen: initialScreen
 		}
 	},
 	{
-		initialRouteName: 'Home'
+		initialRouteName: 'Initial'
 	}
 )
 
