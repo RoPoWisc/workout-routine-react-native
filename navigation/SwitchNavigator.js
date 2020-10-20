@@ -5,6 +5,8 @@ import Signup from '../screens/Register'
 import Home from '../screens/Home'
 import ForgotPassword from '../screens/ForgotPassword'
 import initialScreen from '../screens/initial'
+import Progress from '../screens/Progress'
+import AddWorkout from '../screens/AddWorkout'
 
 const SwitchNavigator = createSwitchNavigator(
 	{
@@ -22,6 +24,12 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		Initial: {
 			screen: initialScreen
+		},
+		Progress: {
+			screen: Progress
+		},
+		AddWorkout: {
+			screen: AddWorkout
 		}
 	},
 	{

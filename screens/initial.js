@@ -12,7 +12,7 @@ class Login extends React.Component {
 	componentDidMount = async () => {
 		try {
 			if(this.props.user.userServer !== undefined){
-				this.props.navigation.navigate('Home')
+				this.props.navigation.navigate('Progress')
 			}
 		} catch (e) {
 			alert(e);

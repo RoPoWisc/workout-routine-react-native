@@ -18,8 +18,8 @@ import * as eva from '@eva-design/eva';
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
  * https://akveo.github.io/eva-icons
  */
-const HeartIcon = (props) => (
-  <Icon {...props} name='heart'/>
+const MenuIcon = (props) => (
+  <Icon {...props} name='menu-outline'/>
 );
 
 class Home extends React.Component {
@@ -39,7 +39,7 @@ class Home extends React.Component {
                     <Text style={styles.text} appearance='hint'>
                       For example, try changing theme to Dark by using eva.dark
                     </Text>
-                    <Button style={styles.likeButton} accessoryLeft={HeartIcon}>
+                    <Button style={styles.likeButton} accessoryLeft={MenuIcon}>
                       LIKE
                     </Button>
                   </Layout>
