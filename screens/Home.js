@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -22,6 +22,17 @@ const HeartIcon = (props) => (
   <Icon {...props} name='heart'/>
 );
 
+const info = [
+	{name: 'Workout 1', key: '\nLegz4Dayz'},
+	{name: 'Workout 2', key: '\nChest Day'},
+	{name: 'Workout 3', key: '\nBulk'},
+	{name: 'Workout 4', key: '\nCut'},
+	{name: 'Workout 5', key: '\nSuperset'},
+	{name: 'Workout 6', key: '\nHIIT'},
+	{name: 'Workout 7', key: '\nCore 24/7'},
+	{name: 'Workout 8', key: '\nCardio'},
+];
+
 class Home extends React.Component {
 
     render() {
@@ -29,19 +40,32 @@ class Home extends React.Component {
             <>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
+                  <Layout style={styles.header}>
+                    <Layout style={styles.headerLeft}>
+                      <Text style={styles.textMain} category='s1'>
+                        Personal
+                      </Text>
+                      <Text style={styles.text} appearance='hint'>
+                        Workouts
+                      </Text>
+                    </Layout>
+                    <Layout style={styles.headerRight}>
+                      <Image
+                        style={styles.optionButton}
+                        source={require('../assets/logo1.png')}
+                      />
+                    </Layout>
+                  </Layout>
                   <Layout style={styles.container}>
-                    <Text style={styles.text} category='h1'>
-                      Welcome to UI Kitten 😻
-                    </Text>
-                    <Text style={styles.text} category='s1'>
-                      Start with editing App.js to configure your App
-                    </Text>
-                    <Text style={styles.text} appearance='hint'>
-                      For example, try changing theme to Dark by using eva.dark
-                    </Text>
-                    <Button style={styles.likeButton} accessoryLeft={HeartIcon}>
-                      LIKE
-                    </Button>
+                    <FlatList
+                      data={info}
+                      //horizontal
+						          renderItem={({ item }) => (
+							          <>
+								          <Text style={styles.item}>{item.name}: {item.key}</Text>
+							          </>
+						          )}
+					          />
                   </Layout>
                 </ApplicationProvider>
             </>
@@ -51,12 +75,56 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: 20,
   },
+  header: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 25,
+    alignItems: 'center',
+  },
+  headerLeft: {
+    flex: 3,
+    alignItems: 'flex-start',
+    marginBottom: 40,
+    marginLeft: 20,
+  },
+  headerRight: {
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+    justifyContent: 'flex-end',
+    marginRight: 5,
+  },
+  textMain: {
+    fontSize: 40,
+    fontWeight: "bold",
+  },
+  optionButton: {
+    height: 75,
+    width: 75,
+  },
+  carousel: {
+    flex: 1,
+
+  },
+  item: {
+    paddingVertical: 30,
+    paddingHorizontal: 80,
+    alignSelf: 'center',
+    borderWidth: 2,
+    borderRadius: 40,
+		borderColor: 'black',
+		backgroundColor: 'white',
+		fontSize: 24
+	},
   text: {
     textAlign: 'center',
+    fontSize: 30,
   },
   likeButton: {
     marginVertical: 16,
