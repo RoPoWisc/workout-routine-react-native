@@ -33,6 +33,12 @@ const info = [
 	{name: 'Workout 8', key: '\nCardio'},
 ];
 
+const images = [
+  {name: require('../assets/home.jpg'), key: '1'},
+  {name: require('../assets/home1.jpg'), key: '2'},
+  {name: require('../assets/stock.jpg'), key: '3'}
+];
+
 class Home extends React.Component {
 
     render() {
@@ -57,15 +63,31 @@ class Home extends React.Component {
                     </Layout>
                   </Layout>
                   <Layout style={styles.container}>
-                    <FlatList
-                      data={info}
-                      //horizontal
-						          renderItem={({ item }) => (
-							          <>
-								          <Text style={styles.item}>{item.name}: {item.key}</Text>
-							          </>
-						          )}
-					          />
+                    <Layout style={styles.carousel}>
+                      <FlatList
+                        data={info}
+                        horizontal
+						            renderItem={({ item }) => (
+							            <>
+								            <Image
+                              style={styles.c_image}
+                              source={item.name}
+                            />
+							            </>
+						            )}
+					            />
+                    </Layout>
+                    <Layout style={styles.p_workouts}>
+                      <FlatList
+                        data={info}
+                        //horizontal
+						            renderItem={({ item }) => (
+							            <>
+								            <Text style={styles.item}>{item.name}: {item.key}</Text>
+							            </>
+						            )}
+					            />
+                    </Layout>
                   </Layout>
                 </ApplicationProvider>
             </>
@@ -76,7 +98,6 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 20,
@@ -111,6 +132,16 @@ const styles = StyleSheet.create({
   carousel: {
     flex: 1,
 
+  },
+  c_image: {
+    height: 260,
+    width: 210,
+    borderWidth: 5,
+    borderRadius: 40,
+    borderColor: 'white',
+  },
+  p_workouts: {
+    flex: 1,
   },
   item: {
     paddingVertical: 30,
