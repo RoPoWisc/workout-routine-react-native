@@ -1,12 +1,14 @@
 import React from 'react'
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image, Keyboard } from 'react-native'
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image, Keyboard, ImageBackground } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, fetchUserObj } from '../actions/user'
-
+import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+import { FontAwesome } from '@expo/vector-icons';
 
 let userUid;
-
 
 class Login extends React.Component {
 
@@ -53,35 +55,35 @@ class Login extends React.Component {
 
 		return (
 			<View style={styles.container}>
+				<ImageBackground source={require('../assets/loginbackground.jpeg')} style={styles.image}>
+				</ImageBackground>
 				<Image
 					style={styles.tinyLogo}
 					source={require('../assets/logo1.png')}
 				/>
-
 				<TextInput
-					style={styles.inputBox}
+					style={styles.inpBx}
 					value={this.props.user.email}
-					onChangeText={email => this.props.updateEmail(email)}
+					onChangeText={name => this.props.updateEmail(email)}
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
 				/>
 				<TextInput
-					style={styles.inputBox}
+					style={styles.inpBxTw}
 					value={this.props.user.password}
-					onChangeText={password => this.props.updatePassword(password)}
+					onChangeText={email => this.props.updatePassword(password)}
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"
-					secureTextEntry={true}
+					autoCapitalize='none'
 				/>
 				<TouchableOpacity style={styles.button} onPress={loginHandler}>
 					<Text style={styles.buttonText}>Login</Text>
 				</TouchableOpacity>
-				<Button
-					title="Don't have an account yet? Sign up"
-					onPress={() => this.props.navigation.navigate('Signup')}
-				/>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('ForgotPwd')}>
+				<TouchableOpacity style={styles.btnTw} onPress={() => this.props.navigation.navigate('Signup')}>
+					<Text style={styles.btnTxt}>Don't have an account yet? Sign up</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.forgotTw} onPress={() => this.props.navigation.navigate('ForgotPwd')}>
 					<Text style={styles.forgotText}>Forgot Password?</Text>
 				</TouchableOpacity>
 			</View>
@@ -90,17 +92,51 @@ class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#FFFFFF',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	tinyLogo: {
-        marginBottom: 30,
-        width: 200,
-        height: 200
+		position: 'absolute',
+		top: vh(5),
+        width: 100,
+        height: 100
     },
+	container: {
+		backgroundColor: 'black',
+		flex: 1,
+		flexDirection: 'column',
+	},
+	image: {
+		flex: 1,
+		resizeMode: 'cover',
+		justifyContent: 'center',
+		opacity:.7,
+	},
+	inpBx:{
+		position: 'absolute',
+		left: vw(10),
+		top:vh(35),
+        width:"80%",
+        fontWeight: 'bold',
+        backgroundColor:"#EFEFEF",
+        color:"#032c8e",
+        borderRadius:20,
+        height:vh(8),
+        marginBottom:20,
+        justifyContent:"center",
+        padding:vh(2),
+	},
+	inpBxTw:{
+		position: 'absolute',
+		left: vw(10),
+		top:vh(45),
+        width:"80%",
+        fontWeight: 'bold',
+        backgroundColor:"#EFEFEF",
+        color:"#032c8e",
+        borderRadius:20,
+        height:vh(8),
+        marginBottom:20,
+        justifyContent:"center",
+        padding:vh(2),
+	},
 	inputBox: {
 		width: "80%",
 		fontWeight: 'bold',
@@ -121,23 +157,43 @@ const styles = StyleSheet.create({
 		fontSize: 11
 	},
 	button: {
-		width: "80%",
-		backgroundColor: "#032c8e",
+		position: 'absolute',
+		top: vh(55),
+		left: vw(28),
+		width: "40%",
+		backgroundColor: "#0466C8",
 		borderRadius: 20,
-		height: 55,
+		height: 45,
 		alignItems: "center",
 		justifyContent: "center",
-		marginTop: 10,
-		marginBottom: 10
 	},
 	buttonText: {
 		color: "white"
 	},
 	forgotText: {
 		fontSize: 15,
-		color: 'blue',
-		margin: 5,
+		color: 'white',
+		margin: 15,
 	}, 
+	btnTxt: {
+		color: "white",
+		fontWeight: '300',
+		fontSize: vw(6),
+	},
+	btnTw: {
+		position: 'absolute',
+		top: vh(78),
+		left: vw(4),
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	forgotTw: {
+		position: 'absolute',
+		top: vh(90),
+		left: vw(26),
+		alignItems: "center",
+		justifyContent: "center",
+	},
 });
 
 const mapDispatchToProps = dispatch => {
