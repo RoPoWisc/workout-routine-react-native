@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		resizeMode: 'cover',
 		justifyContent: 'center',
-		opacity:.8,
+		opacity:.7,
 	  },
 	inpBx:{
 		position: 'absolute',
@@ -129,10 +129,10 @@ const styles = StyleSheet.create({
         backgroundColor:"#EFEFEF",
         color:"#032c8e",
         borderRadius:20,
-        height:55,
+        height:vh(6),
         marginBottom:20,
         justifyContent:"center",
-        padding:20
+        padding:vh(2),
 	},
 	inpBxTw:{
 		position: 'absolute',
@@ -143,10 +143,10 @@ const styles = StyleSheet.create({
         backgroundColor:"#EFEFEF",
         color:"#032c8e",
         borderRadius:20,
-        height:55,
+        height:vh(6),
         marginBottom:20,
         justifyContent:"center",
-        padding:20
+        padding:vh(2),
 	},
 	inpBxThr:{
 		position: 'absolute',
@@ -157,10 +157,10 @@ const styles = StyleSheet.create({
         backgroundColor:"#EFEFEF",
         color:"#032c8e",
         borderRadius:20,
-        height:55,
+        height:vh(6),
         marginBottom:20,
         justifyContent:"center",
-        padding:20
+        padding:vh(2),
     },
     inputText:{
         height:55,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
 		top: vh(20),
 		marginLeft:20,
 		fontWeight: '800',
-		fontSize: 75,
+		fontSize: vw(17),
 		color: '#FFFFFF',
 	},
 	subtext: {
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
 		top: vh(30),
 		marginLeft:20,
 		fontWeight: '400',
-		fontSize: 44,
+		fontSize: vw(10),
 		lineHeight: 45,
 		color: '#E1DDDD',
 	  },

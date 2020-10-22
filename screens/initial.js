@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, fetchUserObj } from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+
 let userUid;
 
 
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		resizeMode: 'cover',
 		justifyContent: 'center',
-		opacity:.8,
+		opacity:.7,
 	  },
 	button: {
 		position: 'absolute',
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
 		top: vh(35),
 		marginLeft:20,
 		fontWeight: '800',
-		fontSize: 75,
+		fontSize: vw(17),
 		color: '#FFFFFF',
 	  },
 	subtext: {
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
 		top: vh(45),
 		marginLeft:20,
 		fontWeight: '400',
-		fontSize: 44,
+		fontSize: vw(10),
 		lineHeight: 45,
 		color: '#E1DDDD',
 	  },
