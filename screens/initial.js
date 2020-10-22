@@ -30,6 +30,7 @@ class Login extends React.Component {
 		  require('../assets/logo-wh.png'),
 		  require('../assets/register.jpg'),
 		  require('../assets/logo1.png'),
+		  require('../assets/loginbackground.jpeg'),
 		  require('../assets/ForgotPwd.jpg')
 		]);
 		
