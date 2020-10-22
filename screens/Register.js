@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TextInput, ImageBackground, StyleSheet, TouchableOpacity, Text, Button, Image } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateEmail, updatePassword, updateName, updateConfirmPassword, fetchUserObj} from '../actions/user'
+import { updateEmail, updatePassword, updateName, fetchUserObj} from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 class Signup extends React.Component {
 	handleSignUp = async () => {
@@ -15,12 +15,6 @@ class Signup extends React.Component {
 			}
 			if(this.props.user.password === undefined){
 					throw "Password is Required!"
-			}
-			if(this.props.user.cfrmPassword === undefined){
-					throw "Confirm Password is Required!"
-			}
-			if(this.props.user.cfrmPassword !== this.props.user.password){
-					throw "Passwords do not match!"
 			}
 			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/signupphoneAPI', {
 			method: 'POST',
@@ -206,13 +200,13 @@ const styles = StyleSheet.create({
 	},
 	btnTxt: {
 		color: "white",
-		fontWeight: '200',
-		fontSize: 25,
+		fontWeight: '300',
+		fontSize: vw(6),
 	},
 });
 
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ updateEmail, updatePassword, updateName, updateConfirmPassword, fetchUserObj }, dispatch)
+	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj }, dispatch)
 }
 
 const mapStateToProps = state => {
