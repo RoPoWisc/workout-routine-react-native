@@ -48,7 +48,7 @@ class Login extends React.Component {
 				alert(responseJson.message);
 			}
 			//alert(this.props.user.userServer);
-			if(this.props.user.userServer !== undefined){
+			if(this.props.user.userServer == undefined){
 				this.props.navigation.navigate('Home')
 			}
 		}
@@ -64,7 +64,6 @@ class Login extends React.Component {
 				<TextInput
 					style={styles.inpBx}
 					value={this.props.user.email}
-					onChangeText={name => this.props.updateEmail(email)}
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
@@ -72,7 +71,6 @@ class Login extends React.Component {
 				<TextInput
 					style={styles.inpBxTw}
 					value={this.props.user.password}
-					onChangeText={email => this.props.updatePassword(password)}
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
