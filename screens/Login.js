@@ -59,8 +59,10 @@ class Login extends React.Component {
 				</ImageBackground>
 				<Image
 					style={styles.tinyLogo}
-					source={require('../assets/logo1.png')}
+					source={require('../assets/logo-wh.png')}
 				/>
+				<Text style={styles.text}>Let's</Text>
+				<Text style={styles.subtext}>Continue</Text>
 				<TextInput
 					style={styles.inpBx}
 					value={this.props.user.email}
@@ -75,14 +77,14 @@ class Login extends React.Component {
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
 				/>
-				<TouchableOpacity style={styles.button} onPress={loginHandler}>
+				<TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
 					<Text style={styles.buttonText}>Login</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.btnTw} onPress={() => this.props.navigation.navigate('Signup')}>
 					<Text style={styles.btnTxt}>Don't have an account yet? Sign up</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.forgotTw} onPress={() => this.props.navigation.navigate('ForgotPwd')}>
-					<Text style={styles.forgotText}>Forgot Password?</Text>
+					<Text style={styles.btnTxt}>Forgot Password?</Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -100,97 +102,94 @@ const styles = StyleSheet.create({
 		backgroundColor: 'black',
 		flex: 1,
 		flexDirection: 'column',
-	},
+	  },
 	image: {
 		flex: 1,
 		resizeMode: 'cover',
 		justifyContent: 'center',
 		opacity:.7,
+	  },
+	text: {
+		position: 'absolute',
+		top: vh(25),
+		marginLeft:20,
+		fontWeight: '800',
+		fontSize: vw(17),
+		color: '#FFFFFF',
 	},
+	subtext: {
+		position: 'absolute',
+		top: vh(35),
+		marginLeft:20,
+		fontWeight: '400',
+		fontSize: vw(10),
+		lineHeight: 45,
+		color: '#E1DDDD',
+	  },
 	inpBx:{
 		position: 'absolute',
-		left: vw(10),
-		top:vh(35),
-        width:"80%",
-        fontWeight: 'bold',
-        backgroundColor:"#EFEFEF",
-        color:"#032c8e",
-        borderRadius:20,
-        height:vh(8),
-        marginBottom:20,
-        justifyContent:"center",
-        padding:vh(2),
-	},
-	inpBxTw:{
-		position: 'absolute',
-		left: vw(10),
+		left: vw(4),
 		top:vh(45),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
         color:"#032c8e",
         borderRadius:20,
-        height:vh(8),
+        height:vh(6.5),
         marginBottom:20,
         justifyContent:"center",
         padding:vh(2),
 	},
-	inputBox: {
-		width: "80%",
-		fontWeight: 'bold',
-		backgroundColor: "#EFEFEF",
-		color: "#032c8e",
-		borderRadius: 20,
-		height: 55,
-		marginBottom: 20,
-		justifyContent: "center",
-		padding: 20
+	inpBxTw:{
+		position: 'absolute',
+		left: vw(4),
+		top:vh(53),
+        width:"80%",
+        fontWeight: 'bold',
+        backgroundColor:"#EFEFEF",
+        color:"#032c8e",
+        borderRadius:20,
+        height:vh(6.5),
+        marginBottom:20,
+        justifyContent:"center",
+        padding:vh(2),
 	},
-	inputText: {
-		height: 55,
-		color: "black"
-	},
-	forgot: {
-		color: "white",
-		fontSize: 11
-	},
+    inputText:{
+        height:55,
+        color:"black"
+    },
 	button: {
 		position: 'absolute',
-		top: vh(55),
-		left: vw(28),
+		top: vh(61),
+		left: vw(4),
 		width: "40%",
 		backgroundColor: "#0466C8",
 		borderRadius: 20,
-		height: 45,
+		height: vh(7),
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	buttonText: {
-		color: "white"
-	},
-	forgotText: {
-		fontSize: 15,
-		color: 'white',
-		margin: 15,
-	}, 
-	btnTxt: {
-		color: "white",
-		fontWeight: '300',
-		fontSize: vw(6),
-	},
 	btnTw: {
 		position: 'absolute',
-		top: vh(78),
+		top: vh(70),
 		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	forgotTw: {
 		position: 'absolute',
-		top: vh(90),
-		left: vw(26),
+		top: vh(76),
+		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
+	},
+	buttonText: {
+		color: "white"
+	},
+	btnTxt: {
+		color: "white",
+		fontWeight: '300',
+		fontSize: vw(6),
 	},
 });
 
