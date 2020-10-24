@@ -49,10 +49,12 @@ class ForgotPassword extends React.Component {
         <View style={styles.container}>
 				<ImageBackground source={require('../assets/ForgotPwd.jpg')} style={styles.image}>
 				</ImageBackground>
+				<TouchableOpacity style={styles.positLogo} onPress={() => this.props.navigation.navigate('Login')}>
 				<Image
 					style={styles.tinyLogo}
 					source={require('../assets/logo-wh.png')}
 				/>
+				</TouchableOpacity>
 				<Text style={styles.text}>Let's</Text>
 				<Text style={styles.subtext}>Get Back</Text>
 				<TextInput
@@ -75,9 +77,11 @@ class ForgotPassword extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    tinyLogo: {
+    positLogo: {
 		position: 'absolute',
 		top: vh(5),
+	},
+	tinyLogo: {
         width: 100,
         height: 100
     },
