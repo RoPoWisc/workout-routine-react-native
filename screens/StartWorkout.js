@@ -24,6 +24,7 @@ var squat_array = [
 var squat = {
     name: 'Squat',
     totalVolume: 'Total Volume',
+    show: true,
     sets: squat_array
 }
 
@@ -36,6 +37,7 @@ var legpress_array = [
 var legpress = {
     name: 'Leg Press',
     totalVolume: 'Total Volume',
+    show: true,
     sets: legpress_array
 }
 
@@ -50,6 +52,14 @@ var workout = {
 
 const MenuIcon = (props) => (
     <Icon {...props} name='menu-outline'/>
+);
+
+const CollapseIcon = (props) => (
+    <Icon {...props} name='arrow-ios-upward-outline'/>
+);
+
+const ExpandIcon = (props) => (
+    <Icon {...props} name='arrow-ios-downward-outline'/>
 );
 
 const Checkbox = () => {
@@ -88,6 +98,12 @@ const ExerciseEntry = (exercise_entry) => {
 
 const Exercise = (exercise_object) => {
 
+    const [showList, setShowList] = React.useState(true);
+
+    const showElementHandler = () => {
+        setShowList(!showList);
+    };
+
     return (
         <View style={exerciseStyles.exercise}>
             <View style={{
@@ -100,22 +116,26 @@ const Exercise = (exercise_object) => {
                 <Text category='s1' style={exerciseStyles.header}>{exercise_object.totalVolume}</Text>
             </View>
 
-            <View style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-            }}>
-                <Text category='s1' style={exerciseStyles.exerciseInfo}>Weight</Text>
-                <Text category='s1' style={exerciseStyles.exerciseInfo}>Reps</Text>
-                <Text category='s1' style={exerciseStyles.exerciseInfo}>Set Complete?</Text>
-            </View>
+            { showList && <View>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                }}>
+                    <Text category='s1' style={exerciseStyles.exerciseInfo}>Weight</Text>
+                    <Text category='s1' style={exerciseStyles.exerciseInfo}>Reps</Text>
+                    <Text category='s1' style={exerciseStyles.exerciseInfo}>Set Complete?</Text>
+                </View>
 
-            <List
-                style={{backgroundColor: '#E5E5E5'}}
-                data={exercise_object.sets}
-                renderItem={({ item }) => (
-                    <ExerciseEntry weight={item.weight} reps={item.reps}></ExerciseEntry>
-                )}
-            />
+                <List
+                    style={{backgroundColor: '#E5E5E5'}}
+                    data={exercise_object.sets}
+                    renderItem={({ item }) => (
+                        <ExerciseEntry weight={item.weight} reps={item.reps}></ExerciseEntry>
+                    )}
+                />
+            </View>}
+            <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{margin: -8}} onPress={() => showElementHandler()}></Button>
+                
 
 
         </View>
@@ -150,6 +170,13 @@ const exerciseStyles = StyleSheet.create({
 
 class StartWorkout extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            refresh: false
+        }
+    }
+
     render() {
         return (
             <>
@@ -180,6 +207,7 @@ class StartWorkout extends React.Component {
                             <Exercise 
                                 name={item.name}
                                 totalVolume={item.totalVolume}
+                                show={item.show}
                                 sets={item.sets}>
 
                             </Exercise>
