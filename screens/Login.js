@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
 	},
 	forgotTw: {
 		position: 'absolute',
-		top: vh(76),
+		top: vh(86),
 		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
