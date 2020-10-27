@@ -12,7 +12,6 @@ import Progress from '../screens/Progress'
 import AddWorkout from '../screens/AddWorkout'
 
 import {
-	AddWorkout,
 	EditWorkout,
 	Logout
   } from '../screens'
