@@ -41,7 +41,7 @@ class Signup extends React.Component {
 			}
 			//console.log(this.props.user.userServer);
 			if(this.props.user.userServer !== undefined){
-				this.props.navigation.navigate('Home')
+				this.props.navigation.navigate('DrawerNavigator')
 			}
 		}catch(e){
 			alert(e);
