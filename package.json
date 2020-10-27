@@ -21,6 +21,7 @@
     "react-native-expo-viewport-units": "^0.0.8",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-svg": "^12.1.0",
+    "react-native-svg-charts": "^5.4.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.1",
     "react-redux": "^7.2.1",

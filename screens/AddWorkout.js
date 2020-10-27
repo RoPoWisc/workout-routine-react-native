@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -14,8 +14,8 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 
-const HeartIcon = (props) => (
-  <Icon {...props} name='heart'/>
+const AddIcon = (props) => (
+  <Icon {...props} name='plus-outline'/>
 );
 
 class Home extends React.Component {
@@ -25,19 +25,51 @@ class Home extends React.Component {
             <>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
+                  <Layout style={styles.header}>
+                    <Layout style={styles.headerLeft}>
+                      <Text style={styles.textMain} category='s1'>
+                        Add
+                      </Text>
+                      <Text style={styles.textSub} appearance='hint'>
+                        Workout
+                      </Text>
+                    </Layout>
+                    <Layout style={styles.headerRight}>
+                      <TouchableOpacity>
+                        {/* <Icon
+                          name='menu-outline'
+                        /> */}
+                        <Image style={styles.menuImage} source={require('../assets/logo1.png')}/>
+                      </TouchableOpacity>
+                    </Layout>
+                  </Layout>
                   <Layout style={styles.container}>
-                    <Text style={styles.text} category='h1'>
-                      Welcome to UI Kitten 😻
-                    </Text>
-                    <Text style={styles.text} category='s1'>
-                      Start with editing App.js to configure your App
-                    </Text>
-                    <Text style={styles.text} appearance='hint'>
-                      For example, try changing theme to Dark by using eva.dark
-                    </Text>
-                    <Button style={styles.likeButton} accessoryLeft={HeartIcon}>
-                      LIKE
-                    </Button>
+                    <Layout style={styles.workout}>
+                      <Layout style={styles.headerLeft}>
+                        <Text style={styles.textMain} category='s1'>
+                          Prebuilt
+                        </Text>
+                        <Text style={styles.textSub} appearance='hint'>
+                          Workout
+                        </Text>
+                      </Layout>
+                      <Layout style={styles.headerRight}>
+                        <Button style={styles.button} size='giant' accessoryLeft={AddIcon}/>
+                    </Layout>
+                    </Layout>
+                    <Layout style={styles.workout}>
+                      <Layout style={styles.headerLeft}>
+                        <Text style={styles.textMain} category='s1'>
+                          Custom
+                        </Text>
+                        <Text style={styles.textSub} appearance='hint'>
+                          Workout
+                        </Text>
+                      </Layout>
+                      <Layout style={styles.headerRight}>
+                        <Button style={styles.button} status='danger' size='giant' accessoryLeft={AddIcon}/>
+                    </Layout>
+                    </Layout>
                   </Layout>
                 </ApplicationProvider>
             </>
@@ -47,15 +79,63 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    flex: 3,
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
+  header: {
+    //borderWidth: 1,
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 25,
+    alignItems: 'center',
+  },
+  headerLeft: {
+    //borderWidth: 1,
+    flex: 3,
+    alignItems: 'flex-start',
+    marginBottom: 40,
+    marginLeft: 20,
+  },
+  headerRight: {
+    //borderWidth: 1,
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+    justifyContent: 'flex-end',
+    marginRight: 5,
+  },
+  textMain:{
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
+  textSub: {
+    fontSize: 30,
+  },
   text: {
-    textAlign: 'center',
+    fontSize: 20,
+    alignSelf: 'flex-start',
+    flex: 3,
+    marginLeft: 20,
+  },
+  menuImage: {
+    position: 'relative',
+    borderRadius: 20,
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
   },
   likeButton: {
     marginVertical: 16,
+  },
+  workout: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  button: {
+    marginRight: 40,
+    marginTop: 35,
+    borderRadius: 30
   },
 });
 const mapDispatchToProps = dispatch => {
