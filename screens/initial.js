@@ -26,6 +26,9 @@ class Login extends React.Component {
 	  };
 	  async _loadAssetsAsync() {
 		const imageAssets = cacheImages([
+		  require('../assets/home.jpg'),
+		  require('../assets/home1.jpg'),
+		  require('../assets/curls.jpg'),
 		  require('../assets/initScreen.jpg'),
 		  require('../assets/logo-wh.png'),
 		  require('../assets/register.jpg'),
