@@ -14,7 +14,7 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 import { initialWindowMetrics } from 'react-native-safe-area-context';
-
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
  * https://akveo.github.io/eva-icons
@@ -63,7 +63,7 @@ class Home extends React.Component {
                         >
                           <Image
                             style={styles.optionButton}
-                            source={require('../assets/logo1.png')}
+                            source={require('../assets/options.png')}
                           />
                         </TouchableOpacity>
                     </Layout>
@@ -112,42 +112,46 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 20,
+    marginHorizontal: vw(2),
   },
   header: {
     flex: 1,
     flexDirection: 'row',
-    marginTop: 25,
+    marginTop: vh(2),
     alignItems: 'center',
   },
   headerLeft: {
     flex: 3,
     alignItems: 'flex-start',
-    marginBottom: 40,
-    marginLeft: 20,
+    marginBottom: vh(2),
+    marginLeft: vw(2),
   },
   headerRight: {
     flex: 1,
     flexDirection: 'row',
     alignSelf: 'flex-start',
     justifyContent: 'flex-end',
-    marginRight: 5,
+    marginRight: vw(.5),
   },
   textMain: {
-    fontSize: 40,
+    marginLeft: vw(2),
+    fontSize: vh(6.5),
     fontWeight: "bold",
   },
   optionButton: {
-    height: 75,
-    width: 75,
+    marginTop: vh(2),
+    marginRight: vw(2),
+    height: vh(7),
+    width: vw(14),
   },
   carousel: {
     flex: 1,
-    marginTop: -20,
+    marginTop: vh(-3.3),
   },
   c_image: {
-    height: 260,
-    width: 210,
+    height: vh(35),
+    width: vw(53),
+    marginBottom: vh(1.5),
     borderWidth: 5,
     borderRadius: 40,
     borderColor: 'white',
@@ -161,7 +165,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#013A73',
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
-    marginHorizontal: -20,
+    marginTop: vh(10),
+    marginHorizontal: vw(-2),
   },
   p_text: {
     fontSize: 30,
@@ -169,8 +174,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   item: {
-    paddingVertical: 30,
-    paddingHorizontal: 80,
+    paddingVertical: vh(3),
+    paddingHorizontal: vw(18),
     alignSelf: 'center',
     borderWidth: 2,
     borderRadius: 40,
@@ -179,8 +184,9 @@ const styles = StyleSheet.create({
 		fontSize: 24
 	},
   text: {
+    marginLeft: vw(2),
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: vh(4.5),
   },
   likeButton: {
     marginVertical: 16,
