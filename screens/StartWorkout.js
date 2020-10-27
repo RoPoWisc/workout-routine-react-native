@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ImageBackground, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, ImageBackground, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -16,40 +16,6 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 
-var squat_array = [
-    {weight: 225, reps: 8},
-    {weight: 235, reps: 5}
-]
-
-var squat = {
-    name: 'Squat',
-    totalVolume: 'Total Volume',
-    show: true,
-    sets: squat_array
-}
-
-var legpress_array = [
-    {weight: 405, reps: 10},
-    {weight: 335, reps: 12},
-    {weight: 300, reps: 14}
-]
-
-var legpress = {
-    name: 'Leg Press',
-    totalVolume: 'Total Volume',
-    show: true,
-    sets: legpress_array
-}
-
-var workout = {
-    routineName: 'Workout A',
-    routineDay: 'Leg Day',
-    exerciseArray: [
-        squat,
-        legpress
-    ]
-}
-
 const MenuIcon = (props) => (
     <Icon {...props} name='menu-outline'/>
 );
@@ -62,85 +28,10 @@ const ExpandIcon = (props) => (
     <Icon {...props} name='arrow-ios-downward-outline'/>
 );
 
-const Checkbox = () => {
-    const [checked, setChecked] = React.useState(false);
-
-    return (
-        <CheckBox
-        checked={checked}
-        onChange={nextChecked => setChecked(nextChecked)}
-        style={{
-            width: 75,
-        }}
-        status='success'>
-        </CheckBox>
-    );
-};
-
-const ExerciseEntry = (exercise_entry) => {
-
-    return (
-        <View style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: '#0466C880',
-            borderRadius: 8,
-            paddingTop: 3,
-            paddingBottom: 3,
-            marginVertical: 3
-        }}>
-            <Text category='s1' style={exerciseStyles.weight}>{exercise_entry.weight}</Text>
-            <Text category='s1' style={exerciseStyles.reps}>{exercise_entry.reps}</Text>
-            <Checkbox style={{}}></Checkbox>
-        </View>
-    );
-};
-
-const Exercise = (exercise_object) => {
-
-    const [showList, setShowList] = React.useState(true);
-
-    const showElementHandler = () => {
-        setShowList(!showList);
-    };
-
-    return (
-        <View style={exerciseStyles.exercise}>
-            <View style={{
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                borderBottomColor: '#002855',
-                borderBottomWidth: 1,
-            }}>
-                <Text category='s1' style={exerciseStyles.header}>{exercise_object.name}</Text>
-                <Text category='s1' style={exerciseStyles.header}>{exercise_object.totalVolume}</Text>
-            </View>
-
-            { showList && <View>
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                }}>
-                    <Text category='s1' style={exerciseStyles.exerciseInfo}>Weight</Text>
-                    <Text category='s1' style={exerciseStyles.exerciseInfo}>Reps</Text>
-                    <Text category='s1' style={exerciseStyles.exerciseInfo}>Set Complete?</Text>
-                </View>
-
-                <List
-                    style={{backgroundColor: '#E5E5E5'}}
-                    data={exercise_object.sets}
-                    renderItem={({ item }) => (
-                        <ExerciseEntry weight={item.weight} reps={item.reps}></ExerciseEntry>
-                    )}
-                />
-            </View>}
-            <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{margin: -8}} onPress={() => showElementHandler()}></Button>
-                
 
 
-        </View>
-    );
-};
+
+
 
 const exerciseStyles = StyleSheet.create({
     exercise: {
@@ -173,11 +64,148 @@ class StartWorkout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            refresh: false
+            workout: {
+                routineName: 'Workout A',
+                routineDay: 'Leg Day',
+                exerciseArray: [
+                    {
+                        name: 'Squat',
+                        totalVolume: 'Total Volume',
+                        show: true,
+                        sets: [
+                            {weight: 225, reps: 8, checked: false},
+                            {weight: 235, reps: 5, checked: false}
+                        ]
+                    },
+                    {
+                        name: 'Leg Press',
+                        totalVolume: 'Total Volume',
+                        show: true,
+                        sets: [
+                            {weight: 405, reps: 10, checked: false},
+                            {weight: 335, reps: 12, checked: true},
+                            {weight: 300, reps: 14, checked: false}
+                        ]
+                    }
+                ]
+            }
         }
     }
 
+    compareExerciseObjects(obj1, obj2) {
+        if (obj1.name != obj2.name || obj1.totalVolume != obj2.totalVolume || obj1.show != obj2.show) {
+            return false;
+        }
+
+        const keys = Object.keys(obj1);
+        for (let key of keys) {
+            if (obj1[key] != obj2[key]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+
     render() {
+        
+        const Checkbox = (props) => {
+            const [checked, setChecked] = React.useState(props.checked);
+            
+            //console.log(this.state);
+        
+            return (
+                <CheckBox
+                checked={checked}
+                onChange={nextChecked => setChecked(nextChecked)}
+                style={{
+                    width: 75,
+                }}
+                status='success'>
+                </CheckBox>
+            );
+        };
+
+        const ExerciseEntry = (exercise_entry) => {
+
+            return (
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    backgroundColor: '#0466C880',
+                    borderRadius: 8,
+                    paddingTop: 3,
+                    paddingBottom: 3,
+                    marginVertical: 3
+                }}>
+                    <TextInput category='s1' style={exerciseStyles.weight}>{exercise_entry.weight}</TextInput>
+                    <TextInput category='s1' style={exerciseStyles.reps}>{exercise_entry.reps}</TextInput>
+                    <Checkbox checked={exercise_entry.checked}></Checkbox>
+                </View>
+            );
+        };
+
+        const Exercise = (exercise_object) => {
+
+            const [showList, setShowList] = React.useState(true);
+
+            //console.log(exercise_object);
+            //console.log(this.state.workout.exerciseArray[1]);
+            //console.log(this.compareExerciseObjects(exercise_object, this.state.workout.exerciseArray[1]));
+
+            const showElementHandler = () => {
+                let workoutCopy = this.state.workout;
+                let i = 0;
+                for (let exercise of this.state.workout.exerciseArray) {
+                    if (this.compareExerciseObjects(exercise_object, exercise)) {
+                        workoutCopy.exerciseArray[i] = {...workoutCopy.exerciseArray[i], show: !showList};
+                        break;
+                    }
+                    ++i;
+                }
+                
+                //console.log(this.state);
+                console.log(showList);
+                setShowList(!showList);
+                //this.setState({workoutCopy})
+            };
+        
+            return (
+                <View style={exerciseStyles.exercise}>
+                    <View style={{
+                        justifyContent: 'space-between',
+                        flexDirection: 'row',
+                        borderBottomColor: '#002855',
+                        borderBottomWidth: 1,
+                    }}>
+                        <Text category='s1' style={exerciseStyles.header}>{exercise_object.name}</Text>
+                        <Text category='s1' style={exerciseStyles.header}>{exercise_object.totalVolume}</Text>
+                    </View>
+        
+                    { showList && <View>
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                        }}>
+                            <Text category='s1' style={exerciseStyles.exerciseInfo}>Weight</Text>
+                            <Text category='s1' style={exerciseStyles.exerciseInfo}>Reps</Text>
+                            <Text category='s1' style={exerciseStyles.exerciseInfo}>Set Complete?</Text>
+                        </View>
+        
+                        <List
+                            style={{backgroundColor: '#E5E5E5'}}
+                            data={exercise_object.sets}
+                            renderItem={({ item }) => (
+                                <ExerciseEntry weight={item.weight} reps={item.reps} checked={item.checked}></ExerciseEntry>
+                            )}
+                        />
+                    </View>}
+                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{margin: -8}} onPress={() => showElementHandler()}></Button>
+                </View>
+            );
+        };
+
         return (
             <>
                 <IconRegistry icons={EvaIconsPack}/>
@@ -186,12 +214,12 @@ class StartWorkout extends React.Component {
                     <View style={styles.header}>
                         <View style={styles.topBar}>
                             <Text style={styles.text} category='h1'>
-                                {workout.routineName}
+                                {this.state.workout.routineName}
                             </Text>
                             <Button style={styles.settingsButton} appearance='outline' accessoryLeft={MenuIcon}></Button>
                         </View>
                         <Text style={styles.name} category='h5'>
-                            {workout.routineDay}
+                            {this.state.workout.routineDay}
                         </Text>
                     </View>
 
@@ -202,8 +230,9 @@ class StartWorkout extends React.Component {
                             marginLeft: 15,
                             alignSelf: 'center'
                         }}
-                        data={workout.exerciseArray}
+                        data={this.state.workout.exerciseArray}
                         renderItem={({ item }) => (
+                            
                             <Exercise 
                                 name={item.name}
                                 totalVolume={item.totalVolume}
