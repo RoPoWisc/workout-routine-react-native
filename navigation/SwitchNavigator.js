@@ -69,6 +69,7 @@ const DrawerNavigator = createDrawerNavigator(DrawerRouteConfig,
 	  }
   },
   );
+  //
 
 const SwitchNavigator = createSwitchNavigator(
 	{
