@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   optionButton: {
-    marginTop: vh(2),
+    marginTop: vh(1.2),
     marginRight: vw(2),
     height: vh(7),
     width: vw(14),
