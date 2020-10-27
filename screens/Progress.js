@@ -18,31 +18,32 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 import { isRequired } from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
- * https://akveo.github.io/eva-icons
+ * https:akveo.github.io/eva-icons
  */
-// const MenuIcon = (props) => (
-//   <React.Fragment>
-//     <Icon {...props} name='menu-outline'/>
-//   </React.Fragment>
-// );
+ const MenuIcon = (props) => (
+   <React.Fragment>
+     <Icon {...props} name='menu-outline'/>
+   </React.Fragment>
+ );
 
-// const TopText = () => (
-//   <React.Fragment>
-//     <View style={styles.headerRow}>
-//       <Text style={styles.text} category = 'h1'>Your</Text>
-//     </View>
-//     <View style={styles.headerRow}>
-//     <Text style={styles.text} category = 's1'>Progress</Text>
-//     </View>
-//   </React.Fragment>
-// )
+ const TopText = () => (
+   <React.Fragment>
+     <View style={styles.headerRow}>
+       <Text style={styles.text} category = 'h1'>Your</Text>
+     </View>
+     <View style={styles.headerRow}>
+     <Text style={styles.text} category = 's1'>Progress</Text>
+     </View>
+   </React.Fragment>
+ )
 
-// const data = [
-//   { date: : new Date}
-// ]
+ const data = [
+   { date: new Date}
+ ]
 
 class Home extends React.Component {
 
@@ -64,12 +65,15 @@ class Home extends React.Component {
                       </Text>
                     </Layout>
                     <Layout style={styles.headerRight}>
-                      <TouchableOpacity>
-                        {/* <Icon
-                          name='menu-outline'
-                        /> */}
-                        <Image style={styles.menuImage} source={require('../assets/logo1.png')}/>
-                      </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.optionButton}
+                        onPress={() => this.props.navigation.openDrawer()}
+                        >
+                          <Image
+                            style={styles.optionButton}
+                            source={require('../assets/options.png')}
+                          />
+                        </TouchableOpacity>
                     </Layout>
                     {/* <Button style={styles.likeButton} accessoryLeft={MenuIcon}>
                       LIKE
@@ -122,21 +126,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    //borderWidth: 1,
+    borderWidth: 1,
     flex: 1,
     flexDirection: 'row',
     marginTop: 25,
     alignItems: 'center',
   },
   headerLeft: {
-    //borderWidth: 1,
+    borderWidth: 1,
     flex: 3,
     alignItems: 'flex-start',
     marginBottom: 40,
     marginLeft: 20,
   },
   headerRight: {
-    //borderWidth: 1,
+    borderWidth: 1,
     flex: 1,
     flexDirection: 'row',
     alignSelf: 'flex-start',
@@ -156,16 +160,15 @@ const styles = StyleSheet.create({
     flex: 3,
     marginLeft: 20,
   },
-  menuImage: {
-    position: 'relative',
-    borderRadius: 20,
-    width: 80,
-    height: 80,
-    resizeMode: 'contain',
+  optionButton: {
+    marginTop: vh(1.2),
+    marginRight: vw(2),
+    height: vh(7),
+    width: vw(14),
   },
   bodyWeight: {
-    //borderWidth: 1,
-    //flex: 1,
+    borderWidth: 1,
+    flex: 1,
     flexDirection: 'row',
     alignSelf: 'flex-start',
   },
