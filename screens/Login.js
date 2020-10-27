@@ -49,7 +49,7 @@ class Login extends React.Component {
 			}
 			//alert(this.props.user.userServer);
 			if(this.props.user.userServer == undefined){
-				this.props.navigation.navigate('Home')
+				this.props.navigation.navigate('DrawerNavigator')
 			}
 		}
 
