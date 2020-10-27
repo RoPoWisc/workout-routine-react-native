@@ -37,7 +37,7 @@ const info = [
 const images = [
   {name: require('../assets/home.jpg'), key: 'Workout 1'},
   {name: require('../assets/home1.jpg'), key: 'Workout 2'},
-  {name: require('../assets/stock.jpg'), key: 'Workout 3'}
+  {name: require('../assets/curls.jpg'), key: 'Workout 3'}
 ];
 
 class Home extends React.Component {
@@ -78,7 +78,7 @@ class Home extends React.Component {
                             <TouchableOpacity style={styles.c_image}>
                               <Layout style={styles.c_image}>
                                 <ImageBackground
-                                  style={{flex: 1, alignSelf: 'stretch', borderRadius: 40, overflow: 'hidden', justifyContent: 'flex-end', alignItems: 'center'}}
+                                  style={styles.imagebkgnd}
                                   source={item.name}>
                                   <Text style={styles.p_text}>{item.key}</Text>
                                 </ImageBackground>
@@ -114,6 +114,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: vw(2),
   },
+  imagebkgnd: {
+    flex: 1,
+    alignSelf: 'stretch', 
+    borderRadius: vw(10), 
+    overflow: 'hidden', 
+    justifyContent: 'flex-end', 
+    alignItems: 'center',
+		resizeMode: 'cover',
+		opacity:.9,
+	  },
   header: {
     flex: 1,
     flexDirection: 'row',
