@@ -77,7 +77,7 @@ class Login extends React.Component {
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
 				/>
-				<TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
+				<TouchableOpacity style={styles.button} onPress={this.loginHandler}>
 					<Text style={styles.buttonText}>Login</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.btnTw} onPress={() => this.props.navigation.navigate('Signup')}>
