@@ -13,6 +13,8 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+
 
 const AddIcon = (props) => (
   <Icon {...props} name='plus-outline'/>
@@ -35,12 +37,15 @@ class Home extends React.Component {
                       </Text>
                     </Layout>
                     <Layout style={styles.headerRight}>
-                      <TouchableOpacity>
-                        {/* <Icon
-                          name='menu-outline'
-                        /> */}
-                        <Image style={styles.menuImage} source={require('../assets/logo1.png')}/>
-                      </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.optionButton}
+                        onPress={() => this.props.navigation.openDrawer()}
+                        >
+                          <Image
+                            style={styles.optionButton}
+                            source={require('../assets/options.png')}
+                          />
+                        </TouchableOpacity>
                     </Layout>
                   </Layout>
                   <Layout style={styles.container}>
@@ -105,12 +110,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginRight: 5,
   },
-  textMain:{
-    fontSize: 40,
-    fontWeight: 'bold',
+  textMain: {
+    marginLeft: vw(2),
+    fontSize: vh(6.5),
+    fontWeight: "bold",
   },
   textSub: {
-    fontSize: 30,
+    marginLeft: vw(2),
+    textAlign: 'center',
+    fontSize: vh(4.5),
   },
   text: {
     fontSize: 20,
@@ -118,12 +126,11 @@ const styles = StyleSheet.create({
     flex: 3,
     marginLeft: 20,
   },
-  menuImage: {
-    position: 'relative',
-    borderRadius: 20,
-    width: 80,
-    height: 80,
-    resizeMode: 'contain',
+  optionButton: {
+    marginTop: vh(1.2),
+    marginRight: vw(2),
+    height: vh(7),
+    width: vw(14),
   },
   likeButton: {
     marginVertical: 16,

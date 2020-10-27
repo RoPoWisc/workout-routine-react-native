@@ -52,7 +52,7 @@ class Home extends React.Component {
                       <Text style={styles.textMain} category='s1'>
                         Personal
                       </Text>
-                      <Text style={styles.text} appearance='hint'>
+                      <Text style={styles.textSub} appearance='hint'>
                         Workouts
                       </Text>
                     </Layout>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 		fontSize: 24
 	},
-  text: {
+  textSub: {
     marginLeft: vw(2),
     textAlign: 'center',
     fontSize: vh(4.5),

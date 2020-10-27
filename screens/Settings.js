@@ -14,6 +14,7 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 import { initialWindowMetrics } from 'react-native-safe-area-context';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
@@ -34,13 +35,13 @@ class Settings extends React.Component {
                       </Text>
                     </Layout>
                     <Layout style={styles.headerRight}>
-                      <TouchableOpacity
+                    <TouchableOpacity
                         style={styles.optionButton}
                         onPress={() => this.props.navigation.openDrawer()}
                         >
                           <Image
                             style={styles.optionButton}
-                            source={require('../assets/logo1.png')}
+                            source={require('../assets/options.png')}
                           />
                         </TouchableOpacity>
                     </Layout>
@@ -85,8 +86,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   optionButton: {
-    height: 75,
-    width: 75,
+    marginTop: vh(1.2),
+    marginRight: vw(2),
+    height: vh(7),
+    width: vw(14),
   },
   carousel: {
     flex: 1,
