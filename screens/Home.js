@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image, FlatList, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { } from '../actions/user'
+import { fetchUserObj} from '../actions/user'
 import {
   ApplicationProvider,
   Button,
@@ -41,7 +41,13 @@ const images = [
 ];
 
 class Home extends React.Component {
-
+    /*componentDidMount = async () => {
+      try {
+        console.log(this.props.user.userServer);
+      } catch (e) {
+        alert(e);
+      }
+    }*/
     render() {
         return (
             <>
@@ -203,7 +209,7 @@ const styles = StyleSheet.create({
   },
 });
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({}, dispatch)
+	return bindActionCreators({ fetchUserObj }, dispatch)
 }
 
 const mapStateToProps = state => {
@@ -213,5 +219,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(
-    mapStateToProps
+	mapStateToProps,
+	mapDispatchToProps
 )(Home)

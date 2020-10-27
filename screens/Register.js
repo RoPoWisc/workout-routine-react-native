@@ -16,17 +16,16 @@ class Signup extends React.Component {
 			if(this.props.user.password === undefined){
 					throw "Password is Required!"
 			}
-			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/signupphoneAPI', {
+			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/users/create', {
 			method: 'POST',
 			headers: {
 				Accept: '/',
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
+				name:this.props.user.name,
 				email:this.props.user.email,
 				password:this.props.user.password,
-				fname:this.props.user.name,
-				lname:this.props.user.name
 			})});
 			let responseJson = await response.json();
 			//This saves to this.props.user.userServer

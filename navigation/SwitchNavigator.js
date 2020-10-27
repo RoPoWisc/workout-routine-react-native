@@ -100,7 +100,7 @@ const SwitchNavigator = createSwitchNavigator(
 		}
 	},
 	{
-		initialRouteName: 'DrawerNavigator'
+		initialRouteName: 'Initial'
 	},
 )
 
