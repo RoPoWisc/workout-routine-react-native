@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, FlatList, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -13,6 +13,7 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
@@ -34,9 +35,9 @@ const info = [
 ];
 
 const images = [
-  {name: require('../assets/home.jpg'), key: '1'},
-  {name: require('../assets/home1.jpg'), key: '2'},
-  {name: require('../assets/stock.jpg'), key: '3'}
+  {name: require('../assets/home.jpg'), key: 'Workout 1'},
+  {name: require('../assets/home1.jpg'), key: 'Workout 2'},
+  {name: require('../assets/stock.jpg'), key: 'Workout 3'}
 ];
 
 class Home extends React.Component {
@@ -56,28 +57,39 @@ class Home extends React.Component {
                       </Text>
                     </Layout>
                     <Layout style={styles.headerRight}>
-                      <Image
+                      <TouchableOpacity
                         style={styles.optionButton}
-                        source={require('../assets/logo1.png')}
-                      />
+                        onPress={() => this.props.navigation.openDrawer()}
+                        >
+                          <Image
+                            style={styles.optionButton}
+                            source={require('../assets/logo1.png')}
+                          />
+                        </TouchableOpacity>
                     </Layout>
                   </Layout>
                   <Layout style={styles.container}>
                     <Layout style={styles.carousel}>
                       <FlatList
-                        data={info}
+                        data={images}
                         horizontal
 						            renderItem={({ item }) => (
 							            <>
-								            <Image
-                              style={styles.c_image}
-                              source={item.name}
-                            />
+                            <TouchableOpacity style={styles.c_image}>
+                              <Layout style={styles.c_image}>
+                                <ImageBackground
+                                  style={{flex: 1, alignSelf: 'stretch', borderRadius: 40, overflow: 'hidden', justifyContent: 'flex-end', alignItems: 'center'}}
+                                  source={item.name}>
+                                  <Text style={styles.p_text}>{item.key}</Text>
+                                </ImageBackground>
+                              </Layout>
+                            </TouchableOpacity>
 							            </>
 						            )}
 					            />
                     </Layout>
                     <Layout style={styles.p_workouts}>
+                      <Text style={styles.p_text}>Past Workouts</Text>
                       <FlatList
                         data={info}
                         //horizontal
@@ -131,7 +143,7 @@ const styles = StyleSheet.create({
   },
   carousel: {
     flex: 1,
-
+    marginTop: -20,
   },
   c_image: {
     height: 260,
@@ -139,9 +151,22 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderRadius: 40,
     borderColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   p_workouts: {
     flex: 1,
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: '#013A73',
+    borderTopEndRadius: 30,
+    borderTopStartRadius: 30,
+    marginHorizontal: -20,
+  },
+  p_text: {
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold',
   },
   item: {
     paddingVertical: 30,
