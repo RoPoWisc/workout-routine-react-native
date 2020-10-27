@@ -47,12 +47,12 @@ const DrawerRouteConfig = {
 			title: 'Settings',
 		},
 	},
-	Logout: {
-		screen: Logout,
-		navigationOptions: {
-			title: 'Log Out',
-		}
-	}
+	// Logout: {
+	// 	screen: Logout,
+	// 	navigationOptions: {
+	// 		title: 'Log Out',
+	// 	}
+	// }
 };
 const DrawerNavigator = createDrawerNavigator(DrawerRouteConfig,
   {
