@@ -4,11 +4,39 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, fetchUserObj } from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
+import { FontAwesome } from '@expo/vector-icons';
+
 let userUid;
 
-
+function cacheImages(images) {
+	return images.map(image => {
+	  if (typeof image === 'string') {
+		return Image.prefetch(image);
+	  } else {
+		return Asset.fromModule(image).downloadAsync();
+	  }
+	});
+  }
+  
 class Login extends React.Component {
-
+	state = {
+		isReady: false,
+	  };
+	  async _loadAssetsAsync() {
+		const imageAssets = cacheImages([
+		  require('../assets/initScreen.jpg'),
+		  require('../assets/logo-wh.png'),
+		  require('../assets/register.jpg'),
+		  require('../assets/logo1.png'),
+		  require('../assets/loginbackground.jpeg'),
+		  require('../assets/ForgotPwd.jpg')
+		]);
+		
+		await Promise.all([...imageAssets]);
+	  }
+	
 	componentDidMount = async () => {
 		try {
 			if(this.props.user.userServer !== undefined){
@@ -20,6 +48,15 @@ class Login extends React.Component {
 	}
 
 	render() {
+		if (!this.state.isReady) {
+			return (
+			  <AppLoading
+				startAsync={this._loadAssetsAsync}
+				onFinish={() => this.setState({ isReady: true })}
+				onError={console.warn}
+			  />
+			);
+		  }
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={require('../assets/initScreen.jpg')} style={styles.image}>
@@ -57,7 +94,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		resizeMode: 'cover',
 		justifyContent: 'center',
-		opacity:.8,
+		opacity:.7,
 	  },
 	button: {
 		position: 'absolute',
@@ -66,7 +103,7 @@ const styles = StyleSheet.create({
 		width: "40%",
 		backgroundColor: "#0466C8",
 		borderRadius: 20,
-		height: 55,
+		height: vh(7),
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -77,7 +114,7 @@ const styles = StyleSheet.create({
 		width: "40%",
 		backgroundColor: "#0466C8",
 		borderRadius: 20,
-		height: 55,
+		height: vh(7),
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -86,7 +123,7 @@ const styles = StyleSheet.create({
 		top: vh(35),
 		marginLeft:20,
 		fontWeight: '800',
-		fontSize: 75,
+		fontSize: vw(17),
 		color: '#FFFFFF',
 	  },
 	subtext: {
@@ -94,7 +131,7 @@ const styles = StyleSheet.create({
 		top: vh(45),
 		marginLeft:20,
 		fontWeight: '400',
-		fontSize: 44,
+		fontSize: vw(10),
 		lineHeight: 45,
 		color: '#E1DDDD',
 	  },

@@ -8,9 +8,10 @@ import initialScreen from '../screens/initial'
 import Settings from '../screens/Settings'
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import SideBar from '../components/SideBar'
+import Progress from '../screens/Progress'
+import AddWorkout from '../screens/AddWorkout'
 
 import {
-	YourProgress,
 	AddWorkout,
 	EditWorkout,
 	Logout
@@ -23,8 +24,8 @@ const DrawerRouteConfig = {
 			title: "Home",
 		}
 	},
-	YourProgress: {
-		screen: YourProgress,
+	Progress: {
+		screen: Progress,
 		navigationOptions: {
 			title: "Your Progress",
 		}
@@ -92,9 +93,15 @@ const SwitchNavigator = createSwitchNavigator(
 			screen: Settings
 		},
 		DrawerNavigator,
+		Progress: {
+			screen: Progress
+		},
+		AddWorkout: {
+			screen: AddWorkout
+		}
 	},
 	{
-		initialRouteName: 'Settings'
+		initialRouteName: 'DrawerNavigator'
 	},
 )
 

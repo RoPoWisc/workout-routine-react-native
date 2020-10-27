@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TextInput, ImageBackground, StyleSheet, TouchableOpacity, Text, Button, Image } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateEmail, updatePassword, updateName, updateConfirmPassword, fetchUserObj} from '../actions/user'
+import { updateEmail, updatePassword, updateName, fetchUserObj} from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 class Signup extends React.Component {
 	handleSignUp = async () => {
@@ -15,12 +15,6 @@ class Signup extends React.Component {
 			}
 			if(this.props.user.password === undefined){
 					throw "Password is Required!"
-			}
-			if(this.props.user.cfrmPassword === undefined){
-					throw "Confirm Password is Required!"
-			}
-			if(this.props.user.cfrmPassword !== this.props.user.password){
-					throw "Passwords do not match!"
 			}
 			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/signupphoneAPI', {
 			method: 'POST',
@@ -61,10 +55,12 @@ class Signup extends React.Component {
 			<View style={styles.container}>
 				<ImageBackground source={require('../assets/register.jpg')} style={styles.image}>
 				</ImageBackground>
+				<TouchableOpacity style={styles.positLogo} onPress={() => this.props.navigation.navigate('Login')}>
 				<Image
 					style={styles.tinyLogo}
 					source={require('../assets/logo-wh.png')}
 				/>
+				</TouchableOpacity>
 				<Text style={styles.text}>Let's</Text>
 				<Text style={styles.subtext}>Start</Text>
 				<TextInput
@@ -103,9 +99,11 @@ class Signup extends React.Component {
 }
 
 const styles = StyleSheet.create({
-	tinyLogo: {
+	positLogo: {
 		position: 'absolute',
 		top: vh(5),
+	},
+	tinyLogo: {
         width: 100,
         height: 100
     },
@@ -118,23 +116,26 @@ const styles = StyleSheet.create({
 		flex: 1,
 		resizeMode: 'cover',
 		justifyContent: 'center',
-		opacity:.8,
+		opacity:.7,
+	  },
+	text: {
+		position: 'absolute',
+		top: vh(25),
+		marginLeft:20,
+		fontWeight: '800',
+		fontSize: vw(17),
+		color: '#FFFFFF',
+	},
+	subtext: {
+		position: 'absolute',
+		top: vh(35),
+		marginLeft:20,
+		fontWeight: '400',
+		fontSize: vw(10),
+		lineHeight: 45,
+		color: '#E1DDDD',
 	  },
 	inpBx:{
-		position: 'absolute',
-		left: vw(4),
-		top:vh(37),
-        width:"80%",
-        fontWeight: 'bold',
-        backgroundColor:"#EFEFEF",
-        color:"#032c8e",
-        borderRadius:20,
-        height:55,
-        marginBottom:20,
-        justifyContent:"center",
-        padding:20
-	},
-	inpBxTw:{
 		position: 'absolute',
 		left: vw(4),
 		top:vh(45),
@@ -143,12 +144,12 @@ const styles = StyleSheet.create({
         backgroundColor:"#EFEFEF",
         color:"#032c8e",
         borderRadius:20,
-        height:55,
+        height: vh(6.5),
         marginBottom:20,
         justifyContent:"center",
-        padding:20
+        padding:vh(2),
 	},
-	inpBxThr:{
+	inpBxTw:{
 		position: 'absolute',
 		left: vw(4),
 		top:vh(53),
@@ -157,62 +158,59 @@ const styles = StyleSheet.create({
         backgroundColor:"#EFEFEF",
         color:"#032c8e",
         borderRadius:20,
-        height:55,
+        height: vh(6.5),
         marginBottom:20,
         justifyContent:"center",
-        padding:20
-    },
+        padding:vh(2),
+	},
+	inpBxThr:{
+		position: 'absolute',
+		left: vw(4),
+		top:vh(61),
+        width:"80%",
+        fontWeight: 'bold',
+        backgroundColor:"#EFEFEF",
+        color:"#032c8e",
+        borderRadius:20,
+        height: vh(6.5),
+        marginBottom:20,
+        justifyContent:"center",
+        padding:vh(2),
+	},
     inputText:{
         height:55,
         color:"black"
     },
 	button: {
 		position: 'absolute',
-		top: vh(61),
+		top: vh(70),
 		left: vw(4),
 		width: "40%",
 		backgroundColor: "#0466C8",
 		borderRadius: 20,
-		height: 55,
+		height: vh(7),
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	btnTw: {
 		position: 'absolute',
-		top: vh(69),
+		top: vh(78),
 		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	text: {
-		position: 'absolute',
-		top: vh(20),
-		marginLeft:20,
-		fontWeight: '800',
-		fontSize: 75,
-		color: '#FFFFFF',
-	},
-	subtext: {
-		position: 'absolute',
-		top: vh(30),
-		marginLeft:20,
-		fontWeight: '400',
-		fontSize: 44,
-		lineHeight: 45,
-		color: '#E1DDDD',
-	  },
 	buttonText: {
 		color: "white"
 	},
 	btnTxt: {
 		color: "white",
-		fontWeight: '200',
-		fontSize: 25,
+		fontWeight: '300',
+		fontSize: vw(6),
 	},
 });
 
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ updateEmail, updatePassword, updateName, updateConfirmPassword, fetchUserObj }, dispatch)
+	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj }, dispatch)
 }
 
 const mapStateToProps = state => {
