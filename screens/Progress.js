@@ -40,9 +40,17 @@ import { isRequired } from 'react-native/Libraries/DeprecatedPropTypes/Deprecate
 //   </React.Fragment>
 // )
 
-// const data = [
-//   { date: : new Date}
-// ]
+const data = [
+  { date: '2019-10-20', weight: 180},
+  { date: '2020-9-20', weight: 160},
+  { date: '2020-10-20', weight: 150},
+  { date: '2020-10-21', weight: 145},
+  { date: '2020-10-22', weight: 150},
+  { date: '2020-10-23', weight: 145},
+  { date: '2020-10-24', weight: 140},
+  { date: '2020-10-25', weight: 140},
+  { date: '2020-10-26', weight: 141},
+]
 
 class Home extends React.Component {
 
@@ -85,15 +93,18 @@ class Home extends React.Component {
                       <YAxis
                         data={data}
                         style={{marginBottom: 30}}
+                        yAccessor={({ item }) => item.weight}
                         contentInset={verticalContentInset}
                         svg={axesSvg}
                         numberOfTicks={10}
-                        formatLabel={(value) => `${value}ºC`}
+                        formatLabel={(_, index) => data[ index ].weight}
                       />
                       <Layout style={{ flex: 1, marginLeft: 10 }}>
                         <LineChart
                           style={{ flex: 1 }}
                           data={data}
+                          yAccessor={({ item }) => item.weight}
+                          xAccessor={({ item }) => item.date}
                           svg={{ stroke: 'rgb(134, 65, 244)' }}
                           contentInset={verticalContentInset}
                         >
@@ -102,7 +113,8 @@ class Home extends React.Component {
                         <XAxis
                           style={{marginHorizontal: -10, height: 30}}
                           data={data}
-                          formatLabel={(value, index) => index}
+                          xAccessor={({ item }) => item.date}
+                          formatLabel={(_, index) => data[ index ].date}
                           contentInset={{ left: 10, right: 10 }}
                           svg={axesSvg}
                         />
