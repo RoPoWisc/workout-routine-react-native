@@ -23,21 +23,58 @@ class Login extends React.Component {
 			alert(e);
 		}
 	}
-
+	loginHandler = async () => {
+		try{
+			if(this.props.user.email === undefined){
+				throw "Email is Required!"
+			}
+			if(this.props.user.password === undefined){
+				throw "Password is Required!"
+			}
+		let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
+		method: 'POST',
+		headers: {
+			Accept: '/',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			email:this.props.user.email,
+			password:this.props.user.password
+		})});
+		let responseJson = await response.json();
+		//This saves to this.props.user.userServer
+		//you can refer to data by using this.props.user.userServer
+			//this.props.user.userServer.email
+			//this.props.user.userServer.firstName
+			//this.props.user.userServer.lastName
+			//this.props.user.userServer.timestamp
+			if(responseJson.message.email !== undefined){
+				this.props.fetchUserObj(responseJson.message);
+			}else{
+				alert(responseJson.message);
+			}
+		//alert(this.props.user.userServer);
+		if(this.props.user.userServer !== undefined){
+			this.props.navigation.navigate('DrawerNavigator')
+		}
+		} catch (e) {
+			alert(e);
+		}
+	}
 	render() {
+		/*
 		const loginHandler = async () => {
 			Keyboard.dismiss();
-			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/user/auth', {
-				method: 'POST',
-				headers: {
-					Accept: '/',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					
-					email:this.props.user.email,
-					password:this.props.user.password,
-				})});
+			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
+			method: 'POST',
+			headers: {
+				Accept: '/',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email:this.props.user.email,
+				password:this.props.user.password
+			})});
 			let responseJson = await response.json();
 			//This saves to this.props.user.userServer
 			//you can refer to data by using this.props.user.userServer
@@ -52,10 +89,10 @@ class Login extends React.Component {
 			}
 			//alert(this.props.user.userServer);
 			if(this.props.user.userServer !== undefined){
-				this.props.navigation.navigate('DrawerNavigator')
+				this.props.navigation.navigate('Home')
 			}
 		}
-
+*/
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={require('../assets/loginbackground.jpeg')} style={styles.image}>
