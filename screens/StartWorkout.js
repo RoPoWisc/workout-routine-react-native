@@ -112,7 +112,7 @@ class StartWorkout extends React.Component {
     Check = (props) => {
         const [checked, setChecked] = React.useState(props.checked);
             
-            //console.log(this.state);
+            // TODO: Change loops to use hashmap to improve checkbox performance
 
             const isCheckedHandler = () => {
                 //console.log(props);
