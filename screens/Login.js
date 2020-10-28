@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image, Keyboard, ImageBackground } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateEmail, updatePassword, fetchUserObj } from '../actions/user'
+import { updateEmail, updatePassword, updateName, fetchUserObj } from '../actions/user'
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
@@ -30,7 +30,7 @@ class Login extends React.Component {
 	render() {
 		const loginHandler = async () => {
 			Keyboard.dismiss();
-			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/loginphoneAPI', {
+			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/users/auth', {
 			method: 'POST',
 			headers: {
 				Accept: '/',
@@ -53,7 +53,7 @@ class Login extends React.Component {
 				alert(responseJson.message);
 			}
 			//alert(this.props.user.userServer);
-			if(this.props.user.userServer == undefined){
+			if(this.props.user.userServer !== undefined){
 				this.props.navigation.navigate('Home')
 			}
 		}
@@ -81,6 +81,7 @@ class Login extends React.Component {
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
+					secureTextEntry={true}
 				/>
 				<TouchableOpacity style={styles.button} onPress={this.loginHandler}>
 					<Text style={styles.buttonText}>Login</Text>
