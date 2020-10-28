@@ -6,6 +6,72 @@ import Home from '../screens/Home'
 import ForgotPassword from '../screens/ForgotPassword'
 import initialScreen from '../screens/initial'
 import StartWorkout from '../screens/StartWorkout'
+import Settings from '../screens/Settings'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import SideBar from '../components/SideBar'
+import Progress from '../screens/Progress'
+import AddWorkout from '../screens/AddWorkout'
+
+import {
+	EditWorkout,
+	Logout
+  } from '../screens'
+
+const DrawerRouteConfig = {
+	Home: {
+		screen: Home,
+		navigationOptions: {
+			title: "Home",
+			name: ""
+		}
+	},
+	Progress: {
+		screen: Progress,
+		navigationOptions: {
+			title: "Your Progress",
+		}
+	},
+	AddWorkout: {
+		screen: AddWorkout,
+		navigationOptions: {
+			title: 'Add Workouts',
+		}
+	},
+	EditWorkout: {
+		screen: EditWorkout,
+		navigationOptions: {
+			title: 'Edit Workouts',
+		}
+	},
+	Settings: {
+		screen: Settings,
+		navigationOptions: {
+			title: 'Settings',
+		},
+	},
+	Logout: {
+		screen: Login,
+		navigationOptions: {
+			title: 'Log Out',
+		}
+	}
+};
+const DrawerNavigator = createDrawerNavigator(DrawerRouteConfig,
+  {
+	contentComponent: props => <SideBar {...props} />,
+	  drawerPosition: 'right',
+	  contentOptions: {
+		  itemsContainerStyle: {
+              alignItems: 'center',
+		  },
+		  labelStyle: {
+			  color: 'white',
+			  fontSize: 20,
+		  }
+	  }
+  },
+  );
+  //
 
 const SwitchNavigator = createSwitchNavigator(
 	{
@@ -26,11 +92,21 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		StartWorkout: {
 			screen: StartWorkout
+		},
+		Settings: {
+			screen: Settings
+		},
+		DrawerNavigator,
+		Progress: {
+			screen: Progress
+		},
+		AddWorkout: {
+			screen: AddWorkout
 		}
 	},
 	{
-		initialRouteName: 'Login'
-	}
+		initialRouteName: 'Initial'
+	},
 )
 
 export default createAppContainer(SwitchNavigator)
