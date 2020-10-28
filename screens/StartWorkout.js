@@ -69,22 +69,24 @@ class StartWorkout extends React.Component {
                 routineDay: 'Leg Day',
                 exerciseArray: [
                     {
+                        exercise_id: 'squat1',
                         name: 'Squat',
                         totalVolume: 'Total Volume',
                         show: true,
                         sets: [
-                            {weight: 225, reps: 8, checked: false},
-                            {weight: 235, reps: 5, checked: false}
+                            {weight: 225, reps: 8, checked: false, id: '1'},
+                            {weight: 235, reps: 5, checked: false, id: '2'}
                         ]
                     },
                     {
+                        exercise_id: 'lpress1',
                         name: 'Leg Press',
                         totalVolume: 'Total Volume',
                         show: true,
                         sets: [
-                            {weight: 405, reps: 10, checked: false},
-                            {weight: 335, reps: 12, checked: true},
-                            {weight: 300, reps: 14, checked: false}
+                            {weight: 405, reps: 10, checked: false, id: '3'},
+                            {weight: 335, reps: 12, checked: true, id: '4'},
+                            {weight: 300, reps: 14, checked: false, id: '5'}
                         ]
                     }
                 ]
@@ -107,6 +109,58 @@ class StartWorkout extends React.Component {
         return true;
     }
     
+    Check = (props) => {
+        const [checked, setChecked] = React.useState(props.checked);
+            
+            //console.log(this.state);
+
+            const isCheckedHandler = () => {
+                //console.log(props);
+                //console.log('\n\n\n\n')
+                let workoutCopy = this.state.workout;
+                let i = 0;
+                let j = 0;
+                for (let exercise of this.state.workout.exerciseArray) {
+                    //console.log(exercise.exercise_id);
+                    if (props.exercise_id == exercise.exercise_id) {
+                        //workoutCopy.exerciseArray[i] = {...workoutCopy.exerciseArray[i], show: !showList};
+                        for (let entry of exercise.sets) {
+                            //console.log('entry id:');
+                            //console.log(entry.id);
+                            if (entry.id == props.id) {
+                                //console.log('\n id found \n')
+                                workoutCopy.exerciseArray[i].sets[j] = {...workoutCopy.exerciseArray[i].sets[j], checked: !workoutCopy.exerciseArray[i].sets[j].checked}
+                                setChecked(workoutCopy.exerciseArray[i].sets[j].checked);
+                                //console.log(workoutCopy.exerciseArray[i].sets[j].checked);
+                                break;
+                            }
+                            ++j;
+                        }
+                        break;
+                    }
+                    ++i;
+                }
+                
+                //console.log("state:");
+                //console.log(this.state);
+                //console.log("\ncopy of state:");
+                //console.log(workoutCopy);
+                //console.log(showList);
+                //setShowList(!showList);
+                this.setState({workout: workoutCopy}, () => console.log('updated state\n', workoutCopy));
+            };
+        
+            return (
+                <CheckBox
+                checked={checked}
+                onChange={nextChecked => isCheckedHandler()}
+                style={{
+                    width: 75,
+                }}
+                status='success'>
+                </CheckBox>
+            );
+    }
 
     render() {
         
@@ -128,7 +182,9 @@ class StartWorkout extends React.Component {
         };
 
         const ExerciseEntry = (exercise_entry) => {
-
+            //console.log('\nexercise entry:');
+            //console.log(exercise_entry);
+            //console.log('\n');
             return (
                 <View style={{
                     flexDirection: 'row',
@@ -141,7 +197,7 @@ class StartWorkout extends React.Component {
                 }}>
                     <TextInput category='s1' style={exerciseStyles.weight}>{exercise_entry.weight}</TextInput>
                     <TextInput category='s1' style={exerciseStyles.reps}>{exercise_entry.reps}</TextInput>
-                    <Checkbox checked={exercise_entry.checked}></Checkbox>
+                    <this.Check checked={exercise_entry.checked} id={exercise_entry.id} exercise_id={exercise_entry.exercise_id}></this.Check>
                 </View>
             );
         };
@@ -166,7 +222,7 @@ class StartWorkout extends React.Component {
                 }
                 
                 //console.log(this.state);
-                console.log(showList);
+                //console.log(showList);
                 setShowList(!showList);
                 //this.setState({workoutCopy})
             };
@@ -197,7 +253,7 @@ class StartWorkout extends React.Component {
                             style={{backgroundColor: '#E5E5E5'}}
                             data={exercise_object.sets}
                             renderItem={({ item }) => (
-                                <ExerciseEntry weight={item.weight} reps={item.reps} checked={item.checked}></ExerciseEntry>
+                                <ExerciseEntry weight={item.weight} reps={item.reps} checked={item.checked} id={item.id} exercise_id={exercise_object.exercise_id}></ExerciseEntry>
                             )}
                         />
                     </View>}
@@ -228,7 +284,8 @@ class StartWorkout extends React.Component {
                             backgroundColor: '#FFFFFF',
                             width: '100%',
                             marginLeft: 15,
-                            alignSelf: 'center'
+                            alignSelf: 'center',
+                            borderRadius: 5
                         }}
                         data={this.state.workout.exerciseArray}
                         renderItem={({ item }) => (
@@ -237,11 +294,15 @@ class StartWorkout extends React.Component {
                                 name={item.name}
                                 totalVolume={item.totalVolume}
                                 show={item.show}
-                                sets={item.sets}>
+                                sets={item.sets}
+                                exercise_id={item.exercise_id}>
 
                             </Exercise>
                         )}
                     />
+                    <Button style={styles.button}>
+                        End Workout
+                    </Button>
                   </Layout>
                 </ApplicationProvider>
             </>
@@ -255,6 +316,13 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     //justifyContent: 'center',
     alignItems: 'center',
+  },
+  button: {
+    margin: 20,
+    width: '80%',
+    backgroundColor: '#DB504A',
+    borderColor: '#DB504A',
+    borderRadius: 8
   },
   header: {
     padding: 10,
