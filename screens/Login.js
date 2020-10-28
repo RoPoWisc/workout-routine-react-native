@@ -3,10 +3,7 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image, Key
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, updateName, fetchUserObj } from '../actions/user'
-import { AppLoading } from 'expo';
-import { Asset } from 'expo-asset';
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
-import { FontAwesome } from '@expo/vector-icons';
 
 let userUid;
 
@@ -30,16 +27,17 @@ class Login extends React.Component {
 	render() {
 		const loginHandler = async () => {
 			Keyboard.dismiss();
-			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/users/auth', {
-			method: 'POST',
-			headers: {
-				Accept: '/',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				email:this.props.user.email,
-				password:this.props.user.password
-			})});
+			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/user/auth', {
+				method: 'POST',
+				headers: {
+					Accept: '/',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					
+					email:this.props.user.email,
+					password:this.props.user.password,
+				})});
 			let responseJson = await response.json();
 			//This saves to this.props.user.userServer
 			//you can refer to data by using this.props.user.userServer
@@ -54,7 +52,7 @@ class Login extends React.Component {
 			}
 			//alert(this.props.user.userServer);
 			if(this.props.user.userServer !== undefined){
-				this.props.navigation.navigate('Home')
+				this.props.navigation.navigate('DrawerNavigator')
 			}
 		}
 
@@ -71,6 +69,7 @@ class Login extends React.Component {
 				<TextInput
 					style={styles.inpBx}
 					value={this.props.user.email}
+					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
@@ -78,6 +77,7 @@ class Login extends React.Component {
 				<TextInput
 					style={styles.inpBxTw}
 					value={this.props.user.password}
+					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ updateEmail, updatePassword, fetchUserObj }, dispatch)
+	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj }, dispatch)
 }
 
 const mapStateToProps = state => {
