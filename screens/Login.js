@@ -13,6 +13,11 @@ let userUid;
 class Login extends React.Component {
 
 	componentDidMount = async () => {
+		this.props.fetchUserObj(undefined);
+		this.props.updateEmail("");
+		this.props.updatePassword("");
+		this.props.updateName("");
+
 		try {
 			if(this.props.user.userServer !== undefined){
 				this.props.navigation.navigate('DrawerNavigator')

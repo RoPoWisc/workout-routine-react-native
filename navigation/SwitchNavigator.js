@@ -21,6 +21,7 @@ const DrawerRouteConfig = {
 		screen: Home,
 		navigationOptions: {
 			title: "Home",
+			name: ""
 		}
 	},
 	Progress: {
@@ -48,7 +49,7 @@ const DrawerRouteConfig = {
 		},
 	},
 	Logout: {
-		screen: Logout,
+		screen: Login,
 		navigationOptions: {
 			title: 'Log Out',
 		}
