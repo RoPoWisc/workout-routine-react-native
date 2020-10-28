@@ -5,6 +5,7 @@ import Signup from '../screens/Register'
 import Home from '../screens/Home'
 import ForgotPassword from '../screens/ForgotPassword'
 import initialScreen from '../screens/initial'
+import StartWorkout from '../screens/StartWorkout'
 import Settings from '../screens/Settings'
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import SideBar from '../components/SideBar'
@@ -88,6 +89,9 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		Initial: {
 			screen: initialScreen
+		},
+		StartWorkout: {
+			screen: StartWorkout
 		},
 		Settings: {
 			screen: Settings
