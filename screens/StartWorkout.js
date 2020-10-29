@@ -63,10 +63,35 @@ class StartWorkout extends React.Component {
 
     constructor(props) {
         super(props)
+        this.addSetHandler = this.addSetHandler.bind(this);
         this.state = {
             workout: {
                 routineName: 'Workout A',
                 routineDay: 'Leg Day',
+                'squat1': {
+                    name: 'Squat',
+                    totalVolume: 'Total Volume',
+                    show: true,
+                    '1' : {weight: 225, reps: 8, checked: false, id: '1', isObject: 'true'},
+                    '2' : {weight: 235, reps: 5, checked: false, id: '2', isObject: 'false'},
+                    sets: [
+                        {weight: 225, reps: 8, checked: false, id: '1'},
+                        {weight: 235, reps: 5, checked: false, id: '2'}
+                    ]
+                },
+                'lpress1': {
+                    name: 'Leg Press',
+                    totalVolume: 'Total Volume',
+                    show: true,
+                    '3': {weight: 405, reps: 10, checked: false, id: '3'},
+                    '4': {weight: 335, reps: 12, checked: true, id: '4'},
+                    '5': {weight: 300, reps: 14, checked: false, id: '5'},
+                    sets: [
+                        {weight: 405, reps: 10, checked: false, id: '3'},
+                        {weight: 335, reps: 12, checked: true, id: '4'},
+                        {weight: 300, reps: 14, checked: false, id: '5'}
+                    ]
+                },
                 exerciseArray: [
                     {
                         exercise_id: 'squat1',
@@ -94,6 +119,33 @@ class StartWorkout extends React.Component {
         }
     }
 
+    addSetHandler(exercise_object) {
+        //console.log(this.state.workout['squat1']);
+        let workoutCopy = this.state.workout;
+        exercise_object.sets.push({weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'});
+        workoutCopy[exercise_object.exercise_id]['6'] = {weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'};
+        // console.log(exercise_object);
+        // console.log('\n\n\n');
+        // console.log(this.state);
+        workoutCopy[exercise_object.exercise_id] = exercise_object;
+        //let index = this.state.workout.exerciseArray.findIndex(x => x.exercise_id === exercise_object.exercise_id);
+        //workoutCopy.exerciseArray[index].sets = exercise_object.sets;
+        console.log(this.state.workout[exercise_object.exercise_id]);
+        console.log('\n-------------------------------------------------------------\n');
+        let state = {
+            workout: {
+                ...this.state.workout,
+                [exercise_object.exercise_id] : {
+                    ...this.state.workout[exercise_object.exercise_id],
+                    sets: exercise_object.sets,
+                    ['6']: {weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'}
+                }
+            }
+        }
+
+        this.setState({workout: state.workout}, console.log(this.state.workout[exercise_object.exercise_id]));
+    }
+
     compareExerciseObjects(obj1, obj2) {
         if (obj1.name != obj2.name || obj1.totalVolume != obj2.totalVolume || obj1.show != obj2.show) {
             return false;
@@ -110,56 +162,50 @@ class StartWorkout extends React.Component {
     }
     
     Check = (props) => {
-        const [checked, setChecked] = React.useState(props.checked);
             
-            // TODO: Change loops to use hashmap to improve checkbox performance
+        // TODO: Change loops to use hashmap to improve checkbox performance
 
-            const isCheckedHandler = () => {
-                //console.log(props);
-                //console.log('\n\n\n\n')
-                let workoutCopy = this.state.workout;
-                let i = 0;
-                let j = 0;
-                for (let exercise of this.state.workout.exerciseArray) {
-                    //console.log(exercise.exercise_id);
-                    if (props.exercise_id == exercise.exercise_id) {
-                        //workoutCopy.exerciseArray[i] = {...workoutCopy.exerciseArray[i], show: !showList};
-                        for (let entry of exercise.sets) {
-                            //console.log('entry id:');
-                            //console.log(entry.id);
-                            if (entry.id == props.id) {
-                                //console.log('\n id found \n')
-                                workoutCopy.exerciseArray[i].sets[j] = {...workoutCopy.exerciseArray[i].sets[j], checked: !workoutCopy.exerciseArray[i].sets[j].checked}
-                                setChecked(workoutCopy.exerciseArray[i].sets[j].checked);
-                                //console.log(workoutCopy.exerciseArray[i].sets[j].checked);
-                                break;
-                            }
-                            ++j;
+        const isCheckedHandler = () => {
+            
+            if (typeof props.exercise_id == 'undefined' || typeof props.id == 'undefined' || typeof props.checked == 'undefined') {
+                console.log('undefined detected');
+                return;
+            }
+
+            let nextChecked = !this.state.workout[props.exercise_id][props.id].checked;
+
+            let state = {
+                workout: {
+                    ...this.state.workout,
+                    [props.exercise_id] : {
+                        ...this.state.workout[props.exercise_id],
+                        [props.id] : {
+                            ...this.state.workout[props.exercise_id][props.id],
+                            checked: nextChecked
                         }
-                        break;
                     }
-                    ++i;
                 }
-                
-                //console.log("state:");
-                //console.log(this.state);
-                //console.log("\ncopy of state:");
-                //console.log(workoutCopy);
-                //console.log(showList);
-                //setShowList(!showList);
-                this.setState({workout: workoutCopy}, () => console.log('updated state\n', workoutCopy));
-            };
-        
-            return (
-                <CheckBox
-                checked={checked}
-                onChange={nextChecked => isCheckedHandler()}
-                style={{
-                    width: 75,
-                }}
-                status='success'>
-                </CheckBox>
-            );
+            }
+
+            //console.log(this.state.workout[props.exercise_id][props.id]);
+            this.setState({workout: state.workout});
+        };
+    
+        if (typeof this.state.workout[props.exercise_id][props.id].checked === 'undefined') {
+            return;
+        }
+//false || (typeof this.state.workout[props.exercise_id][props.id].checked === 'undefined')
+//(typeof props.exercise_id != 'undefined') && (typeof props.id != 'undefined') && (typeof this.state.workout[props.exercise_id][props.id].checked !== 'undefined') && this.state.workout[props.exercise_id][props.id].checked
+        return (
+            <CheckBox
+            checked={this.state.workout[props.exercise_id][props.id].checked}
+            onChange={() => isCheckedHandler()}
+            style={{
+                width: 75,
+            }}
+            status='success'>
+            </CheckBox>
+        );
     }
 
     render() {
@@ -211,15 +257,15 @@ class StartWorkout extends React.Component {
             //console.log(this.compareExerciseObjects(exercise_object, this.state.workout.exerciseArray[1]));
 
             const showElementHandler = () => {
-                let workoutCopy = this.state.workout;
-                let i = 0;
-                for (let exercise of this.state.workout.exerciseArray) {
-                    if (this.compareExerciseObjects(exercise_object, exercise)) {
-                        workoutCopy.exerciseArray[i] = {...workoutCopy.exerciseArray[i], show: !showList};
-                        break;
-                    }
-                    ++i;
-                }
+                // let workoutCopy = this.state.workout;
+                // let i = 0;
+                // for (let exercise of this.state.workout.exerciseArray) {
+                //     if (this.compareExerciseObjects(exercise_object, exercise)) {
+                //         workoutCopy.exerciseArray[i] = {...workoutCopy.exerciseArray[i], show: !showList};
+                //         break;
+                //     }
+                //     ++i;
+                // }
                 
                 //console.log(this.state);
                 //console.log(showList);
@@ -256,8 +302,9 @@ class StartWorkout extends React.Component {
                                 <ExerciseEntry weight={item.weight} reps={item.reps} checked={item.checked} id={item.id} exercise_id={exercise_object.exercise_id}></ExerciseEntry>
                             )}
                         />
+                        <Button style={{marginVertical: 3}} appearance={'outline'} size={'small'} onPress={() => this.addSetHandler(exercise_object)}>Add Set</Button>
                     </View>}
-                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{margin: -8}} onPress={() => showElementHandler()}></Button>
+                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{margin: -8}} onPress={() => showElementHandler(exercise_object.exercise_id)}></Button>
                 </View>
             );
         };
