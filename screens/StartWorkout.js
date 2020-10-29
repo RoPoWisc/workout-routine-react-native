@@ -120,25 +120,13 @@ class StartWorkout extends React.Component {
     }
 
     addSetHandler(exercise_object) {
-        //console.log(this.state.workout['squat1']);
-        let workoutCopy = this.state.workout;
         exercise_object.sets.push({weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'});
-        workoutCopy[exercise_object.exercise_id]['6'] = {weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'};
-        // console.log(exercise_object);
-        // console.log('\n\n\n');
-        // console.log(this.state);
-        workoutCopy[exercise_object.exercise_id] = exercise_object;
-        //let index = this.state.workout.exerciseArray.findIndex(x => x.exercise_id === exercise_object.exercise_id);
-        //workoutCopy.exerciseArray[index].sets = exercise_object.sets;
-        console.log(this.state.workout[exercise_object.exercise_id]);
-        console.log('\n-------------------------------------------------------------\n');
         let state = {
             workout: {
                 ...this.state.workout,
                 [exercise_object.exercise_id] : {
                     ...this.state.workout[exercise_object.exercise_id],
                     sets: exercise_object.sets,
-                    ['6']: {weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'}
                 }
             }
         }
@@ -162,44 +150,35 @@ class StartWorkout extends React.Component {
     }
     
     Check = (props) => {
-            
+        const [checked, setChecked] = React.useState(props.checked);
+
         // TODO: Change loops to use hashmap to improve checkbox performance
 
         const isCheckedHandler = () => {
-            
-            if (typeof props.exercise_id == 'undefined' || typeof props.id == 'undefined' || typeof props.checked == 'undefined') {
-                console.log('undefined detected');
-                return;
-            }
-
-            let nextChecked = !this.state.workout[props.exercise_id][props.id].checked;
-
-            let state = {
-                workout: {
-                    ...this.state.workout,
-                    [props.exercise_id] : {
-                        ...this.state.workout[props.exercise_id],
-                        [props.id] : {
-                            ...this.state.workout[props.exercise_id][props.id],
-                            checked: nextChecked
+            let workoutCopy = this.state.workout;
+            let i = 0;
+            let j = 0;
+            for (let exercise of this.state.workout.exerciseArray) {
+                if (props.exercise_id == exercise.exercise_id) {
+                    for (let entry of exercise.sets) {
+                        if (entry.id == props.id) {
+                            workoutCopy.exerciseArray[i].sets[j] = {...workoutCopy.exerciseArray[i].sets[j], checked: !workoutCopy.exerciseArray[i].sets[j].checked}
+                            setChecked(workoutCopy.exerciseArray[i].sets[j].checked);
+                            break;
                         }
+                        ++j;
                     }
+                    break;
                 }
+                ++i;
             }
-
-            //console.log(this.state.workout[props.exercise_id][props.id]);
-            this.setState({workout: state.workout});
+            this.setState({workout: workoutCopy}, () => console.log('updated state\n', workoutCopy));
         };
-    
-        if (typeof this.state.workout[props.exercise_id][props.id].checked === 'undefined') {
-            return;
-        }
-//false || (typeof this.state.workout[props.exercise_id][props.id].checked === 'undefined')
-//(typeof props.exercise_id != 'undefined') && (typeof props.id != 'undefined') && (typeof this.state.workout[props.exercise_id][props.id].checked !== 'undefined') && this.state.workout[props.exercise_id][props.id].checked
+
         return (
             <CheckBox
-            checked={this.state.workout[props.exercise_id][props.id].checked}
-            onChange={() => isCheckedHandler()}
+            checked={checked}
+            onChange={nextChecked => isCheckedHandler()}
             style={{
                 width: 75,
             }}
@@ -209,28 +188,8 @@ class StartWorkout extends React.Component {
     }
 
     render() {
-        
-        const Checkbox = (props) => {
-            const [checked, setChecked] = React.useState(props.checked);
-            
-            //console.log(this.state);
-        
-            return (
-                <CheckBox
-                checked={checked}
-                onChange={nextChecked => setChecked(nextChecked)}
-                style={{
-                    width: 75,
-                }}
-                status='success'>
-                </CheckBox>
-            );
-        };
 
         const ExerciseEntry = (exercise_entry) => {
-            //console.log('\nexercise entry:');
-            //console.log(exercise_entry);
-            //console.log('\n');
             return (
                 <View style={{
                     flexDirection: 'row',
