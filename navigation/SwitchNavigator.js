@@ -32,6 +32,12 @@ const DrawerRouteConfig = {
 			title: "Your Progress",
 		}
 	},
+	Workout: {
+		screen: Workout,
+		navigationOptions: {
+			title: 'Workout'
+		}
+	},
 	AddWorkout: {
 		screen: AddWorkout,
 		navigationOptions: {
@@ -50,18 +56,12 @@ const DrawerRouteConfig = {
 			title: 'Settings',
 		},
 	},
-	Logout: {
-		screen: Login,
-		navigationOptions: {
-			title: 'Log Out',
-		}
-	},
-	Workout: {
-		screen: Workout,
-		navigationOptions: {
-			title: 'Workout'
-		}
-	}
+	// Logout: {
+	// 	screen: Login,
+	// 	navigationOptions: {
+	// 		title: 'Log Out',
+	// 	}
+	// },
 };
 const DrawerNavigator = createDrawerNavigator(DrawerRouteConfig,
   {

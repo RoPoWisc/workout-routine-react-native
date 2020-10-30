@@ -43,7 +43,7 @@ const images = [
 class Home extends React.Component {
     componentDidMount = async () => {
       try {
-        //console.log(this.props.user);
+        console.log(this.props.user);
       } catch (e) {
         alert(e);
       }

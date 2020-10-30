@@ -4,29 +4,30 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
 import {
-  ApplicationProvider,
-  Button,
-  Icon,
-  IconRegistry,
-  Layout,
-  Text,
-  CheckBox,
-  List
+    ApplicationProvider,
+    Button,
+    Icon,
+    IconRegistry,
+    Layout,
+    Text,
+    CheckBox,
+    List
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 import { set } from 'react-native-reanimated';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 
 const MenuIcon = (props) => (
-    <Icon {...props} name='menu-outline'/>
+    <Icon {...props} name='menu-outline' />
 );
 
 const CollapseIcon = (props) => (
-    <Icon {...props} name='arrow-ios-upward-outline'/>
+    <Icon {...props} name='arrow-ios-upward-outline' />
 );
 
 const ExpandIcon = (props) => (
-    <Icon {...props} name='arrow-ios-downward-outline'/>
+    <Icon {...props} name='arrow-ios-downward-outline' />
 );
 
 const exerciseStyles = StyleSheet.create({
@@ -75,8 +76,8 @@ class Workout extends React.Component {
                         totalVolume: 'Total Volume',
                         show: true,
                         sets: [
-                            {weight: 225, reps: 8, checked: false, id: '1'},
-                            {weight: 235, reps: 5, checked: false, id: '2'}
+                            { weight: 225, reps: 8, checked: false, id: '1' },
+                            { weight: 235, reps: 5, checked: false, id: '2' }
                         ]
                     },
                     {
@@ -85,9 +86,9 @@ class Workout extends React.Component {
                         totalVolume: 'Total Volume',
                         show: true,
                         sets: [
-                            {weight: 405, reps: 10, checked: false, id: '3'},
-                            {weight: 335, reps: 12, checked: true, id: '4'},
-                            {weight: 300, reps: 14, checked: false, id: '5'}
+                            { weight: 405, reps: 10, checked: false, id: '3' },
+                            { weight: 335, reps: 12, checked: true, id: '4' },
+                            { weight: 300, reps: 14, checked: false, id: '5' }
                         ]
                     }
                 ]
@@ -135,7 +136,7 @@ class Workout extends React.Component {
     addSetHandler(exercise_object) {
         exercise_object.sets.push({weight: 0, reps: 0, checked: 'false', id: this.getDate()});
 
-        let newArray = this.state.workout.exerciseArray.map(element => element.exercise_id == exercise_object.exercise_id ? {...element, sets: exercise_object.sets} : element);
+        let newArray = this.state.workout.exerciseArray.map(element => element.exercise_id == exercise_object.exercise_id ? { ...element, sets: exercise_object.sets } : element);
 
         let state = {
             workout: {
@@ -144,7 +145,7 @@ class Workout extends React.Component {
             }
         }
         console.log(state);
-        this.setState({workout: state.workout}, console.log(this.state.workout.exerciseArray));
+        this.setState({ workout: state.workout }, console.log(this.state.workout.exerciseArray));
     }
 
     compareExerciseObjects(obj1, obj2) {
@@ -161,7 +162,7 @@ class Workout extends React.Component {
 
         return true;
     }
-    
+
     Check = (props) => {
         const [checked, setChecked] = React.useState(props.checked);
 
@@ -175,7 +176,7 @@ class Workout extends React.Component {
                 if (props.exercise_id == exercise.exercise_id) {
                     for (let entry of exercise.sets) {
                         if (entry.id == props.id) {
-                            workoutCopy.exerciseArray[i].sets[j] = {...workoutCopy.exerciseArray[i].sets[j], checked: !workoutCopy.exerciseArray[i].sets[j].checked}
+                            workoutCopy.exerciseArray[i].sets[j] = { ...workoutCopy.exerciseArray[i].sets[j], checked: !workoutCopy.exerciseArray[i].sets[j].checked }
                             setChecked(workoutCopy.exerciseArray[i].sets[j].checked);
                             break;
                         }
@@ -185,17 +186,17 @@ class Workout extends React.Component {
                 }
                 ++i;
             }
-            this.setState({workout: workoutCopy}, () => console.log('updated state\n', workoutCopy));
+            this.setState({ workout: workoutCopy }, () => console.log('updated state\n', workoutCopy));
         };
 
         return (
             <CheckBox
-            checked={checked}
-            onChange={nextChecked => isCheckedHandler()}
-            style={{
-                width: 75,
-            }}
-            status='success'>
+                checked={checked}
+                onChange={nextChecked => isCheckedHandler()}
+                style={{
+                    width: 75,
+                }}
+                status='success'>
             </CheckBox>
         );
     }
@@ -225,7 +226,7 @@ class Workout extends React.Component {
             ++i;
         }
 
-        this.setState({workout: newState});
+        this.setState({ workout: newState });
     }
 
     changeRepsHandler(exercise_entry, text) {
@@ -252,7 +253,7 @@ class Workout extends React.Component {
             }
             ++i;
         }
-
+      
         this.setState({workout: newState});
     }
 
@@ -286,7 +287,7 @@ class Workout extends React.Component {
             const showElementHandler = () => {
                 setShowList(!showList);
             };
-        
+
             return (
                 <View style={exerciseStyles.exercise}>
                     <View style={{
@@ -298,7 +299,7 @@ class Workout extends React.Component {
                         <Text category='s1' style={exerciseStyles.header}>{exercise_object.name}</Text>
                         <Text category='s1' style={exerciseStyles.header}>{exercise_object.totalVolume}</Text>
                     </View>
-        
+
                     { showList && <View>
                         <View style={{
                             flexDirection: 'row',
@@ -308,38 +309,45 @@ class Workout extends React.Component {
                             <Text category='s1' style={exerciseStyles.exerciseInfo}>Reps</Text>
                             <Text category='s1' style={exerciseStyles.exerciseInfo}>Set Complete?</Text>
                         </View>
-        
+
                         <List
-                            style={{backgroundColor: '#E5E5E5'}}
+                            style={{ backgroundColor: '#E5E5E5' }}
                             data={exercise_object.sets}
                             renderItem={({ item }) => (
                                 <ExerciseEntry weight={item.weight} reps={item.reps} checked={item.checked} id={item.id} exercise_id={exercise_object.exercise_id}></ExerciseEntry>
                             )}
                         />
-                        <Button style={{marginVertical: 3}} appearance={'outline'} size={'small'} onPress={() => this.addSetHandler(exercise_object)}>Add Set</Button>
+                        <Button style={{ marginVertical: 3 }} appearance={'outline'} size={'small'} onPress={() => this.addSetHandler(exercise_object)}>Add Set</Button>
                     </View>}
-                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{margin: -8}} onPress={() => showElementHandler(exercise_object.exercise_id)}></Button>
+                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{ margin: -8 }} onPress={() => showElementHandler(exercise_object.exercise_id)}></Button>
                 </View>
             );
         };
 
         return (
             <>
-                <IconRegistry icons={EvaIconsPack}/>
+                <IconRegistry icons={EvaIconsPack} />
                 <ApplicationProvider {...eva} theme={eva.light}>
-                  <Layout style={styles.container}>
-                    <View style={styles.header}>
-                        <View style={styles.topBar}>
-                            <Text style={styles.text} category='h1'>
-                                {this.state.workout.routineName}
+                    <Layout style={styles.container}>
+                        <View style={styles.header}>
+                            <View style={styles.topBar}>
+                                <Text style={styles.text} category='h1'>
+                                    {this.state.workout.routineName}
+                                </Text>
+                                <TouchableOpacity
+                                    style={styles.optionButton}
+                                    onPress={() => this.props.navigation.openDrawer()}
+                                >
+                                    <Image
+                                        style={styles.optionButton}
+                                        source={require('../assets/options.png')}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            <Text style={styles.name} category='h5'>
+                                {this.state.workout.routineDay}
                             </Text>
-                            <Button style={styles.settingsButton} appearance='outline' accessoryLeft={MenuIcon}></Button>
                         </View>
-                        <Text style={styles.name} category='h5'>
-                            {this.state.workout.routineDay}
-                        </Text>
-                    </View>
-
                     <List
                         style={{
                             backgroundColor: '#FFFFFF',
@@ -364,7 +372,7 @@ class Workout extends React.Component {
                     <Button style={styles.button} onPress={() => this.endWorkoutHandler()}>
                         End Workout
                     </Button>
-                  </Layout>
+                    </Layout>
                 </ApplicationProvider>
             </>
         )
@@ -372,51 +380,57 @@ class Workout extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-    //justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    margin: 20,
-    width: '80%',
-    backgroundColor: '#DB504A',
-    borderColor: '#DB504A',
-    borderRadius: 8
-  },
-  header: {
-    padding: 10,
-    paddingLeft: 15,
-    alignSelf: "flex-start",
-    width: '100%'
-  },
-  topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  name: {
-    color: 'gray'
-  },
-  settingsButton: {
-      //alignSelf: 'flex-end',
-      margin: 2
-  },
-  text: {
-    //textAlign: 'center',
-  },
-  likeButton: {
-    marginVertical: 16,
-  },
+    container: {
+        flex: 1,
+        paddingTop: 30,
+        //justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        margin: 20,
+        width: '80%',
+        backgroundColor: '#DB504A',
+        borderColor: '#DB504A',
+        borderRadius: 8
+    },
+    header: {
+        padding: 10,
+        paddingLeft: 15,
+        alignSelf: "flex-start",
+        width: '100%'
+    },
+    topBar: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    name: {
+        color: 'gray'
+    },
+    settingsButton: {
+        //alignSelf: 'flex-end',
+        margin: 2
+    },
+    text: {
+        //textAlign: 'center',
+    },
+    likeButton: {
+        marginVertical: 16,
+    },
+    optionButton: {
+        marginTop: vh(1.2),
+        marginRight: vw(2),
+        height: vh(7),
+        width: vw(14),
+    },
 });
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({}, dispatch)
+    return bindActionCreators({}, dispatch)
 }
 
 const mapStateToProps = state => {
-	return {
-		user: state.user
-	}
+    return {
+        user: state.user
+    }
 }
 
 export default connect(
