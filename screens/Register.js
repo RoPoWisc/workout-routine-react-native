@@ -34,8 +34,8 @@ class Signup extends React.Component {
 				//this.props.user.userServer.firstName
 				//this.props.user.userServer.lastName
 				//this.props.user.userServer.timestamp
-			if(responseJson.message.email !== undefined){
-				this.props.fetchUserObj(responseJson.message);
+			if(responseJson.userObj !== undefined){
+				this.props.fetchUserObj(responseJson.userObj);
 			}else{
 				alert(responseJson.message);
 			}
