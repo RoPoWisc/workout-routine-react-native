@@ -12,7 +12,7 @@ class ForgotPassword extends React.Component {
 			if(this.props.user.email === undefined){
 					throw "Email is Required!"
 			}
-			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/signupphoneAPI', {
+			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/users/forgotPassword/reset', {
 			method: 'POST',
 			headers: {
 				Accept: '/',
@@ -31,14 +31,11 @@ class ForgotPassword extends React.Component {
 				//this.props.user.userServer.firstName
 				//this.props.user.userServer.lastName
 				//this.props.user.userServer.timestamp
-			if(responseJson.message.email !== undefined){
-				this.props.fetchUserObj(responseJson.message);
+			console.log(responseJson)
+			if(responseJson.link !== undefined){
+				this.props.navigation.navigate('PasswordReset', {link: this.props.fetchUserObj(responseJson.link)})
 			}else{
 				alert(responseJson.message);
-			}
-			//console.log(this.props.user.userServer);
-			if(this.props.user.userServer !== undefined){
-				this.props.navigation.navigate('Home')
 			}
 		}catch(e){
 			alert(e);
