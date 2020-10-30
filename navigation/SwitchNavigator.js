@@ -5,7 +5,7 @@ import Signup from '../screens/Register'
 import Home from '../screens/Home'
 import ForgotPassword from '../screens/ForgotPassword'
 import initialScreen from '../screens/initial'
-import StartWorkout from '../screens/StartWorkout'
+import Workout from '../screens/Workout'
 import Settings from '../screens/Settings'
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import SideBar from '../components/SideBar'
@@ -54,6 +54,12 @@ const DrawerRouteConfig = {
 		navigationOptions: {
 			title: 'Log Out',
 		}
+	},
+	Workout: {
+		screen: Workout,
+		navigationOptions: {
+			title: 'Workout'
+		}
 	}
 };
 const DrawerNavigator = createDrawerNavigator(DrawerRouteConfig,
@@ -90,8 +96,8 @@ const SwitchNavigator = createSwitchNavigator(
 		Initial: {
 			screen: initialScreen
 		},
-		StartWorkout: {
-			screen: StartWorkout
+		Workout: {
+			screen: Workout
 		},
 		Settings: {
 			screen: Settings
@@ -105,7 +111,7 @@ const SwitchNavigator = createSwitchNavigator(
 		}
 	},
 	{
-		initialRouteName: 'Initial'
+		initialRouteName: 'Workout'
 	},
 )
 

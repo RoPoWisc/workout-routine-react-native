@@ -55,7 +55,7 @@ const exerciseStyles = StyleSheet.create({
     }
 });
 
-class StartWorkout extends React.Component {
+class Workout extends React.Component {
 
     constructor(props) {
         super(props)
@@ -101,7 +101,7 @@ class StartWorkout extends React.Component {
         return time;
     }
 
-    loginHandler = async () => {
+    endWorkoutHandler = async () => {
 		try{
 			if(this.props.user.email === undefined){
 				throw "Email is Required!"
@@ -437,4 +437,4 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps
-)(StartWorkout)
+)(Workout)
