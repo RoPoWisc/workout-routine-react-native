@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image, Keyboard, ImageBackground } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateEmail, updatePassword, updateName, fetchUserObj } from '../actions/user'
+import { updateEmail, updatePassword, updateName, fetchUserObj, fetchBearerToken } from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 
 let userUid;
@@ -50,9 +50,11 @@ class Login extends React.Component {
 			//this.props.user.userServer.firstName
 			//this.props.user.userServer.lastName
 			//this.props.user.userServer.timestamp
-			console.log(JSON.stringify(responseJson))
+			//console.log(JSON.stringify(responseJson))
 			if(typeof responseJson.userObj != "undefined") {
 				this.props.fetchUserObj(responseJson.userObj);
+				this.props.fetchBearerToken(responseJson.accessToken);
+				//console.log('\n', this.props.user.bearerToken, '\n');
 			}else{
 				alert(responseJson.message);
 			}
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj }, dispatch)
+	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj, fetchBearerToken }, dispatch)
 }
 
 const mapStateToProps = state => {
