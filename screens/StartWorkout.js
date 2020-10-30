@@ -61,6 +61,7 @@ class StartWorkout extends React.Component {
         super(props)
         this.addSetHandler = this.addSetHandler.bind(this);
         this.changeTextHandler = this.changeWeightHandler.bind(this);
+        this.changeRepsHandler = this.changeRepsHandler.bind(this);
         this.state = {
             workout: {
                 routineName: 'Workout A',
@@ -91,6 +92,48 @@ class StartWorkout extends React.Component {
             }
         }
     }
+
+    loginHandler = async () => {
+		try{
+			if(this.props.user.email === undefined){
+				throw "Email is Required!"
+			}
+			if(this.props.user.password === undefined){
+				throw "Password is Required!"
+			}
+		let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
+		method: 'POST',
+		headers: {
+			Accept: '/',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			email:this.props.user.email,
+			password:this.props.user.password
+		})});
+		let responseJson = await response.json();
+		// console.log("The following is responseJson:\n")
+		// console.log(JSON.stringify(responseJson))
+		//This saves to this.props.user.userServer
+		//you can refer to data by using this.props.user.userServer
+			//this.props.user.userServer.email
+			//this.props.user.userServer.firstName
+			//this.props.user.userServer.lastName
+			//this.props.user.userServer.timestamp
+			console.log(JSON.stringify(responseJson))
+			if(typeof responseJson.userObj != "undefined") {
+				this.props.fetchUserObj(responseJson.userObj);
+			}else{
+				alert(responseJson.message);
+			}
+		//alert(this.props.user.userServer);
+		if(this.props.user.userServer !== undefined){
+			this.props.navigation.navigate('DrawerNavigator')
+		}
+		} catch (e) {
+			alert(e);
+		}
+	}
 
     addSetHandler(exercise_object) {
         exercise_object.sets.push({weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'});
@@ -169,7 +212,7 @@ class StartWorkout extends React.Component {
 
         let i = 0;
         for (var exercise of this.state.workout.exerciseArray) {
-            console.log(exercise.exercise_id);
+            //console.log(exercise.exercise_id);
             if (exercise.exercise_id == exercise_entry.exercise_id) {
                 newSetsArray = exercise.sets.map(set => set.id == exercise_entry.id ? {
                     weight: text, reps: set.reps, checked: set.checked, id: set.id
@@ -183,15 +226,51 @@ class StartWorkout extends React.Component {
                     ...this.state.workout.exerciseArray[i]
                 }
             }
+            ++i;
         }
 
         console.log(newState);
         this.setState({workout: newState});
     }
 
+    changeRepsHandler(exercise_entry, text) {
+
+        let newSetsArray;
+        newState = {
+            ...this.state.workout
+        }
+
+        //console.log(exercise_entry);
+
+        let i = 0;
+        for (var exercise of this.state.workout.exerciseArray) {
+            if (exercise.exercise_id == exercise_entry.exercise_id) {
+                //console.log(exercise);
+                newSetsArray = exercise.sets.map(set => set.id == exercise_entry.id ? {
+                    weight: set.weight, reps: text, checked: set.checked, id: set.id
+                } : set);
+                newState.exerciseArray[i] = {
+                    ...this.state.workout.exerciseArray[i],
+                    sets: newSetsArray
+                }
+            } else {
+                newState.exerciseArray[i] = {
+                    ...this.state.workout.exerciseArray[i]
+                }
+            }
+            ++i;
+        }
+
+        console.log('\n\n\n\n\n', newState);
+        this.setState({workout: newState});
+    }
+
     render() {
 
         const ExerciseEntry = (exercise_entry, exercise_id) => {
+            const [weightText, setWeight] = React.useState('Weight');
+            const [repText, setRep] = React.useState('Reps');
+
             return (
                 <View style={{
                     flexDirection: 'row',
@@ -202,8 +281,8 @@ class StartWorkout extends React.Component {
                     paddingBottom: 3,
                     marginVertical: 3
                 }}>
-                    <TextInput category='s1' style={exerciseStyles.weight} onChangeText={text => this.changeWeightHandler(exercise_entry, text)}>{exercise_entry.weight}</TextInput>
-                    <TextInput category='s1' style={exerciseStyles.reps} onChangeText={text => this.changeWeightHandler(exercise_entry, text)}>{exercise_entry.reps}</TextInput>
+                    <TextInput category='s1' style={exerciseStyles.weight} onChangeText={text => setWeight(text)} onSubmitEditing={() => this.changeWeightHandler(exercise_entry, weightText)} >{exercise_entry.weight}</TextInput>
+                    <TextInput category='s1' style={exerciseStyles.reps} onChangeText={text => setRep(text)} onSubmitEditing={() => this.changeRepsHandler(exercise_entry, repText)}>{exercise_entry.reps}</TextInput>
                     <this.Check checked={exercise_entry.checked} id={exercise_entry.id} exercise_id={exercise_entry.exercise_id}></this.Check>
                 </View>
             );
