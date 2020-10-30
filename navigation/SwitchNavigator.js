@@ -4,6 +4,7 @@ import Login from '../screens/Login'
 import Signup from '../screens/Register'
 import Home from '../screens/Home'
 import ForgotPassword from '../screens/ForgotPassword'
+import PasswordReset from '../screens/PasswordReset'
 import initialScreen from '../screens/initial'
 import Workout from '../screens/Workout'
 import Settings from '../screens/Settings'
@@ -108,6 +109,9 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		AddWorkout: {
 			screen: AddWorkout
+		},
+		PasswordReset: {
+			screen: PasswordReset
 		}
 	},
 	{
