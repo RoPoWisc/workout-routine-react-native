@@ -95,6 +95,10 @@ class Workout extends React.Component {
         }
     }
 
+    componentDidMount = async () => {
+        console.log(this.props.user);
+    }
+
     getDate() {
         var date = new Date();
         var time = (new Date(date)).getTime();
@@ -102,49 +106,34 @@ class Workout extends React.Component {
     }
 
     endWorkoutHandler = async () => {
-		try{
-			if(this.props.user.email === undefined){
-				throw "Email is Required!"
-			}
-			if(this.props.user.password === undefined){
-				throw "Password is Required!"
-			}
-		let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
-		method: 'POST',
-		headers: {
-			Accept: '/',
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			email:this.props.user.email,
-			password:this.props.user.password
-		})});
-		let responseJson = await response.json();
-		// console.log("The following is responseJson:\n")
-		// console.log(JSON.stringify(responseJson))
-		//This saves to this.props.user.userServer
-		//you can refer to data by using this.props.user.userServer
-			//this.props.user.userServer.email
-			//this.props.user.userServer.firstName
-			//this.props.user.userServer.lastName
-			//this.props.user.userServer.timestamp
-			console.log(JSON.stringify(responseJson))
-			if(typeof responseJson.userObj != "undefined") {
-				this.props.fetchUserObj(responseJson.userObj);
-			}else{
-				alert(responseJson.message);
-			}
-		//alert(this.props.user.userServer);
-		if(this.props.user.userServer !== undefined){
-			this.props.navigation.navigate('DrawerNavigator')
-		}
-		} catch (e) {
-			alert(e);
-		}
+        let bodyJSON = JSON.stringify({
+            'routineName': this.state.workout.routineName,
+                    'routineDay': this.state.workout.routineDay,
+                    'exerciseArray': this.state.workout.exerciseArray
+        });
+
+        let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] + '/add/exercise'
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
+
+        try {
+            let response = await fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    Accept: '/',
+                    'Content-Type': 'application/json',
+                    'Authorization': bearer
+                },
+                body: bodyJSON
+            });
+        } catch (e) {
+            alert(e);
+        }
+
+        this.props.navigation.navigate('Home');
 	}
 
     addSetHandler(exercise_object) {
-        exercise_object.sets.push({weight: 'Weight', reps: 'Reps', checked: 'false', id: this.getDate()});
+        exercise_object.sets.push({weight: 0, reps: 0, checked: 'false', id: this.getDate()});
 
         let newArray = this.state.workout.exerciseArray.map(element => element.exercise_id == exercise_object.exercise_id ? {...element, sets: exercise_object.sets} : element);
 
@@ -220,7 +209,6 @@ class Workout extends React.Component {
 
         let i = 0;
         for (var exercise of this.state.workout.exerciseArray) {
-            //console.log(exercise.exercise_id);
             if (exercise.exercise_id == exercise_entry.exercise_id) {
                 newSetsArray = exercise.sets.map(set => set.id == exercise_entry.id ? {
                     weight: text, reps: set.reps, checked: set.checked, id: set.id
@@ -247,12 +235,9 @@ class Workout extends React.Component {
             ...this.state.workout
         }
 
-        //console.log(exercise_entry);
-
         let i = 0;
         for (var exercise of this.state.workout.exerciseArray) {
             if (exercise.exercise_id == exercise_entry.exercise_id) {
-                //console.log(exercise);
                 newSetsArray = exercise.sets.map(set => set.id == exercise_entry.id ? {
                     weight: set.weight, reps: text, checked: set.checked, id: set.id
                 } : set);
@@ -268,7 +253,6 @@ class Workout extends React.Component {
             ++i;
         }
 
-        console.log('\n\n\n\n\n', newState);
         this.setState({workout: newState});
     }
 
@@ -377,7 +361,7 @@ class Workout extends React.Component {
                             </Exercise>
                         )}
                     />
-                    <Button style={styles.button}>
+                    <Button style={styles.button} onPress={() => this.endWorkoutHandler()}>
                         End Workout
                     </Button>
                   </Layout>
