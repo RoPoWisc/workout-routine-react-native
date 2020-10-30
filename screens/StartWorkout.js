@@ -15,6 +15,7 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
+import { set } from 'react-native-reanimated';
 
 const MenuIcon = (props) => (
     <Icon {...props} name='menu-outline'/>
@@ -27,11 +28,6 @@ const CollapseIcon = (props) => (
 const ExpandIcon = (props) => (
     <Icon {...props} name='arrow-ios-downward-outline'/>
 );
-
-
-
-
-
 
 const exerciseStyles = StyleSheet.create({
     exercise: {
@@ -63,6 +59,8 @@ class StartWorkout extends React.Component {
 
     constructor(props) {
         super(props)
+        this.addSetHandler = this.addSetHandler.bind(this);
+        this.changeTextHandler = this.changeWeightHandler.bind(this);
         this.state = {
             workout: {
                 routineName: 'Workout A',
@@ -94,6 +92,21 @@ class StartWorkout extends React.Component {
         }
     }
 
+    addSetHandler(exercise_object) {
+        exercise_object.sets.push({weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'});
+
+        let newArray = this.state.workout.exerciseArray.map(element => element.exercise_id == exercise_object.exercise_id ? {...element, sets: exercise_object.sets} : element);
+
+        let state = {
+            workout: {
+                ...this.state.workout,
+                exerciseArray: newArray,
+            }
+        }
+
+        this.setState({workout: state.workout}, console.log(this.state.workout.exerciseArray));
+    }
+
     compareExerciseObjects(obj1, obj2) {
         if (obj1.name != obj2.name || obj1.totalVolume != obj2.totalVolume || obj1.show != obj2.show) {
             return false;
@@ -111,80 +124,74 @@ class StartWorkout extends React.Component {
     
     Check = (props) => {
         const [checked, setChecked] = React.useState(props.checked);
-            
-            // TODO: Change loops to use hashmap to improve checkbox performance
 
-            const isCheckedHandler = () => {
-                //console.log(props);
-                //console.log('\n\n\n\n')
-                let workoutCopy = this.state.workout;
-                let i = 0;
-                let j = 0;
-                for (let exercise of this.state.workout.exerciseArray) {
-                    //console.log(exercise.exercise_id);
-                    if (props.exercise_id == exercise.exercise_id) {
-                        //workoutCopy.exerciseArray[i] = {...workoutCopy.exerciseArray[i], show: !showList};
-                        for (let entry of exercise.sets) {
-                            //console.log('entry id:');
-                            //console.log(entry.id);
-                            if (entry.id == props.id) {
-                                //console.log('\n id found \n')
-                                workoutCopy.exerciseArray[i].sets[j] = {...workoutCopy.exerciseArray[i].sets[j], checked: !workoutCopy.exerciseArray[i].sets[j].checked}
-                                setChecked(workoutCopy.exerciseArray[i].sets[j].checked);
-                                //console.log(workoutCopy.exerciseArray[i].sets[j].checked);
-                                break;
-                            }
-                            ++j;
+        // TODO: Change loops to use hashmap to improve checkbox performance
+
+        const isCheckedHandler = () => {
+            let workoutCopy = this.state.workout;
+            let i = 0;
+            let j = 0;
+            for (let exercise of this.state.workout.exerciseArray) {
+                if (props.exercise_id == exercise.exercise_id) {
+                    for (let entry of exercise.sets) {
+                        if (entry.id == props.id) {
+                            workoutCopy.exerciseArray[i].sets[j] = {...workoutCopy.exerciseArray[i].sets[j], checked: !workoutCopy.exerciseArray[i].sets[j].checked}
+                            setChecked(workoutCopy.exerciseArray[i].sets[j].checked);
+                            break;
                         }
-                        break;
+                        ++j;
                     }
-                    ++i;
+                    break;
                 }
-                
-                //console.log("state:");
-                //console.log(this.state);
-                //console.log("\ncopy of state:");
-                //console.log(workoutCopy);
-                //console.log(showList);
-                //setShowList(!showList);
-                this.setState({workout: workoutCopy}, () => console.log('updated state\n', workoutCopy));
-            };
-        
-            return (
-                <CheckBox
-                checked={checked}
-                onChange={nextChecked => isCheckedHandler()}
-                style={{
-                    width: 75,
-                }}
-                status='success'>
-                </CheckBox>
-            );
+                ++i;
+            }
+            this.setState({workout: workoutCopy}, () => console.log('updated state\n', workoutCopy));
+        };
+
+        return (
+            <CheckBox
+            checked={checked}
+            onChange={nextChecked => isCheckedHandler()}
+            style={{
+                width: 75,
+            }}
+            status='success'>
+            </CheckBox>
+        );
+    }
+
+    changeWeightHandler(exercise_entry, text) {
+
+        let newSetsArray;
+        newState = {
+            ...this.state.workout
+        }
+
+        let i = 0;
+        for (var exercise of this.state.workout.exerciseArray) {
+            console.log(exercise.exercise_id);
+            if (exercise.exercise_id == exercise_entry.exercise_id) {
+                newSetsArray = exercise.sets.map(set => set.id == exercise_entry.id ? {
+                    weight: text, reps: set.reps, checked: set.checked, id: set.id
+                } : set);
+                newState.exerciseArray[i] = {
+                    ...this.state.workout.exerciseArray[i],
+                    sets: newSetsArray
+                }
+            } else {
+                newState.exerciseArray[i] = {
+                    ...this.state.workout.exerciseArray[i]
+                }
+            }
+        }
+
+        console.log(newState);
+        this.setState({workout: newState});
     }
 
     render() {
-        
-        const Checkbox = (props) => {
-            const [checked, setChecked] = React.useState(props.checked);
-            
-            //console.log(this.state);
-        
-            return (
-                <CheckBox
-                checked={checked}
-                onChange={nextChecked => setChecked(nextChecked)}
-                style={{
-                    width: 75,
-                }}
-                status='success'>
-                </CheckBox>
-            );
-        };
 
-        const ExerciseEntry = (exercise_entry) => {
-            //console.log('\nexercise entry:');
-            //console.log(exercise_entry);
-            //console.log('\n');
+        const ExerciseEntry = (exercise_entry, exercise_id) => {
             return (
                 <View style={{
                     flexDirection: 'row',
@@ -195,8 +202,8 @@ class StartWorkout extends React.Component {
                     paddingBottom: 3,
                     marginVertical: 3
                 }}>
-                    <TextInput category='s1' style={exerciseStyles.weight}>{exercise_entry.weight}</TextInput>
-                    <TextInput category='s1' style={exerciseStyles.reps}>{exercise_entry.reps}</TextInput>
+                    <TextInput category='s1' style={exerciseStyles.weight} onChangeText={text => this.changeWeightHandler(exercise_entry, text)}>{exercise_entry.weight}</TextInput>
+                    <TextInput category='s1' style={exerciseStyles.reps} onChangeText={text => this.changeWeightHandler(exercise_entry, text)}>{exercise_entry.reps}</TextInput>
                     <this.Check checked={exercise_entry.checked} id={exercise_entry.id} exercise_id={exercise_entry.exercise_id}></this.Check>
                 </View>
             );
@@ -206,25 +213,8 @@ class StartWorkout extends React.Component {
 
             const [showList, setShowList] = React.useState(true);
 
-            //console.log(exercise_object);
-            //console.log(this.state.workout.exerciseArray[1]);
-            //console.log(this.compareExerciseObjects(exercise_object, this.state.workout.exerciseArray[1]));
-
             const showElementHandler = () => {
-                let workoutCopy = this.state.workout;
-                let i = 0;
-                for (let exercise of this.state.workout.exerciseArray) {
-                    if (this.compareExerciseObjects(exercise_object, exercise)) {
-                        workoutCopy.exerciseArray[i] = {...workoutCopy.exerciseArray[i], show: !showList};
-                        break;
-                    }
-                    ++i;
-                }
-                
-                //console.log(this.state);
-                //console.log(showList);
                 setShowList(!showList);
-                //this.setState({workoutCopy})
             };
         
             return (
@@ -256,8 +246,9 @@ class StartWorkout extends React.Component {
                                 <ExerciseEntry weight={item.weight} reps={item.reps} checked={item.checked} id={item.id} exercise_id={exercise_object.exercise_id}></ExerciseEntry>
                             )}
                         />
+                        <Button style={{marginVertical: 3}} appearance={'outline'} size={'small'} onPress={() => this.addSetHandler(exercise_object)}>Add Set</Button>
                     </View>}
-                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{margin: -8}} onPress={() => showElementHandler()}></Button>
+                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{margin: -8}} onPress={() => showElementHandler(exercise_object.exercise_id)}></Button>
                 </View>
             );
         };

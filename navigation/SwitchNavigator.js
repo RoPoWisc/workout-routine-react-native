@@ -105,7 +105,7 @@ const SwitchNavigator = createSwitchNavigator(
 		}
 	},
 	{
-		initialRouteName: 'Initial'
+		initialRouteName: 'StartWorkout'
 	},
 )
 
