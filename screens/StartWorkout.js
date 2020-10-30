@@ -15,6 +15,7 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
+import { set } from 'react-native-reanimated';
 
 const MenuIcon = (props) => (
     <Icon {...props} name='menu-outline'/>
@@ -27,11 +28,6 @@ const CollapseIcon = (props) => (
 const ExpandIcon = (props) => (
     <Icon {...props} name='arrow-ios-downward-outline'/>
 );
-
-
-
-
-
 
 const exerciseStyles = StyleSheet.create({
     exercise: {
@@ -64,34 +60,11 @@ class StartWorkout extends React.Component {
     constructor(props) {
         super(props)
         this.addSetHandler = this.addSetHandler.bind(this);
+        this.changeTextHandler = this.changeWeightHandler.bind(this);
         this.state = {
             workout: {
                 routineName: 'Workout A',
                 routineDay: 'Leg Day',
-                'squat1': {
-                    name: 'Squat',
-                    totalVolume: 'Total Volume',
-                    show: true,
-                    '1' : {weight: 225, reps: 8, checked: false, id: '1', isObject: 'true'},
-                    '2' : {weight: 235, reps: 5, checked: false, id: '2', isObject: 'false'},
-                    sets: [
-                        {weight: 225, reps: 8, checked: false, id: '1'},
-                        {weight: 235, reps: 5, checked: false, id: '2'}
-                    ]
-                },
-                'lpress1': {
-                    name: 'Leg Press',
-                    totalVolume: 'Total Volume',
-                    show: true,
-                    '3': {weight: 405, reps: 10, checked: false, id: '3'},
-                    '4': {weight: 335, reps: 12, checked: true, id: '4'},
-                    '5': {weight: 300, reps: 14, checked: false, id: '5'},
-                    sets: [
-                        {weight: 405, reps: 10, checked: false, id: '3'},
-                        {weight: 335, reps: 12, checked: true, id: '4'},
-                        {weight: 300, reps: 14, checked: false, id: '5'}
-                    ]
-                },
                 exerciseArray: [
                     {
                         exercise_id: 'squat1',
@@ -121,17 +94,17 @@ class StartWorkout extends React.Component {
 
     addSetHandler(exercise_object) {
         exercise_object.sets.push({weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'});
+
+        let newArray = this.state.workout.exerciseArray.map(element => element.exercise_id == exercise_object.exercise_id ? {...element, sets: exercise_object.sets} : element);
+
         let state = {
             workout: {
                 ...this.state.workout,
-                [exercise_object.exercise_id] : {
-                    ...this.state.workout[exercise_object.exercise_id],
-                    sets: exercise_object.sets,
-                }
+                exerciseArray: newArray,
             }
         }
 
-        this.setState({workout: state.workout}, console.log(this.state.workout[exercise_object.exercise_id]));
+        this.setState({workout: state.workout}, console.log(this.state.workout.exerciseArray));
     }
 
     compareExerciseObjects(obj1, obj2) {
@@ -187,9 +160,38 @@ class StartWorkout extends React.Component {
         );
     }
 
+    changeWeightHandler(exercise_entry, text) {
+
+        let newSetsArray;
+        newState = {
+            ...this.state.workout
+        }
+
+        let i = 0;
+        for (var exercise of this.state.workout.exerciseArray) {
+            console.log(exercise.exercise_id);
+            if (exercise.exercise_id == exercise_entry.exercise_id) {
+                newSetsArray = exercise.sets.map(set => set.id == exercise_entry.id ? {
+                    weight: text, reps: set.reps, checked: set.checked, id: set.id
+                } : set);
+                newState.exerciseArray[i] = {
+                    ...this.state.workout.exerciseArray[i],
+                    sets: newSetsArray
+                }
+            } else {
+                newState.exerciseArray[i] = {
+                    ...this.state.workout.exerciseArray[i]
+                }
+            }
+        }
+
+        console.log(newState);
+        this.setState({workout: newState});
+    }
+
     render() {
 
-        const ExerciseEntry = (exercise_entry) => {
+        const ExerciseEntry = (exercise_entry, exercise_id) => {
             return (
                 <View style={{
                     flexDirection: 'row',
@@ -200,8 +202,8 @@ class StartWorkout extends React.Component {
                     paddingBottom: 3,
                     marginVertical: 3
                 }}>
-                    <TextInput category='s1' style={exerciseStyles.weight}>{exercise_entry.weight}</TextInput>
-                    <TextInput category='s1' style={exerciseStyles.reps}>{exercise_entry.reps}</TextInput>
+                    <TextInput category='s1' style={exerciseStyles.weight} onChangeText={text => this.changeWeightHandler(exercise_entry, text)}>{exercise_entry.weight}</TextInput>
+                    <TextInput category='s1' style={exerciseStyles.reps} onChangeText={text => this.changeWeightHandler(exercise_entry, text)}>{exercise_entry.reps}</TextInput>
                     <this.Check checked={exercise_entry.checked} id={exercise_entry.id} exercise_id={exercise_entry.exercise_id}></this.Check>
                 </View>
             );
@@ -211,25 +213,8 @@ class StartWorkout extends React.Component {
 
             const [showList, setShowList] = React.useState(true);
 
-            //console.log(exercise_object);
-            //console.log(this.state.workout.exerciseArray[1]);
-            //console.log(this.compareExerciseObjects(exercise_object, this.state.workout.exerciseArray[1]));
-
             const showElementHandler = () => {
-                // let workoutCopy = this.state.workout;
-                // let i = 0;
-                // for (let exercise of this.state.workout.exerciseArray) {
-                //     if (this.compareExerciseObjects(exercise_object, exercise)) {
-                //         workoutCopy.exerciseArray[i] = {...workoutCopy.exerciseArray[i], show: !showList};
-                //         break;
-                //     }
-                //     ++i;
-                // }
-                
-                //console.log(this.state);
-                //console.log(showList);
                 setShowList(!showList);
-                //this.setState({workoutCopy})
             };
         
             return (
