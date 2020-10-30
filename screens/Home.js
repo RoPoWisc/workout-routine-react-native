@@ -41,13 +41,13 @@ const images = [
 ];
 
 class Home extends React.Component {
-    /*componentDidMount = async () => {
+    componentDidMount = async () => {
       try {
-        console.log(this.props.user.userServer);
+        console.log(this.props.user);
       } catch (e) {
         alert(e);
       }
-    }*/
+    }
     render() {
         return (
             <>

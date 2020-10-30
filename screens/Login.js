@@ -10,17 +10,9 @@ let userUid;
 class Login extends React.Component {
 
 	componentDidMount = async () => {
-		this.props.fetchUserObj(undefined);
-		console.log(this.props.user);
-		this.props.updateEmail("");
-		this.props.updatePassword("");
-		this.props.updateName("");
-
 		try {
-			if(this.props.userServer !== undefined){
-				console.log("Hello")
-				console.log(this.props.user.userServer)
-				this.props.navigation.navigate('DrawerNavigator')
+			if(this.props.user.userServer !== undefined){
+				this.loginHandler;
 			}
 		} catch (e) {
 			alert(e);

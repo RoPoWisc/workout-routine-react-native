@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image, FlatList, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { } from '../actions/user'
+import { updateEmail, updatePassword, fetchUserObj } from '../actions/user'
 import {
   ApplicationProvider,
   Button,
@@ -22,37 +22,49 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
  */
 
 class Settings extends React.Component {
+  constructor(props) {
+    super(props)
+  };
 
-    render() {
-        return (
-            <>
-                <IconRegistry icons={EvaIconsPack}/>
-                <ApplicationProvider {...eva} theme={eva.light}>
-                  <Layout style={styles.header}>
-                    <Layout style={styles.headerLeft}>
-                      <Text style={styles.textMain} category='s1'>
-                        Settings
-                      </Text>
-                    </Layout>
-                    <Layout style={styles.headerRight}>
-                    <TouchableOpacity
-                        style={styles.optionButton}
-                        onPress={() => this.props.navigation.openDrawer()}
-                        >
-                          <Image
-                            style={styles.optionButton}
-                            source={require('../assets/options.png')}
-                          />
-                        </TouchableOpacity>
-                    </Layout>
-                  </Layout>
-                  <Layout style={styles.container}>
-                    
-                  </Layout>
-                </ApplicationProvider>
-            </>
-        )
-    }
+  render() {
+    const logoutHandler = async () => {
+      this.props.fetchUserObj(undefined);
+      this.props.updateEmail("");
+      this.props.updatePassword("");
+      this.props.navigation.navigate('Login')
+    };
+
+    return (
+      <>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <Layout style={styles.header}>
+            <Layout style={styles.headerLeft}>
+              <Text style={styles.textMain} category='s1'>
+                Settings
+                    </Text>
+            </Layout>
+            <Layout style={styles.headerRight}>
+              <TouchableOpacity
+                style={styles.optionButton}
+                onPress={() => this.props.navigation.openDrawer()}
+              >
+                <Image
+                  style={styles.optionButton}
+                  source={require('../assets/options.png')}
+                />
+              </TouchableOpacity>
+            </Layout>
+          </Layout>
+          <Layout style={styles.container}>
+            <TouchableOpacity style={styles.logout} onPress={logoutHandler}>
+              <Text>Logout</Text>
+            </TouchableOpacity>
+          </Layout>
+        </ApplicationProvider>
+      </>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -124,10 +136,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderWidth: 2,
     borderRadius: 40,
-		borderColor: 'black',
-		backgroundColor: 'white',
-		fontSize: 24
-	},
+    borderColor: 'black',
+    backgroundColor: 'white',
+    fontSize: 24
+  },
   text: {
     textAlign: 'center',
     fontSize: 30,
@@ -135,17 +147,24 @@ const styles = StyleSheet.create({
   likeButton: {
     marginVertical: 16,
   },
+  logout: {
+		padding: 10,
+		borderRadius: 15,
+		backgroundColor: '#0573E1',
+		marginRight: 10,
+	},
 });
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({}, dispatch)
+	return bindActionCreators({ updateEmail, updatePassword, fetchUserObj }, dispatch)
 }
 
 const mapStateToProps = state => {
-	return {
-		user: state.user
-	}
+  return {
+    user: state.user
+  }
 }
 
 export default connect(
-    mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(Settings)
