@@ -126,21 +126,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    borderWidth: 1,
+    //borderWidth: 1,
     flex: 1,
     flexDirection: 'row',
     marginTop: 25,
     alignItems: 'center',
   },
   headerLeft: {
-    borderWidth: 1,
+    //borderWidth: 1,
     flex: 3,
     alignItems: 'flex-start',
     marginBottom: 40,
     marginLeft: 20,
   },
   headerRight: {
-    borderWidth: 1,
+    //borderWidth: 1,
     flex: 1,
     flexDirection: 'row',
     alignSelf: 'flex-start',
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     width: vw(14),
   },
   bodyWeight: {
-    borderWidth: 1,
+    //borderWidth: 1,
     flex: 1,
     flexDirection: 'row',
     alignSelf: 'flex-start',
