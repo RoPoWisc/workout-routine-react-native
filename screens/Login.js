@@ -42,14 +42,17 @@ class Login extends React.Component {
 			password:this.props.user.password
 		})});
 		let responseJson = await response.json();
+		// console.log("The following is responseJson:\n")
+		// console.log(JSON.stringify(responseJson))
 		//This saves to this.props.user.userServer
 		//you can refer to data by using this.props.user.userServer
 			//this.props.user.userServer.email
 			//this.props.user.userServer.firstName
 			//this.props.user.userServer.lastName
 			//this.props.user.userServer.timestamp
-			if(responseJson.message.email !== undefined){
-				this.props.fetchUserObj(responseJson.message);
+			console.log(JSON.stringify(responseJson))
+			if(typeof responseJson.userObj != "undefined") {
+				this.props.fetchUserObj(responseJson.userObj);
 			}else{
 				alert(responseJson.message);
 			}
