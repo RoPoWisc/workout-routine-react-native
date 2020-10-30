@@ -81,7 +81,7 @@ class Home extends React.Component {
                         horizontal
 						            renderItem={({ item }) => (
 							            <>
-                            <TouchableOpacity style={styles.c_image}>
+                            <TouchableOpacity style={styles.c_image} onPress={() => this.props.navigation.navigate('Workout')}>
                               <Layout style={styles.c_image}>
                                 <ImageBackground
                                   style={styles.imagebkgnd}

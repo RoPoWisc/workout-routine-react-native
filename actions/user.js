@@ -6,6 +6,7 @@ export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 export const UPDATE_CONFIRM_PASSWORD = 'UPDATE_CONFIRM_PASSWORD'
 export const UPDATE_NAME = 'UPDATE_NAME'
 export const FETCH_USER_OBJ = 'FETCH_USER_OBJ';
+export const BEARER_TOKEN = 'BEARER_TOKEN';
 
 // actions
 const date = moment().format('YYYY-MM-DD hh:mm:ss')
@@ -41,4 +42,11 @@ export const fetchUserObj = userServer => ({
 	type: FETCH_USER_OBJ,
 	payload: { userServer }
 });
+
+export const fetchBearerToken = bearerToken => {
+	return {
+		type: BEARER_TOKEN,
+		payload: bearerToken
+	}
+}
   
