@@ -62,6 +62,8 @@ class StartWorkout extends React.Component {
         this.addSetHandler = this.addSetHandler.bind(this);
         this.changeTextHandler = this.changeWeightHandler.bind(this);
         this.changeRepsHandler = this.changeRepsHandler.bind(this);
+        this.getDate = this.getDate.bind(this);
+
         this.state = {
             workout: {
                 routineName: 'Workout A',
@@ -91,6 +93,12 @@ class StartWorkout extends React.Component {
                 ]
             }
         }
+    }
+
+    getDate() {
+        var date = new Date();
+        var time = (new Date(date)).getTime();
+        return time;
     }
 
     loginHandler = async () => {
@@ -136,7 +144,7 @@ class StartWorkout extends React.Component {
 	}
 
     addSetHandler(exercise_object) {
-        exercise_object.sets.push({weight: 'Weight', reps: 'Reps', checked: 'false', id: '6'});
+        exercise_object.sets.push({weight: 'Weight', reps: 'Reps', checked: 'false', id: this.getDate()});
 
         let newArray = this.state.workout.exerciseArray.map(element => element.exercise_id == exercise_object.exercise_id ? {...element, sets: exercise_object.sets} : element);
 
@@ -146,7 +154,7 @@ class StartWorkout extends React.Component {
                 exerciseArray: newArray,
             }
         }
-
+        console.log(state);
         this.setState({workout: state.workout}, console.log(this.state.workout.exerciseArray));
     }
 
@@ -206,7 +214,7 @@ class StartWorkout extends React.Component {
     changeWeightHandler(exercise_entry, text) {
 
         let newSetsArray;
-        newState = {
+        let newState = {
             ...this.state.workout
         }
 
@@ -229,7 +237,6 @@ class StartWorkout extends React.Component {
             ++i;
         }
 
-        console.log(newState);
         this.setState({workout: newState});
     }
 
