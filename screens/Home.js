@@ -57,28 +57,23 @@ class Home extends React.Component {
 
       let bearer = 'Bearer ' + this.props.user.bearerToken;
 
-      console.log("routineName")
-      console.log(routineNameVar)
-
-      let bodyJSON = JSON.stringify({
-        'routineName': String(routineNameVar)
-      })
-
       let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/prebuilt' , {
         method: 'POST',
-        headers: {
+       headers: {
           Accept: '/',
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          'Content-Type': 'application/json'
+          // 'Authorization': bearer
         },
-        body: bodyJSON
+        body: JSON.stringify({
+          routineName: routineNameVar
+        })
       });
 
         let responseJson = await response.json();
-        console.log("This should work")
-        console.log(JSON.stringify(responseJson))
-        
-        this.props.navigation.navigate('Workout')
+        responseJson.routineName = routineNameVar
+        responseJson.routineDay = "Pre-built Workout"
+        console.log(responseJson)
+        this.props.navigation.navigate('Workout', { workoutData: responseJson} )
     }
     render() {
         return (

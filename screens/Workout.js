@@ -65,33 +65,13 @@ class Workout extends React.Component {
         this.changeRepsHandler = this.changeRepsHandler.bind(this);
         this.getDate = this.getDate.bind(this);
 
+        console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
+
         this.state = {
             workout: {
-                routineName: 'Workout A',
-                routineDay: 'Leg Day',
-                exerciseArray: [
-                    {
-                        exercise_id: 'squat1',
-                        name: 'Squat',
-                        totalVolume: 'Total Volume',
-                        show: true,
-                        sets: [
-                            { weight: 225, reps: 8, checked: false, id: '1' },
-                            { weight: 235, reps: 5, checked: false, id: '2' }
-                        ]
-                    },
-                    {
-                        exercise_id: 'lpress1',
-                        name: 'Leg Press',
-                        totalVolume: 'Total Volume',
-                        show: true,
-                        sets: [
-                            { weight: 405, reps: 10, checked: false, id: '3' },
-                            { weight: 335, reps: 12, checked: true, id: '4' },
-                            { weight: 300, reps: 14, checked: false, id: '5' }
-                        ]
-                    }
-                ]
+                routineName: this.props.navigation.state.params.workoutData.routineName,
+                routineDay: this.props.navigation.state.params.workoutData.routineDay,
+                exerciseArray: this.props.navigation.state.params.workoutData.exerciseArray
             }
         }
     }
