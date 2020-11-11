@@ -57,7 +57,7 @@ class Home extends React.Component {
 
       let bearer = 'Bearer ' + this.props.user.bearerToken;
 
-      let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/prebuilt' , {
+      let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
         method: 'POST',
        headers: {
           Accept: '/',
