@@ -5,7 +5,7 @@ import {DrawerNavigatorItems} from 'react-navigation-drawer'
 export default Sidebar = props => (
     <View style={styles.container}>
       <View style={styles.name_container}>
-        <Text style={styles.name_text}>Hey Taylor,</Text>
+        <Text style={styles.name_text}>Hey There!</Text>
       </View>
       <View style={styles.nav_contaniner}>
         <ScrollView>

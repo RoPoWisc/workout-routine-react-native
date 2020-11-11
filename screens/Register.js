@@ -28,7 +28,7 @@ class Signup extends React.Component {
 				password:this.props.user.password,
 			})});
 			let responseJson = await response.json();
-			console.log(JSON.stringify(responseJson))
+			//console.log(JSON.stringify(responseJson))
 			//This saves to this.props.user.userServer
 			//you can refer to data by using this.props.user.userServer
 				//this.props.user.userServer.email

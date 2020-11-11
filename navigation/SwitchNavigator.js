@@ -32,12 +32,6 @@ const DrawerRouteConfig = {
 			title: "Your Progress",
 		}
 	},
-	Workout: {
-		screen: Workout,
-		navigationOptions: {
-			title: 'Workout'
-		}
-	},
 	AddWorkout: {
 		screen: AddWorkout,
 		navigationOptions: {
@@ -73,7 +67,7 @@ const DrawerNavigator = createDrawerNavigator(DrawerRouteConfig,
 		  },
 		  labelStyle: {
 			  color: 'white',
-			  fontSize: 20,
+			  fontSize: 30,
 		  }
 	  }
   },

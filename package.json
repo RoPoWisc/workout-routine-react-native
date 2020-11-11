@@ -10,6 +10,7 @@
   "dependencies": {
     "@eva-design/eva": "^2.0.0",
     "@expo/vector-icons": "^10.2.1",
+    "@react-navigation/drawer": "^5.11.2",
     "@ui-kitten/components": "^5.0.0",
     "@ui-kitten/eva-icons": "^5.0.0",
     "expo": "~39.0.2",
@@ -21,6 +22,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
     "react-native-expo-viewport-units": "^0.0.8",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-reanimated": "^1.13.1",
     "react-native-responsive-screen": "^1.4.1",
     "react-native-screens": "^2.11.0",

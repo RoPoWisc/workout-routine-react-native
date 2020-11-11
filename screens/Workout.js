@@ -65,7 +65,7 @@ class Workout extends React.Component {
         this.changeRepsHandler = this.changeRepsHandler.bind(this);
         this.getDate = this.getDate.bind(this);
 
-        console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
+        //console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
 
         this.state = {
             workout: {
@@ -77,7 +77,7 @@ class Workout extends React.Component {
     }
 
     componentDidMount = async () => {
-        console.log(this.props.user);
+        //console.log(this.props.user);
     }
 
     getDate() {
@@ -110,7 +110,7 @@ class Workout extends React.Component {
             alert(e);
         }
 
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('DrawerNavigator')
 	}
 
     addSetHandler(exercise_object) {
@@ -124,8 +124,8 @@ class Workout extends React.Component {
                 exerciseArray: newArray,
             }
         }
-        console.log(state);
-        this.setState({ workout: state.workout }, console.log(this.state.workout.exerciseArray));
+        this.setState({ workout: state.workout }, //console.log(this.state.workout.exerciseArray)
+        );
     }
 
     compareExerciseObjects(obj1, obj2) {
@@ -166,7 +166,8 @@ class Workout extends React.Component {
                 }
                 ++i;
             }
-            this.setState({ workout: workoutCopy }, () => console.log('updated state\n', workoutCopy));
+            this.setState({ workout: workoutCopy }, () => {}//console.log('updated state\n', workoutCopy)
+            );
         };
 
         return (
@@ -314,15 +315,6 @@ class Workout extends React.Component {
                                 <Text style={styles.text} category='h1'>
                                     {this.state.workout.routineName}
                                 </Text>
-                                <TouchableOpacity
-                                    style={styles.optionButton}
-                                    onPress={() => this.props.navigation.openDrawer()}
-                                >
-                                    <Image
-                                        style={styles.optionButton}
-                                        source={require('../assets/options.png')}
-                                    />
-                                </TouchableOpacity>
                             </View>
                             <Text style={styles.name} category='h5'>
                                 {this.state.workout.routineDay}
