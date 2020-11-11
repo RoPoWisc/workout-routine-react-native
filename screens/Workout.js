@@ -93,7 +93,7 @@ class Workout extends React.Component {
                     'exerciseArray': this.state.workout.exerciseArray
         });
 
-        let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] + '/add/exercise'
+        let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] + '/add/workout'
         let bearer = 'Bearer ' + this.props.user.bearerToken;
 
         try {
