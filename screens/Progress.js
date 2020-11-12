@@ -45,14 +45,14 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
    { date: new Date}
  ]
 
-class Home extends React.Component {
+export class Progress extends React.Component {
 
     render() {
         const verticalContentInset = { top: 10, bottom: 10 }
         const axesSvg = { fontSize: 10, fill: 'grey' };
         
         return (
-            <>
+            <View>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
                   <Layout style={styles.header}>
@@ -114,7 +114,7 @@ class Home extends React.Component {
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
-            </>
+            </View>
         )
     }
 }
@@ -191,4 +191,4 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps
-)(Home)
+)(Progress)
