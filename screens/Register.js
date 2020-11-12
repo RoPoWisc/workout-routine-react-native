@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, updateName, fetchUserObj} from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
-class Signup extends React.Component {
+export class Signup extends React.Component {
 	handleSignUp = async () => {
 		try{
 			if(this.props.user.name === undefined){
