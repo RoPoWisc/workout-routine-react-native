@@ -54,11 +54,11 @@ export class Initial extends React.Component {
 	render() {
 		if (!this.state.isReady) {
 			return (
-			  <AppLoading
+			  <AppLoading>
 				startAsync={this._loadAssetsAsync}
 				onFinish={() => this.setState({ isReady: true })}
 				onError={console.warn}
-			  />
+			  </AppLoading>
 			);
 		  }
 		return (
