@@ -21,7 +21,7 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
  * https://akveo.github.io/eva-icons
  */
 
-class Settings extends React.Component {
+export class Settings extends React.Component {
   constructor(props) {
     super(props)
   };
