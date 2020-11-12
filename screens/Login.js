@@ -7,7 +7,7 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 
 let userUid;
 
-class Login extends React.Component {
+export class Login extends React.Component {
 
 	componentDidMount = async () => {
 		try {
@@ -106,7 +106,6 @@ class Login extends React.Component {
 				<Text style={styles.subtext}>Continue</Text>
 				<TextInput
 					style={styles.inpBx}
-					value={this.props.user.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
@@ -114,7 +113,6 @@ class Login extends React.Component {
 				/>
 				<TextInput
 					style={styles.inpBxTw}
-					value={this.props.user.password}
 					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"
