@@ -1,12 +1,12 @@
 import React from 'react'
-import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, Button, TextInput, Keyboard, Alert, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Text, View, StyleSheet,  TouchableOpacity,  TextInput,  Image } from 'react-native';
+
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, fetchUserObj, updatePassword, updateConfirmPassword} from '../actions/user'
-import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+import { vw, vh } from 'react-native-expo-viewport-units'
 
-class PasswordReset extends React.Component {
+export class PasswordReset extends React.Component {
 
     handleReset = async () => {
 		try{
@@ -51,10 +51,12 @@ class PasswordReset extends React.Component {
 			alert(e);
 		}
     }
+    
     constructor(props) {
         super(props)
         link = props.navigation.state.params.link
     }
+    
     render() {
         return(
             <View style = {styles.container}>
