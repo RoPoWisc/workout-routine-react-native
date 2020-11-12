@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { updateEmail, fetchUserObj} from '../actions/user'
 
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
-class ForgotPassword extends React.Component {
+export class ForgotPassword extends React.Component {
     handleReset = async () => {
 		try{
 			if(this.props.user.email === undefined){
