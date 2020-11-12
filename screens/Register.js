@@ -65,7 +65,6 @@ class Signup extends React.Component {
 				<Text style={styles.subtext}>Start</Text>
 				<TextInput
 					style={styles.inpBx}
-					value={this.props.user.name}
 					onChangeText={name => this.props.updateName(name)}
 					placeholder='Name'
 					placeholderTextColor="#8BB8CE"
@@ -73,7 +72,6 @@ class Signup extends React.Component {
 				/>
 				<TextInput
 					style={styles.inpBxTw}
-					value={this.props.user.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
@@ -81,7 +79,6 @@ class Signup extends React.Component {
 				/>
 				<TextInput
 					style={styles.inpBxThr}
-					value={this.props.user.password}
 					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"

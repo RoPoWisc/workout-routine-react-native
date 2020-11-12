@@ -56,7 +56,6 @@ class ForgotPassword extends React.Component {
 				<Text style={styles.subtext}>Get Back</Text>
 				<TextInput
 					style={styles.inpBx}
-					value={this.props.user.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
