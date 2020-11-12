@@ -20,10 +20,11 @@ function cacheImages(images) {
 	});
   }
   
-class Login extends React.Component {
+export class Initial extends React.Component {
 	state = {
 		isReady: false,
 	  };
+	  /*
 	  async _loadAssetsAsync() {
 		const imageAssets = cacheImages([
 		  require('../assets/home.jpg'),
@@ -39,7 +40,7 @@ class Login extends React.Component {
 		
 		await Promise.all([...imageAssets]);
 	  }
-	
+	*/
 	componentDidMount = async () => {
 		try {
 			if(this.props.user.userServer !== undefined){
@@ -156,4 +157,4 @@ const mapStateToProps = state => {
 export default connect(
     mapStateToProps,
 	mapDispatchToProps
-)(Login)
+)(Initial)
