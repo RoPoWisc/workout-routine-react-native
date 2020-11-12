@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image, View } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -13,18 +13,18 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+import { vw, vh } from 'react-native-expo-viewport-units'
 
 
 const AddIcon = (props) => (
   <Icon {...props} name='plus-outline'/>
 );
 
-class Home extends React.Component {
+export class AddWork extends React.Component {
 
     render() {
         return (
-            <>
+            <View>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
                   <Layout style={styles.header}>
@@ -77,7 +77,7 @@ class Home extends React.Component {
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
-            </>
+            </View>
         )
     }
 }
@@ -157,4 +157,4 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps
-)(Home)
+)(AddWork)
