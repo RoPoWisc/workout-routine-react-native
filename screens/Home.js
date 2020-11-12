@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Image, FlatList, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, StyleSheet, Image, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchUserObj} from '../actions/user'
 import {
   ApplicationProvider,
-  Button,
   Icon,
   IconRegistry,
   Layout,
@@ -13,8 +12,8 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { initialWindowMetrics } from 'react-native-safe-area-context';
-import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+
+import { vw, vh} from 'react-native-expo-viewport-units'
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
  * https://akveo.github.io/eva-icons
@@ -40,7 +39,7 @@ const images = [
   {name: require('../assets/curls.jpg'), key: 'Workout 3'}
 ];
 
-class Home extends React.Component {
+export class Home extends React.Component {
     componentDidMount = async () => {
       try {
         //console.log(this.props.user);
@@ -77,7 +76,7 @@ class Home extends React.Component {
     }
     render() {
         return (
-            <>
+            <View>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
                   <Layout style={styles.header}>
@@ -135,7 +134,7 @@ class Home extends React.Component {
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
-            </>
+            </View>
         )
     }
 }
