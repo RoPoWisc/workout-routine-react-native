@@ -3,10 +3,10 @@ import { View, ImageBackground, StyleSheet, TouchableOpacity, Text, Image } from
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, fetchUserObj } from '../actions/user'
-import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+import { vw, vh} from 'react-native-expo-viewport-units'
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
-import { FontAwesome } from '@expo/vector-icons';
+
 
 let userUid;
 
@@ -24,7 +24,7 @@ export class Initial extends React.Component {
 	state = {
 		isReady: false,
 	  };
-	  /*
+	  
 	  async _loadAssetsAsync() {
 		const imageAssets = cacheImages([
 		  require('../assets/home.jpg'),
@@ -40,7 +40,7 @@ export class Initial extends React.Component {
 		
 		await Promise.all([...imageAssets]);
 	  }
-	*/
+	
 	componentDidMount = async () => {
 		try {
 			if(this.props.user.userServer !== undefined){
