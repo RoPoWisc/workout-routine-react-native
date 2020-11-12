@@ -1,0 +1,564 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add Workout renders 1`] = `
+<View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      appearance="default"
+      level="1"
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#FFFFFF",
+          },
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginTop": 25,
+          },
+        ]
+      }
+    >
+      <View
+        appearance="default"
+        level="1"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#FFFFFF",
+            },
+            Object {
+              "alignItems": "flex-start",
+              "flex": 3,
+              "marginBottom": 40,
+              "marginLeft": 20,
+            },
+          ]
+        }
+      >
+        <Text
+          appearance="default"
+          category="s1"
+          style={
+            Array [
+              Object {
+                "color": "#222B45",
+                "fontFamily": "System",
+                "fontSize": 15,
+                "fontWeight": "600",
+              },
+              Object {
+                "fontSize": 86.71000000000001,
+                "fontWeight": "bold",
+                "marginLeft": 15,
+              },
+            ]
+          }
+        >
+          Add
+        </Text>
+        <Text
+          appearance="hint"
+          category="p1"
+          style={
+            Array [
+              Object {
+                "color": "#8F9BB3",
+                "fontFamily": "System",
+                "fontSize": 15,
+                "fontWeight": "400",
+              },
+              Object {
+                "fontSize": 60.03,
+                "marginLeft": 15,
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          Workout
+        </Text>
+      </View>
+      <View
+        appearance="default"
+        level="1"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#FFFFFF",
+            },
+            Object {
+              "alignSelf": "flex-start",
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "flex-end",
+              "marginRight": 5,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "height": 93.38000000000001,
+              "marginRight": 15,
+              "marginTop": 16.008,
+              "opacity": 1,
+              "width": 105.00000000000001,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 93.38000000000001,
+                "marginRight": 15,
+                "marginTop": 16.008,
+                "width": 105.00000000000001,
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      appearance="default"
+      level="1"
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#FFFFFF",
+          },
+          Object {
+            "alignItems": "center",
+            "flex": 3,
+            "justifyContent": "flex-start",
+          },
+        ]
+      }
+    >
+      <View
+        appearance="default"
+        level="1"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#FFFFFF",
+            },
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+          ]
+        }
+      >
+        <View
+          appearance="default"
+          level="1"
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#FFFFFF",
+              },
+              Object {
+                "alignItems": "flex-start",
+                "flex": 3,
+                "marginBottom": 40,
+                "marginLeft": 20,
+              },
+            ]
+          }
+        >
+          <Text
+            appearance="default"
+            category="s1"
+            style={
+              Array [
+                Object {
+                  "color": "#222B45",
+                  "fontFamily": "System",
+                  "fontSize": 15,
+                  "fontWeight": "600",
+                },
+                Object {
+                  "fontSize": 86.71000000000001,
+                  "fontWeight": "bold",
+                  "marginLeft": 15,
+                },
+              ]
+            }
+          >
+            Prebuilt
+          </Text>
+          <Text
+            appearance="hint"
+            category="p1"
+            style={
+              Array [
+                Object {
+                  "color": "#8F9BB3",
+                  "fontFamily": "System",
+                  "fontSize": 15,
+                  "fontWeight": "400",
+                },
+                Object {
+                  "fontSize": 60.03,
+                  "marginLeft": 15,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Workout
+          </Text>
+        </View>
+        <View
+          appearance="default"
+          level="1"
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#FFFFFF",
+              },
+              Object {
+                "alignSelf": "flex-start",
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginRight": 5,
+              },
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#3366FF",
+                "borderColor": "#3366FF",
+                "borderRadius": 30,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginRight": 40,
+                "marginTop": 35,
+                "minHeight": 56,
+                "minWidth": 56,
+                "opacity": 1,
+                "paddingHorizontal": 12,
+                "paddingVertical": 16,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "transform": Array [
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                }
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={24}
+                bbWidth={24}
+                fill="#FFFFFF"
+                focusable={false}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    Object {
+                      "height": 24,
+                      "marginHorizontal": 12,
+                      "tintColor": "#FFFFFF",
+                      "width": 24,
+                    },
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 24,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGGroup
+                  fill={4294967295}
+                  propList={
+                    Array [
+                      "fill",
+                    ]
+                  }
+                >
+                  <RNSVGGroup>
+                    <RNSVGGroup>
+                      <RNSVGRect
+                        height="24"
+                        matrix={
+                          Array [
+                            -1,
+                            1.2246467991473532e-16,
+                            -1.2246467991473532e-16,
+                            -1,
+                            24,
+                            24,
+                          ]
+                        }
+                        opacity={0}
+                        width="24"
+                        x={0}
+                        y={0}
+                      />
+                      <RNSVGPath
+                        d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2z"
+                      />
+                    </RNSVGGroup>
+                  </RNSVGGroup>
+                </RNSVGGroup>
+              </RNSVGSvgView>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        appearance="default"
+        level="1"
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#FFFFFF",
+            },
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+          ]
+        }
+      >
+        <View
+          appearance="default"
+          level="1"
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#FFFFFF",
+              },
+              Object {
+                "alignItems": "flex-start",
+                "flex": 3,
+                "marginBottom": 40,
+                "marginLeft": 20,
+              },
+            ]
+          }
+        >
+          <Text
+            appearance="default"
+            category="s1"
+            style={
+              Array [
+                Object {
+                  "color": "#222B45",
+                  "fontFamily": "System",
+                  "fontSize": 15,
+                  "fontWeight": "600",
+                },
+                Object {
+                  "fontSize": 86.71000000000001,
+                  "fontWeight": "bold",
+                  "marginLeft": 15,
+                },
+              ]
+            }
+          >
+            Custom
+          </Text>
+          <Text
+            appearance="hint"
+            category="p1"
+            style={
+              Array [
+                Object {
+                  "color": "#8F9BB3",
+                  "fontFamily": "System",
+                  "fontSize": 15,
+                  "fontWeight": "400",
+                },
+                Object {
+                  "fontSize": 60.03,
+                  "marginLeft": 15,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Workout
+          </Text>
+        </View>
+        <View
+          appearance="default"
+          level="1"
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#FFFFFF",
+              },
+              Object {
+                "alignSelf": "flex-start",
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "flex-end",
+                "marginRight": 5,
+              },
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            focusable={false}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#FF3D71",
+                "borderColor": "#FF3D71",
+                "borderRadius": 30,
+                "borderWidth": 1,
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginRight": 40,
+                "marginTop": 35,
+                "minHeight": 56,
+                "minWidth": 56,
+                "opacity": 1,
+                "paddingHorizontal": 12,
+                "paddingVertical": 16,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "transform": Array [
+                    Object {
+                      "scale": 1,
+                    },
+                  ],
+                }
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight={24}
+                bbWidth={24}
+                fill="#FFFFFF"
+                focusable={false}
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderWidth": 0,
+                    },
+                    Object {
+                      "height": 24,
+                      "marginHorizontal": 12,
+                      "tintColor": "#FFFFFF",
+                      "width": 24,
+                    },
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 24,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGGroup
+                  fill={4294967295}
+                  propList={
+                    Array [
+                      "fill",
+                    ]
+                  }
+                >
+                  <RNSVGGroup>
+                    <RNSVGGroup>
+                      <RNSVGRect
+                        height="24"
+                        matrix={
+                          Array [
+                            -1,
+                            1.2246467991473532e-16,
+                            -1.2246467991473532e-16,
+                            -1,
+                            24,
+                            24,
+                          ]
+                        }
+                        opacity={0}
+                        width="24"
+                        x={0}
+                        y={0}
+                      />
+                      <RNSVGPath
+                        d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2z"
+                      />
+                    </RNSVGGroup>
+                  </RNSVGGroup>
+                </RNSVGGroup>
+              </RNSVGSvgView>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
