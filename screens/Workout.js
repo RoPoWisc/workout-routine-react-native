@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, ImageBackground, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native'
+import React, {  } from 'react';
+import { View,  StyleSheet, TextInput } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -15,8 +15,8 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { set } from 'react-native-reanimated';
-import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+
+import { vw, vh} from 'react-native-expo-viewport-units'
 
 const MenuIcon = (props) => (
     <Icon {...props} name='menu-outline' />
@@ -56,7 +56,7 @@ const exerciseStyles = StyleSheet.create({
     }
 });
 
-class Workout extends React.Component {
+export class Workout extends React.Component {
 
     constructor(props) {
         super(props)
