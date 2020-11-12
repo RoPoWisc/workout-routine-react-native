@@ -18,6 +18,7 @@ class Login extends React.Component {
 			alert(e);
 		}
 	}
+	
 	loginHandler = async () => {
 		try{
 			if(this.props.user.email === undefined){
