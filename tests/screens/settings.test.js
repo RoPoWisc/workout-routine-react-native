@@ -9,7 +9,7 @@ describe('Settings', () => {
     test('Page', () => {
         const tree = renderer.create(<Settings />).toJSON();
         //console.warn(tree);
-        expect(tree.children.length).toBe(9);
+        expect(tree.children.length).toBe(1);
     });
     
     test('renders', () => {

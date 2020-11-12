@@ -1,20 +1,17 @@
 import React from 'react';
-import { View, StyleSheet, Image, FlatList, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, fetchUserObj } from '../actions/user'
 import {
   ApplicationProvider,
-  Button,
-  Icon,
   IconRegistry,
   Layout,
   Text,
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { initialWindowMetrics } from 'react-native-safe-area-context';
-import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+import { vw, vh } from 'react-native-expo-viewport-units'
 
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
@@ -35,8 +32,8 @@ export class Settings extends React.Component {
     };
 
     return (
-      <>
-        <IconRegistry icons={EvaIconsPack} />
+      <View>
+                <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <Layout style={styles.header}>
             <Layout style={styles.headerLeft}>
@@ -62,7 +59,7 @@ export class Settings extends React.Component {
             </TouchableOpacity>
           </Layout>
         </ApplicationProvider>
-      </>
+      </View>
     )
   }
 }
