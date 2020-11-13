@@ -1,12 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Progress renders 1`] = `
-<View>
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
   <View
+    appearance="default"
+    level="1"
     style={
-      Object {
-        "flex": 1,
-      }
+      Array [
+        Object {
+          "backgroundColor": "#FFFFFF",
+        },
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "marginTop": 25,
+        },
+      ]
     }
   >
     <View
@@ -18,122 +34,53 @@ exports[`Progress renders 1`] = `
             "backgroundColor": "#FFFFFF",
           },
           Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "marginTop": 25,
+            "alignItems": "flex-start",
+            "flex": 3,
+            "marginBottom": 40,
+            "marginLeft": 20,
           },
         ]
       }
     >
-      <View
+      <Text
         appearance="default"
-        level="1"
+        category="s1"
         style={
           Array [
             Object {
-              "backgroundColor": "#FFFFFF",
+              "color": "#222B45",
+              "fontFamily": "System",
+              "fontSize": 15,
+              "fontWeight": "600",
             },
             Object {
-              "alignItems": "flex-start",
-              "flex": 3,
-              "marginBottom": 40,
-              "marginLeft": 20,
+              "fontSize": 40,
+              "fontWeight": "bold",
             },
           ]
         }
       >
-        <Text
-          appearance="default"
-          category="s1"
-          style={
-            Array [
-              Object {
-                "color": "#222B45",
-                "fontFamily": "System",
-                "fontSize": 15,
-                "fontWeight": "600",
-              },
-              Object {
-                "fontSize": 40,
-                "fontWeight": "bold",
-              },
-            ]
-          }
-        >
-          Your
-        </Text>
-        <Text
-          appearance="hint"
-          category="p1"
-          style={
-            Array [
-              Object {
-                "color": "#8F9BB3",
-                "fontFamily": "System",
-                "fontSize": 15,
-                "fontWeight": "400",
-              },
-              Object {
-                "fontSize": 30,
-              },
-            ]
-          }
-        >
-          Progress
-        </Text>
-      </View>
-      <View
-        appearance="default"
-        level="1"
+        Your
+      </Text>
+      <Text
+        appearance="hint"
+        category="p1"
         style={
           Array [
             Object {
-              "backgroundColor": "#FFFFFF",
+              "color": "#8F9BB3",
+              "fontFamily": "System",
+              "fontSize": 15,
+              "fontWeight": "400",
             },
             Object {
-              "alignSelf": "flex-start",
-              "flex": 1,
-              "flexDirection": "row",
-              "justifyContent": "flex-end",
-              "marginRight": 5,
+              "fontSize": 30,
             },
           ]
         }
       >
-        <View
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "height": 93.38000000000001,
-              "marginRight": 15,
-              "marginTop": 16.008,
-              "opacity": 1,
-              "width": 105.00000000000001,
-            }
-          }
-        >
-          <Image
-            source={1}
-            style={
-              Object {
-                "height": 93.38000000000001,
-                "marginRight": 15,
-                "marginTop": 16.008,
-                "width": 105.00000000000001,
-              }
-            }
-          />
-        </View>
-      </View>
+        Progress
+      </Text>
     </View>
     <View
       appearance="default"
@@ -144,51 +91,150 @@ exports[`Progress renders 1`] = `
             "backgroundColor": "#FFFFFF",
           },
           Object {
-            "alignItems": "center",
-            "flex": 3,
-            "justifyContent": "center",
+            "alignSelf": "flex-start",
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "flex-end",
+            "marginRight": 5,
           },
         ]
       }
     >
       <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "height": 93.38000000000001,
+            "marginRight": 15,
+            "marginTop": 16.008,
+            "opacity": 1,
+            "width": 105.00000000000001,
+          }
+        }
+      >
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": 93.38000000000001,
+              "marginRight": 15,
+              "marginTop": 16.008,
+              "width": 105.00000000000001,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+  <View
+    appearance="default"
+    level="1"
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#FFFFFF",
+        },
+        Object {
+          "alignItems": "center",
+          "flex": 3,
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    <View
+      appearance="default"
+      level="1"
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#FFFFFF",
+          },
+          Object {
+            "alignSelf": "flex-start",
+            "flex": 1,
+            "flexDirection": "row",
+          },
+        ]
+      }
+    >
+      <Text
         appearance="default"
-        level="1"
+        category="p1"
         style={
           Array [
             Object {
-              "backgroundColor": "#FFFFFF",
+              "color": "#222B45",
+              "fontFamily": "System",
+              "fontSize": 15,
+              "fontWeight": "400",
             },
             Object {
               "alignSelf": "flex-start",
-              "flex": 1,
-              "flexDirection": "row",
+              "flex": 3,
+              "fontSize": 20,
+              "marginLeft": 20,
             },
           ]
         }
       >
-        <Text
-          appearance="default"
-          category="p1"
+        Body Weight
+      </Text>
+    </View>
+    <View
+      appearance="default"
+      level="1"
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#FFFFFF",
+          },
+          Object {
+            "flexDirection": "row",
+            "height": 200,
+            "padding": 20,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginBottom": 30,
+            },
+          ]
+        }
+      >
+        <View
+          onLayout={[Function]}
           style={
-            Array [
-              Object {
-                "color": "#222B45",
-                "fontFamily": "System",
-                "fontSize": 15,
-                "fontWeight": "400",
-              },
-              Object {
-                "alignSelf": "flex-start",
-                "flex": 3,
-                "fontSize": 20,
-                "marginLeft": 20,
-              },
-            ]
+            Object {
+              "flexGrow": 1,
+            }
           }
         >
-          Body Weight
-        </Text>
+          <Text
+            style={
+              Object {
+                "fontFamily": undefined,
+                "fontSize": 10,
+                "fontWeight": undefined,
+                "opacity": 0,
+              }
+            }
+          >
+            0
+          </Text>
+        </View>
       </View>
       <View
         appearance="default"
@@ -199,20 +245,34 @@ exports[`Progress renders 1`] = `
               "backgroundColor": "#FFFFFF",
             },
             Object {
-              "flexDirection": "row",
-              "height": 200,
-              "padding": 20,
+              "flex": 1,
+              "marginLeft": 10,
             },
           ]
         }
       >
         <View
           style={
-            Array [
+            Object {
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            onLayout={[Function]}
+            style={
               Object {
-                "marginBottom": 30,
-              },
-            ]
+                "flex": 1,
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "height": 30,
+              "marginHorizontal": -10,
+            }
           }
         >
           <View
@@ -235,68 +295,6 @@ exports[`Progress renders 1`] = `
             >
               0
             </Text>
-          </View>
-        </View>
-        <View
-          appearance="default"
-          level="1"
-          style={
-            Array [
-              Object {
-                "backgroundColor": "#FFFFFF",
-              },
-              Object {
-                "flex": 1,
-                "marginLeft": 10,
-              },
-            ]
-          }
-        >
-          <View
-            style={
-              Object {
-                "flex": 1,
-              }
-            }
-          >
-            <View
-              onLayout={[Function]}
-              style={
-                Object {
-                  "flex": 1,
-                }
-              }
-            />
-          </View>
-          <View
-            style={
-              Object {
-                "height": 30,
-                "marginHorizontal": -10,
-              }
-            }
-          >
-            <View
-              onLayout={[Function]}
-              style={
-                Object {
-                  "flexGrow": 1,
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": undefined,
-                    "fontSize": 10,
-                    "fontWeight": undefined,
-                    "opacity": 0,
-                  }
-                }
-              >
-                0
-              </Text>
-            </View>
           </View>
         </View>
       </View>
