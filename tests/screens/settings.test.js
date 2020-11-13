@@ -16,6 +16,11 @@ describe('Settings', () => {
         const render = renderer.create(<Settings />).toJSON();
         expect(render).toMatchSnapshot();
     })
+    it('works', () => {
+        const obj = new Settings(1);
+        expect(obj).toBeDefined();
+        
+      });
     
 });
 
