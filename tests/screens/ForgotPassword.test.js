@@ -16,5 +16,12 @@ describe('Register', () => {
         const render = renderer.create(<ForgotPassword />).toJSON();
         expect(render).toMatchSnapshot();
     })
+    it('check function', () => {
+        let loghand = renderer.create(<ForgotPassword />).getInstance();
+        expect(loghand.handleReset()).toBeDefined();
+
+
+        
+    })
     
 });
