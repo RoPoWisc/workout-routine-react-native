@@ -120,14 +120,21 @@ export class Home extends React.Component {
 						            )}
 					            />
                     </Layout>
-                    <Layout style={styles.p_workouts}>
-                      <Text style={styles.p_text}>Past Workouts</Text>
+                    <Layout style={styles.carousel}>
                       <FlatList
-                        data={info}
-                        //horizontal
+                        data={images}
+                        horizontal
 						            renderItem={({ item }) => (
 							            <>
-								            <Text style={styles.item}>{item.name}: {item.key}</Text>
+                            <TouchableOpacity style={styles.c_image} onPress={() => this.onPressWorkoutButton(item.key)}>
+                              <Layout style={styles.c_image}>
+                                <ImageBackground
+                                  style={styles.imagebkgnd}
+                                  source={item.name}>
+                                  <Text style={styles.p_text}>{item.key}</Text>
+                                </ImageBackground>
+                              </Layout>
+                            </TouchableOpacity>
 							            </>
 						            )}
 					            />

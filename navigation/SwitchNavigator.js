@@ -13,6 +13,7 @@ import SideBar from '../components/SideBar'
 import Progress from '../screens/Progress'
 import AddWorkout from '../screens/AddWorkout'
 import ViewPersonalExercise from '../screens/ViewPersonalExercise'
+import PastWorkouts from '../screens/PastWorkouts'
 
 import {
 	EditWorkout,
@@ -38,7 +39,13 @@ const DrawerRouteConfig = {
 		navigationOptions: {
 			title: 'View Exercises'
 		}
-	}, 
+	},
+	PastWorkouts: {
+		screen: PastWorkouts,
+		navigationOptions: {
+			title: 'Past Workouts',
+		},
+	},
 	AddWorkout: {
 		screen: AddWorkout,
 		navigationOptions: {
@@ -117,6 +124,9 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		ViewPersonalExercise: {
 			screen: ViewPersonalExercise
+		},
+		PastWorkouts: {
+			screen: PastWorkouts
 		}
 	},
 	{
