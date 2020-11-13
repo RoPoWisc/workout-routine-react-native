@@ -9,7 +9,7 @@ describe('Progress', () => {
     test('Page', () => {
         const tree = renderer.create(<Progress />).toJSON();
         //console.warn(tree);
-        expect(tree.children.length).toBe(1);
+        expect(tree.children.length).toBe(2);
     });
     
     test('renders', () => {
