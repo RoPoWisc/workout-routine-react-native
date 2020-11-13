@@ -52,7 +52,7 @@ export class Progress extends React.Component {
         const axesSvg = { fontSize: 10, fill: 'grey' };
         
         return (
-            <View>
+            <>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
                   <Layout style={styles.header}>
@@ -114,7 +114,7 @@ export class Progress extends React.Component {
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
-            </View>
+            </>
         )
     }
 }
