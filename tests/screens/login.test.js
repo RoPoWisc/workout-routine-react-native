@@ -15,5 +15,32 @@ describe('Login', () => {
         const render = renderer.create(<Login />).toJSON();
         expect(render).toMatchSnapshot();
     })
+    let findTextElement = function(tree, element){
+        console.warn(tree)
+        return true;
+    }
+     
+    it('Find text element', ()=>{
+       let tree = renderer.create(
+           <Login />
+       ).toJSON();
+     
+       expect(findTextElement(tree, 'email')).toBeDefined();
+    })
+
+    it('check function', () => {
+        let loghand = renderer.create(<Login />).getInstance();
+        expect(loghand.loginHandler()).toBeDefined();
+
+
+        
+    })
+    it('check function', () => {
+        let loghand = renderer.create(<Login />).getInstance();
+        expect(loghand.componentDidMount()).toBeDefined();
+
+
+        
+    })
     
 });
