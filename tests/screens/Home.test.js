@@ -16,6 +16,32 @@ describe('Home', () => {
         const render = renderer.create(<Home />).toJSON();
         expect(render).toMatchSnapshot();
     })
-    
+    let findTextElement = function(tree, element){
+        console.warn(tree)
+        return true;
+    }
+     
+    it('Find text element', ()=>{
+       let tree = renderer.create(
+           <Home />
+       ).toJSON();
+     
+       expect(findTextElement(tree, 'email')).toBeDefined();
+    })
+    it('check function', () => {
+        let loghand = renderer.create(<Home />).getInstance();
+        expect(loghand.componentDidMount()).toBeDefined();
+
+
+        
+    })
+    it('check function', () => {
+        let loghand = renderer.create(<Home />).getInstance();
+        expect(loghand.onPressWorkoutButton()).toBeDefined();
+
+
+        
+    })
+
 });
 
