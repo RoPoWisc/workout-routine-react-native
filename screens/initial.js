@@ -57,7 +57,7 @@ export class Initial extends React.Component {
 			  <AppLoading
 				startAsync={this._loadAssetsAsync}
 				onFinish={() => this.setState({ isReady: true })}
-				//onError={console.warn}
+				onError={console.warn}
 			  />
 			);
 		  }
