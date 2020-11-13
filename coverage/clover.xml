@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1605296883052" clover="3.2.0">
+  <project timestamp="1605296883053" name="All files">
+    <metrics statements="32" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="2" elements="44" coveredelements="22" complexity="0" loc="32" ncloc="32" packages="3" files="3" classes="3"/>
+    <package name="actions">
+      <metrics statements="18" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
+      <file name="user.js" path="/Users/justinperet/GitHub/workout-routine-react-native-master/actions/user.js">
+        <metrics statements="18" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="assets">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="options.png" path="/Users/justinperet/GitHub/workout-routine-react-native-master/assets/options.png">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="screens">
+      <metrics statements="13" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="2"/>
+      <file name="Settings.js" path="/Users/justinperet/GitHub/workout-routine-react-native-master/screens/Settings.js">
+        <metrics statements="13" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="2"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="154" count="1" type="stmt"/>
+        <line num="155" count="0" type="stmt"/>
+        <line num="158" count="1" type="stmt"/>
+        <line num="159" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
