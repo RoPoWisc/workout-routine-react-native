@@ -1,5 +1,5 @@
 import React, {  } from 'react';
-import { View,  StyleSheet, TextInput } from 'react-native'
+import { View,  StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -13,7 +13,9 @@ import {
     CheckBox,
     List,
     ListItem,
-    Divider
+    Divider,
+    Modal,
+    Input
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
@@ -31,9 +33,12 @@ export class ViewPersonalExercise extends React.Component {
         super(props);
         this.showDeleteExerciseHandler = this.showDeleteExerciseHandler.bind(this);
         this.deleteExerciseHandler = this.deleteExerciseHandler.bind(this);
+        this.showAddExerciseHandler = this.showAddExerciseHandler.bind(this);
+        this.addExerciseHandler = this.addExerciseHandler.bind(this);
 
         this.state = {
             showDelete: false,
+            addExercise: false,
             exercises: [
                 {
                     "__v": 0,
@@ -152,13 +157,96 @@ export class ViewPersonalExercise extends React.Component {
         }
     }
 
+    showAddExerciseHandler() {
+        let newShowExercise = !this.state.addExercise;
+
+        this.setState({addExercise: newShowExercise})
+    }
+
+    addExerciseHandler(name, type) {
+        this.showAddExerciseHandler();
+
+        this.addExerciseRequest(name, type);
+    }
+
+    addExerciseRequest = async (name, type) => {
+
+        console.log(name);
+        console.log(type);
+
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
+        try {
+            let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/create/' , {
+            method: 'POST',
+            headers: {
+                Accept: '/',
+                'Content-Type': 'application/json',
+                'Authorization': bearer
+            },
+            body: JSON.stringify({
+                _owner: this.props.user.userServer['_id'],
+                public: false,
+                name: name,
+                totalVolume: type,
+                sets: []
+            })
+            });
+        
+            let responseJson = await response.json();
+            console.log(responseJson)
+            //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
+        } catch (error) {
+            console.log(error);
+        }
+
+        try {
+            let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/private/' , {
+            method: 'POST',
+            headers: {
+                Accept: '/',
+                'Content-Type': 'application/json',
+                'Authorization': bearer
+            },
+            body: JSON.stringify({
+                _owner: this.props.user.userServer['_id']
+            })
+            });
+        
+            let responseJson = await response.json();
+            //console.log(responseJson)
+            this.setState({exercises: responseJson.success})
+            //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     render() {
-        const Exercise = (item) => {
-            console.log(item);
+        const AddExercise = () => {
+
+            const [name, setName] = React.useState('');
+            const [type, setType] = React.useState('');
+
             return (
-                <ListItem title={item.name} style={{
+                <View style={{ alignItems: 'center', padding: 10, backgroundColor: '#DEDEDE', borderRadius: 10}}>
+                    <Text category='h2' style={{color: '#266199'}}>Create New Exercise!</Text>
+                    <Input 
+                        placeholder='Exercise Name'
+                        value={name}
+                        onChangeText={nextName => setName(nextName)}
+                    />
+                    <Input 
+                        placeholder='Exercise Type (Barbell, Dumbbell, Machine)'
+                        value={type}
+                        onChangeText={nextType => setType(nextType)}
+                    />
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Button style={{width: '40%', margin: 5, backgroundColor: '#013A73', borderColor: '#013A73'}} onPress={() => this.showAddExerciseHandler()}>Cancel</Button>
+                        <Button style={{width: '40%',  margin: 5, backgroundColor: '#013A73', borderColor: '#013A73'}} onPress={() => this.addExerciseHandler(name, type)}>Finish</Button>
+                    </View>
                     
-                }}/>
+                </View>
+                
             )
         }
 
@@ -187,9 +275,22 @@ export class ViewPersonalExercise extends React.Component {
         return (
             <ApplicationProvider {...eva} theme={eva.light}>
                 <Layout style={styles.container}>
-                    <Text category='h1' style={{
-                        fontWeight: '500'
-                    }}>Your Exercises</Text>
+                    <View style={{flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'space-between'}}>
+                        <Text category='h1' style={{
+                            fontWeight: '500',
+                            marginLeft: 12
+                        }}>Your Exercises</Text>
+                        <TouchableOpacity
+                            style={{marginRight: 12}}
+                            onPress={() => this.props.navigation.openDrawer()}
+                        >
+                            <Image
+                                style={styles.optionButton}
+                                source={require('../assets/options.png')}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    
                     <List
                         style={{
                             backgroundColor: 'white',
@@ -205,8 +306,11 @@ export class ViewPersonalExercise extends React.Component {
                         )}
                     />
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                        <Button style={{width: '40%', margin: 10}} onPress={() => this.showDeleteExerciseHandler()}>Delete Exercise</Button>
-                        <Button style={{width: '40%', margin: 10}} onPress={}>Add Exercise</Button>
+                        <Button style={{width: '40%', margin: 10, backgroundColor: '#DB504A', borderColor: '#DB504A'}} onPress={() => this.showDeleteExerciseHandler()}>Delete Exercise</Button>
+                        <Button style={{width: '40%', margin: 10, backgroundColor: '#013A73', borderColor: '#013A73'}} onPress={() => this.showAddExerciseHandler()}>Add Exercise</Button>
+                        <Modal visible={this.state.addExercise} backdropStyle={styles.backdrop}>
+                            <AddExercise/>
+                        </Modal>
                     </View>
                 </Layout>
                 
@@ -260,7 +364,16 @@ const styles = StyleSheet.create({
     exercise: {
         backgroundColor: 'black',
         alignSelf: 'center'
-    }
+    },
+    backdrop: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    optionButton: {
+        marginTop: vh(1.2),
+        //marginRight: vw(2),
+        height: vh(7),
+        width: vw(14),
+    },
 });
 
 // const mapDispatchToProps = dispatch => {
