@@ -32,7 +32,7 @@ export class Settings extends React.Component {
     };
 
     return (
-      <View>
+      <>
                 <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={eva.light}>
           <Layout style={styles.header}>
@@ -59,7 +59,7 @@ export class Settings extends React.Component {
             </TouchableOpacity>
           </Layout>
         </ApplicationProvider>
-      </View>
+      </>
     )
   }
 }
