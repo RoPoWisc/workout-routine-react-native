@@ -24,7 +24,7 @@ export class AddWork extends React.Component {
 
     render() {
         return (
-            <View>
+            <>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
                   <Layout style={styles.header}>
@@ -77,7 +77,7 @@ export class AddWork extends React.Component {
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
-            </View>
+            </>
         )
     }
 }
