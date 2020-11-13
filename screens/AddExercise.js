@@ -30,6 +30,10 @@ const ExpandIcon = (props) => (
     <Icon {...props} name='arrow-ios-downward-outline' />
 );
 
+const RemoveIcon = (props) => (
+    <Icon {...props}  name='close-circle-outline' />
+  );
+
 const exerciseStyles = StyleSheet.create({
     exercise: {
         backgroundColor: '#E5E5E5',
@@ -56,7 +60,7 @@ const exerciseStyles = StyleSheet.create({
     }
 });
 
-class Workout extends React.Component {
+class AddExercise extends React.Component {
 
     constructor(props) {
         super(props)
@@ -64,18 +68,43 @@ class Workout extends React.Component {
         this.changeTextHandler = this.changeWeightHandler.bind(this);
         this.changeRepsHandler = this.changeRepsHandler.bind(this);
         this.getDate = this.getDate.bind(this);
+        this.removeSetHandler = this.removeSetHandler.bind(this);
+        this.changeRoutineNameHandler = this.changeRoutineNameHandler.bind(this);
+        this.changeRoutineDayHandler = this.changeRoutineDayHandler.bind(this);
 
-        this.state = {
-            workout: {
-                routineName: this.props.navigation.state.params.workoutData.routineName,
-                routineDay: this.props.navigation.state.params.workoutData.routineDay,
-                exerciseArray: this.props.navigation.state.params.workoutData.exerciseArray
-            }
-        }
+        // this.state = {
+        //     workout: {
+        //         routineName: this.props.navigation.state.params.workoutData.routineName,
+        //         routineDay: this.props.navigation.state.params.workoutData.routineDay,
+        //         exerciseArray: this.props.navigation.state.params.workoutData.exerciseArray
+        //     }
+        // }
     }
 
     componentDidMount = async () => {
-        console.log(this.props.user);
+
+        let url = 'https://workout-routine-builder-api.herokuapp.com/exercises/public/'
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
+
+        try {
+            let response = await fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    Accept: '/',
+                    'Content-Type': 'application/json',
+                    'Authorization': bearer
+                },
+            });
+            let responseJson = await response.json();
+            console.log(responseJson);
+        } catch (e) {
+            alert(e);
+        }
+        
+        
+        
+
+        //this.props.navigation.navigate('DrawerNavigator')
     }
 
     getDate() {
@@ -211,7 +240,7 @@ class Workout extends React.Component {
     changeRepsHandler(exercise_entry, text) {
 
         let newSetsArray;
-        newState = {
+        let newState = {
             ...this.state.workout
         }
 
@@ -236,6 +265,63 @@ class Workout extends React.Component {
         this.setState({workout: newState});
     }
 
+    removeSetHandler(exercise_entry, exercise_id) {
+        // console.log(exercise_id);
+        // console.log(exercise_entry);
+        let newState = {
+            ...this.state.workout
+        }
+
+        let i = 0;
+        for (var exercise of this.state.workout.exerciseArray) {
+            if (exercise.exercise_id == exercise_entry.exercise_id) {
+                let newSetsArray = [...exercise.sets];
+                let j = 0;
+                console.log(exercise.sets);
+                for (var set of exercise.sets) {
+                    if (set.id == exercise_entry.id) {
+                        break;
+                    }
+                    ++j;
+                }
+                newSetsArray.splice(j, 1);
+                newState.exerciseArray[i] = {
+                    ...this.state.workout.exerciseArray[i],
+                    sets: newSetsArray
+                }
+            } else {
+                newState.exerciseArray[i] = {
+                    ...this.state.workout.exerciseArray[i]
+                }
+            }
+            ++i;
+        }
+
+        //console.log(newState);
+
+        this.setState({ workout: newState });
+    }
+
+    changeRoutineNameHandler(name) {
+        let newState = {
+            ...this.state.workout
+        }
+        newState.routineName = name;
+
+        console.log(name);
+
+        this.setState({workout: newState})
+    }
+
+    changeRoutineDayHandler(day) {
+        let newState = {
+            ...this.state.workout
+        }
+        newState.routineDay = day;
+
+        this.setState({workout: newState})
+    }
+
     render() {
 
         const ExerciseEntry = (exercise_entry, exercise_id) => {
@@ -250,11 +336,15 @@ class Workout extends React.Component {
                     borderRadius: 8,
                     paddingTop: 3,
                     paddingBottom: 3,
-                    marginVertical: 3
+                    marginVertical: 3,
+                    paddingRight: 10
                 }}>
                     <TextInput category='s1' style={exerciseStyles.weight} onChangeText={text => setWeight(text)} onSubmitEditing={() => this.changeWeightHandler(exercise_entry, weightText)} >{exercise_entry.weight}</TextInput>
                     <TextInput category='s1' style={exerciseStyles.reps} onChangeText={text => setRep(text)} onSubmitEditing={() => this.changeRepsHandler(exercise_entry, repText)}>{exercise_entry.reps}</TextInput>
-                    <this.Check checked={exercise_entry.checked} id={exercise_entry.id} exercise_id={exercise_entry.exercise_id}></this.Check>
+                    <TouchableOpacity onPress={() => this.removeSetHandler(exercise_entry, exercise_entry.exercise_id)}>
+                        <Icon style={{width: 25, height: 25}} fill='#DB504A' name='close-circle-outline' />
+                    </TouchableOpacity>
+                    
                 </View>
             );
         };
@@ -286,7 +376,7 @@ class Workout extends React.Component {
                         }}>
                             <Text category='s1' style={exerciseStyles.exerciseInfo}>Weight</Text>
                             <Text category='s1' style={exerciseStyles.exerciseInfo}>Reps</Text>
-                            <Text category='s1' style={exerciseStyles.exerciseInfo}>Set Complete?</Text>
+                            <Text category='s1' style={exerciseStyles.exerciseInfo}>Remove Set</Text>
                         </View>
 
                         <List
@@ -308,43 +398,7 @@ class Workout extends React.Component {
                 <IconRegistry icons={EvaIconsPack} />
                 <ApplicationProvider {...eva} theme={eva.light}>
                     <Layout style={styles.container}>
-                        <View style={styles.header}>
-                            <View style={styles.topBar}>
-                                <Text style={styles.text} category='h1'>
-                                    {this.state.workout.routineName}
-                                </Text>
-                            </View>
-                            <Text style={styles.name} category='h5'>
-                                {this.state.workout.routineDay}
-                            </Text>
-                        </View>
-                    <List
-                        style={{
-                            backgroundColor: '#FFFFFF',
-                            width: '100%',
-                            marginLeft: 15,
-                            alignSelf: 'center',
-                            borderRadius: 5
-                        }}
-                        data={this.state.workout.exerciseArray}
-                        renderItem={({ item }) => (
-                            
-                            <Exercise 
-                                name={item.name}
-                                totalVolume={item.totalVolume}
-                                show={item.show}
-                                sets={item.sets}
-                                exercise_id={item.exercise_id}>
-
-                            </Exercise>
-                        )}
-                    />
-                    <Button style={styles.button2} appearance='outline'>
-                        Add Exercise
-                    </Button>
-                    <Button style={styles.button} onPress={() => this.endWorkoutHandler()}>
-                        End Workout
-                    </Button>
+                        
                     </Layout>
                 </ApplicationProvider>
             </>
@@ -384,7 +438,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     name: {
-        color: 'gray'
+        color: 'gray',
+        fontSize: 28,
+        fontWeight: 'bold'
     },
     settingsButton: {
         //alignSelf: 'flex-end',
@@ -392,6 +448,8 @@ const styles = StyleSheet.create({
     },
     text: {
         //textAlign: 'center',
+        fontSize: 30,
+        fontWeight: 'bold'
     },
     likeButton: {
         marginVertical: 16,
@@ -415,4 +473,4 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps
-)(Workout)
+)(AddExercise)
