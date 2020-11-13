@@ -25,7 +25,7 @@ export class EditWork extends React.Component {
     render() {
       //ADD LIST VIEW LOOK AT FIGMA
         return (
-            <View>
+            <>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
                   <Layout style={styles.header}>
@@ -55,7 +55,7 @@ export class EditWork extends React.Component {
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
-            </View>
+            </>
         )
     }
 }
