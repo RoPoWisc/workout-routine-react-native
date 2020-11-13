@@ -9,7 +9,7 @@ describe('Edit workout', () => {
     test('Page', () => {
         const tree = renderer.create(<EditWork />).toJSON();
         //console.warn(tree);
-        expect(tree.children.length).toBe(1);
+        expect(tree.children.length).toBe(2);
     });
     
     test('renders', () => {
