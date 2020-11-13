@@ -11,6 +11,13 @@ describe('Initial', () => {
         const render = renderer.create(<Initial />).toJSON();
         expect(render).toMatchSnapshot();
     })
+    it('check function', () => {
+        let loghand = renderer.create(<Initial />).getInstance();
+        expect(loghand.componentDidMount()).toBeDefined();
+
+
+        
+    })
     
 });
 
