@@ -12,6 +12,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer'
 import SideBar from '../components/SideBar'
 import Progress from '../screens/Progress'
 import AddWorkout from '../screens/AddWorkout'
+import ViewPersonalExercise from '../screens/ViewPersonalExercise'
 
 import {
 	EditWorkout,
@@ -32,6 +33,12 @@ const DrawerRouteConfig = {
 			title: "Your Progress",
 		}
 	},
+	ViewPersonalExercise: {
+		screen: ViewPersonalExercise,
+		navigationOptions: {
+			title: 'View Exercises'
+		}
+	}, 
 	AddWorkout: {
 		screen: AddWorkout,
 		navigationOptions: {
@@ -50,6 +57,7 @@ const DrawerRouteConfig = {
 			title: 'Settings',
 		},
 	},
+	
 	// Logout: {
 	// 	screen: Login,
 	// 	navigationOptions: {
@@ -106,6 +114,9 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		PasswordReset: {
 			screen: PasswordReset
+		},
+		ViewPersonalExercise: {
+			screen: ViewPersonalExercise
 		}
 	},
 	{
