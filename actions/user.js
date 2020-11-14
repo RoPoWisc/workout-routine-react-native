@@ -9,6 +9,7 @@ export const UPDATE_NAME = 'UPDATE_NAME'
 export const FETCH_USER_OBJ = 'FETCH_USER_OBJ';
 export const BEARER_TOKEN = 'BEARER_TOKEN';
 export const USER_ID = 'USER_ID';
+export const CUSTOM_TOKEN = 'CUSTOM_TOKEN';
 
 // actions
 const date = moment().format('YYYY-MM-DD hh:mm:ss')
@@ -52,6 +53,13 @@ export const fetchBearerToken = bearerToken => {
 	}
 }
   
+export const CustomToken = custToken => {
+	return {
+		type: CUSTOM_TOKEN,
+		payload: custToken
+	}
+}
+
 export const fetchUserId = userId => ({
 	type: USER_ID,
 	payload: userId
