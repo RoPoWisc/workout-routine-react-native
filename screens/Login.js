@@ -11,7 +11,7 @@ export class Login extends React.Component {
 
 	componentDidMount = async () => {
 		try {
-			if(this.props.user.userServer !== undefined){
+			if(this.props.user.userId !== undefined){
 				this.loginHandler;
 			}
 		} catch (e) {
