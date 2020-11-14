@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TextInput, ImageBackground, StyleSheet, TouchableOpacity, Text, Button, Image } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateEmail, updatePassword, updateName, fetchUserObj} from '../actions/user'
+import { updateEmail, updatePassword, updateName, fetchUserObj, fetchUserId, fetchBearerToken} from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 export class Signup extends React.Component {
 	handleSignUp = async () => {
@@ -28,6 +28,7 @@ export class Signup extends React.Component {
 				password:this.props.user.password,
 			})});
 			let responseJson = await response.json();
+			// console.log(responseJson);
 			////console.log(JSON.stringify(responseJson))
 			//This saves to this.props.user.userServer
 			//you can refer to data by using this.props.user.userServer
@@ -35,16 +36,17 @@ export class Signup extends React.Component {
 				//this.props.user.userServer.firstName
 				//this.props.user.userServer.lastName
 				//this.props.user.userServer.timestamp
-			if(responseJson.userObj !== undefined){
-				this.props.fetchUserObj(responseJson.userObj);
+			if(responseJson.userid !== undefined){
+				this.props.fetchUserId(responseJson.userid);
+				this.props.fetchBearerToken(responseJson.accessToken);
 			}else{
+				//console.log('response json userid undefined');
 				alert(responseJson.message);
 			}
-			////console.log(this.props.user.userServer);
-			if(this.props.user.userServer !== undefined){
-				this.props.navigation.navigate('DrawerNavigator')
-			}
+
+			this.props.navigation.navigate('DrawerNavigator');
 		}catch(e){
+			console.log('error caught from post request');
 			alert(e);
 		}
 
@@ -207,7 +209,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj }, dispatch)
+	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj, fetchUserId, fetchBearerToken }, dispatch)
 }
 
 const mapStateToProps = state => {
