@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react';
 // define types
 
 export const UPDATE_EMAIL = 'UPDATE_EMAIL'
@@ -7,6 +8,7 @@ export const UPDATE_CONFIRM_PASSWORD = 'UPDATE_CONFIRM_PASSWORD'
 export const UPDATE_NAME = 'UPDATE_NAME'
 export const FETCH_USER_OBJ = 'FETCH_USER_OBJ';
 export const BEARER_TOKEN = 'BEARER_TOKEN';
+export const USER_ID = 'USER_ID';
 
 // actions
 const date = moment().format('YYYY-MM-DD hh:mm:ss')
@@ -50,3 +52,7 @@ export const fetchBearerToken = bearerToken => {
 	}
 }
   
+export const fetchUserId = userId => ({
+	type: USER_ID,
+	payload: userId
+})
