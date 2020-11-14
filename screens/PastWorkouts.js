@@ -33,8 +33,6 @@ export class PastWorkouts extends React.Component {
       let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] 
       let bearer = 'Bearer ' + this.props.user.bearerToken;
 
-
-
       let response = await fetch(url , {
       method: 'GET',
        headers: {
@@ -44,29 +42,19 @@ export class PastWorkouts extends React.Component {
         }
       });
         let responseJson = await response.json();
+        workoutObj = responseJson.personalWorkout
         infoVar = []
-        responseJson.forEach(obj => {
+        workoutObj.forEach(obj => {
           infoVar.push({name: obj.routineName, key: obj.routineDay})
         }) 
         this.setState = {
           info: infoVar
         }
-        console.log(this.state.info)
-        // this.props.navigation.navigate('Workout', { workoutData: responseJson} )
-      //console.log(this.props.user);
     }
 
-
-    onPressWorkoutButton = async (routineNameVar) => {
-      // item has name and key
-      console.log("onPressWorkoutButton hit")
-      let bearer = 'Bearer ' + this.props.user.bearerToken;
-
-    }
-
-    WorkoutList = () => {
+    WorkoutList = (props) => {
       return(<FlatList
-        data={this.state.info}
+        data={props.info}
         //horizontal
         renderItem={({ item }) => (
           <>
@@ -107,7 +95,7 @@ export class PastWorkouts extends React.Component {
                   <Layout style={styles.container}>
                     <Layout style={styles.p_workouts}>
                     <this.WorkoutList
-                        data={this.state.info}
+                        info={this.state.info}
 					            ></this.WorkoutList>
                     </Layout>
                   </Layout>
