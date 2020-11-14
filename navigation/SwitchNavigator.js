@@ -53,12 +53,12 @@ const DrawerRouteConfig = {
 			title: 'Add Workouts',
 		}
 	},
-	EditWorkout: {
-		screen: EditWorkout,
-		navigationOptions: {
-			title: 'Edit Workouts',
-		}
-	},
+	// EditWorkout: {
+	// 	screen: EditWorkout,
+	// 	navigationOptions: {
+	// 		title: 'Edit Workouts',
+	// 	}
+	// },
 	Settings: {
 		screen: Settings,
 		navigationOptions: {
