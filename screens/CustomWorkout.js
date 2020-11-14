@@ -151,33 +151,6 @@ class CustomWorkout extends React.Component {
         return time;
     }
 
-    // endWorkoutHandler = async () => {
-    //     let bodyJSON = JSON.stringify({
-    //         'routineName': this.state.workout.routineName,
-    //                 'routineDay': this.state.workout.routineDay,
-    //                 'exerciseArray': this.state.workout.exerciseArray
-    //     });
-
-    //     let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] + '/add/exercise'
-    //     let bearer = 'Bearer ' + this.props.user.refreshToken;
-
-    //     try {
-    //         let response = await fetch(url, {
-    //             method: 'PATCH',
-    //             headers: {
-    //                 Accept: '/',
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': bearer
-    //             },
-    //             body: bodyJSON
-    //         });
-    //     } catch (e) {
-    //         alert(e);
-    //     }
-
-    //     this.props.navigation.navigate('DrawerNavigator');
-	// }
-
     addSetHandler(exercise_object) {
         exercise_object.sets.push({weight: 0, reps: 0, checked: 'false', id: this.getDate()});
 
@@ -270,44 +243,6 @@ class CustomWorkout extends React.Component {
 
         return true;
     }
-
-    // Check = (props) => {
-    //     const [checked, setChecked] = React.useState(props.checked);
-
-    //     // TODO: Change loops to use hashmap to improve checkbox performance
-
-    //     const isCheckedHandler = () => {
-    //         let workoutCopy = this.state.workout;
-    //         let i = 0;
-    //         let j = 0;
-    //         for (let exercise of this.state.workout.exerciseArray) {
-    //             if (props.exercise_id == exercise.exercise_id) {
-    //                 for (let entry of exercise.sets) {
-    //                     if (entry.id == props.id) {
-    //                         workoutCopy.exerciseArray[i].sets[j] = { ...workoutCopy.exerciseArray[i].sets[j], checked: !workoutCopy.exerciseArray[i].sets[j].checked }
-    //                         setChecked(workoutCopy.exerciseArray[i].sets[j].checked);
-    //                         break;
-    //                     }
-    //                     ++j;
-    //                 }
-    //                 break;
-    //             }
-    //             ++i;
-    //         }
-    //         this.setState({ workout: workoutCopy }, () => //console.log('updated state\n', workoutCopy));
-    //     };
-
-    //     return (
-    //         <CheckBox
-    //             checked={checked}
-    //             onChange={nextChecked => isCheckedHandler()}
-    //             style={{
-    //                 width: 75,
-    //             }}
-    //             status='success'>
-    //         </CheckBox>
-    //     );
-    // }
 
     changeWeightHandler(exercise_entry, text) {
 

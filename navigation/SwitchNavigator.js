@@ -48,7 +48,7 @@ const DrawerRouteConfig = {
 		},
 	},
 	AddWorkout: {
-		screen: AddWorkout,
+		screen: CustomWorkout,
 		navigationOptions: {
 			title: 'Add Workouts',
 		}
