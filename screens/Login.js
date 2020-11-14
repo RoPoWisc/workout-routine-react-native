@@ -49,9 +49,9 @@ export class Login extends React.Component {
 			//console.log(JSON.stringify(responseJson))
 			// if(typeof responseJson.userObj != "undefined") {
 				// this.props.fetchUserObj(responseJson.userObj);
-				this.props.fetchBearerToken(responseJson.refreshToken);
+				this.props.fetchBearerToken(responseJson.bearerToken.bearerToken);
 				this.props.fetchUserId(responseJson.userid);
-				console.log('\n', this.props.user, '\n');
+				console.log('\n', this.props.fetchBearerToken, '\n');
 			// }else{
 			// 	console.log('undefined userObj');
 			// 	alert(responseJson.message);
