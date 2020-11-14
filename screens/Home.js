@@ -62,8 +62,8 @@ export class Home extends React.Component {
         method: 'POST',
        headers: {
           Accept: '/',
-          'Content-Type': 'application/json'
-          // 'Authorization': bearer
+          'Content-Type': 'application/json',
+          'Authorization': bearer
         },
         body: JSON.stringify({
           routineName: routineNameVar
