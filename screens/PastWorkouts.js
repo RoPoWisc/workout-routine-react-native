@@ -19,7 +19,6 @@ import { vw, vh} from 'react-native-expo-viewport-units'
 let infoVar = []
 
 export class PastWorkouts extends React.Component {
-
     constructor(props) {
       super(props)
       this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this)

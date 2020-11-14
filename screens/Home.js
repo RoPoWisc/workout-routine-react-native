@@ -42,7 +42,7 @@ const images = [
 export class Home extends React.Component {
     componentDidMount = async () => {
       try {
-        //console.log(this.props.user);
+        ////console.log(this.props.user);
       } catch (e) {
         alert(e);
       }
@@ -54,7 +54,7 @@ export class Home extends React.Component {
     onPressWorkoutButton = async (routineNameVar) => {
       // item has name and key
 
-      let bearer = 'Bearer ' + this.props.user.bearerToken;
+      let bearer = 'Bearer ' + this.props.user.refreshToken;
 
       let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
         method: 'POST',
@@ -71,7 +71,7 @@ export class Home extends React.Component {
         let responseJson = await response.json();
         responseJson.routineName = routineNameVar
         responseJson.routineDay = "Pre-built Workout"
-        //console.log(responseJson)
+        ////console.log(responseJson)
         this.props.navigation.navigate('Workout', { workoutData: responseJson} )
     }
     render() {
@@ -102,6 +102,9 @@ export class Home extends React.Component {
                   </Layout>
                   <Layout style={styles.container}>
                     <Layout style={styles.carousel}>
+                    <Text style={styles.textPub} appearance='hint'>
+                        Public
+                      </Text>
                       <FlatList
                         data={images}
                         horizontal
@@ -121,6 +124,9 @@ export class Home extends React.Component {
 					            />
                     </Layout>
                     <Layout style={styles.carousel}>
+                    <Text style={styles.textPrv} appearance='hint'>
+                        Custom
+                      </Text>
                       <FlatList
                         data={images}
                         horizontal
@@ -198,8 +204,8 @@ const styles = StyleSheet.create({
     marginTop: vh(-3.3),
   },
   c_image: {
-    height: vh(35),
-    width: vw(53),
+    height: vh(25),
+    width: vw(43),
     marginBottom: vh(1.5),
     borderWidth: 5,
     borderRadius: 40,
@@ -239,6 +245,20 @@ const styles = StyleSheet.create({
   },
   likeButton: {
     marginVertical: 16,
+  },
+  textPub: {
+    borderColor: 'black',
+    marginLeft: vw(2),
+    marginBottom: vw(1),
+    textAlign: 'left',
+    fontSize: vh(2.5),
+  },
+  textPrv: {
+    borderColor: 'black',
+    marginLeft: vw(2),
+    marginBottom: vw(1),
+    textAlign: 'left',
+    fontSize: vh(2.5),
   },
 });
 const mapDispatchToProps = dispatch => {
