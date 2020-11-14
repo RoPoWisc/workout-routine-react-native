@@ -55,12 +55,13 @@ export class ViewPersonalExercise extends React.Component {
     componentDidMount = async () => {
         // item has name and key
         console.log('mounting component...');
+        console.log(this.props.user);
 
         if (typeof this.props.user.bearerToken === 'undefined') {
             console.log('bearer token undefined');
         }
 
-        //console.log(this.props.user.refreshToken);
+        //console.log(this.props.user.bearerToken);
 
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
@@ -94,7 +95,7 @@ export class ViewPersonalExercise extends React.Component {
 
     deleteExerciseRequest = async (exercise_id) => {
         //console.log(exercise_id);
-        let bearer = 'Bearer ' + this.props.user.refreshToken;
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
             let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/remove/' , {
             method: 'POST',
@@ -155,7 +156,7 @@ export class ViewPersonalExercise extends React.Component {
         console.log(type);
         console.log('saving new exercise...');
 
-        let bearer = 'Bearer ' + this.props.user.refreshToken;
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
             let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/create/' , {
             method: 'POST',

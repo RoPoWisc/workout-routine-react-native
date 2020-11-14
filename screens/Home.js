@@ -54,7 +54,9 @@ export class Home extends React.Component {
     onPressWorkoutButton = async (routineNameVar) => {
       // item has name and key
 
-      let bearer = 'Bearer ' + this.props.user.refreshToken;
+      let bearer = 'Bearer ' + this.props.user.bearerToken;
+
+      console.log(this.props.user.bearerToken);
 
       let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
         method: 'POST',

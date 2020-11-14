@@ -94,7 +94,7 @@ export class Workout extends React.Component {
         });
 
         let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userId + '/add/workout'
-        let bearer = 'Bearer ' + this.props.user.refreshToken;
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
 
         try {
             let response = await fetch(url, {
