@@ -205,11 +205,19 @@ class CustomWorkout extends React.Component {
             });
             let responseJson = await response.json();
             ////console.log(responseJson.message, responseJson.success);
+            if(responseJson.success !== undefined)
+            {
+                alert('Workout Saved')
+            }
+            else
+            {
+                alert('Workout not Saved')
+            }
         } catch (e) {
             alert(e);
         }
 
-        this.props.navigation.navigate('DrawerNavigator');
+        //this.props.navigation.navigate('DrawerNavigator');
     }
 
     viewExerciseHandler() {
