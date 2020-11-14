@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { updateEmail, fetchUserObj} from '../actions/user'
 
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
-class ForgotPassword extends React.Component {
+export class ForgotPassword extends React.Component {
     handleReset = async () => {
 		try{
 			if(this.props.user.email === undefined){
@@ -31,7 +31,7 @@ class ForgotPassword extends React.Component {
 				//this.props.user.userServer.firstName
 				//this.props.user.userServer.lastName
 				//this.props.user.userServer.timestamp
-			console.log(responseJson)
+			//console.log(responseJson)
 			if(responseJson.link !== undefined){
 				this.props.navigation.navigate('PasswordReset', {link: this.props.fetchUserObj(responseJson.link)})
 			}else{
@@ -56,7 +56,6 @@ class ForgotPassword extends React.Component {
 				<Text style={styles.subtext}>Get Back</Text>
 				<TextInput
 					style={styles.inpBx}
-					value={this.props.user.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, ImageBackground, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native'
+import React, {  } from 'react';
+import { View,  StyleSheet, TextInput } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -15,8 +15,8 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { set } from 'react-native-reanimated';
-import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+
+import { vw, vh} from 'react-native-expo-viewport-units'
 
 const MenuIcon = (props) => (
     <Icon {...props} name='menu-outline' />
@@ -56,7 +56,7 @@ const exerciseStyles = StyleSheet.create({
     }
 });
 
-class Workout extends React.Component {
+export class Workout extends React.Component {
 
     constructor(props) {
         super(props)
@@ -65,7 +65,7 @@ class Workout extends React.Component {
         this.changeRepsHandler = this.changeRepsHandler.bind(this);
         this.getDate = this.getDate.bind(this);
 
-        console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
+        //console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
 
         this.state = {
             workout: {
@@ -77,7 +77,7 @@ class Workout extends React.Component {
     }
 
     componentDidMount = async () => {
-        console.log(this.props.user);
+        //console.log(this.props.user);
     }
 
     getDate() {
@@ -93,7 +93,7 @@ class Workout extends React.Component {
                     'exerciseArray': this.state.workout.exerciseArray
         });
 
-        let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] + '/add/exercise'
+        let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] + '/add/workout'
         let bearer = 'Bearer ' + this.props.user.bearerToken;
 
         try {
@@ -110,7 +110,7 @@ class Workout extends React.Component {
             alert(e);
         }
 
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('DrawerNavigator')
 	}
 
     addSetHandler(exercise_object) {
@@ -124,8 +124,8 @@ class Workout extends React.Component {
                 exerciseArray: newArray,
             }
         }
-        console.log(state);
-        this.setState({ workout: state.workout }, console.log(this.state.workout.exerciseArray));
+        this.setState({ workout: state.workout }, //console.log(this.state.workout.exerciseArray)
+        );
     }
 
     compareExerciseObjects(obj1, obj2) {
@@ -166,7 +166,8 @@ class Workout extends React.Component {
                 }
                 ++i;
             }
-            this.setState({ workout: workoutCopy }, () => console.log('updated state\n', workoutCopy));
+            this.setState({ workout: workoutCopy }, () => {}//console.log('updated state\n', workoutCopy)
+            );
         };
 
         return (
@@ -314,15 +315,6 @@ class Workout extends React.Component {
                                 <Text style={styles.text} category='h1'>
                                     {this.state.workout.routineName}
                                 </Text>
-                                <TouchableOpacity
-                                    style={styles.optionButton}
-                                    onPress={() => this.props.navigation.openDrawer()}
-                                >
-                                    <Image
-                                        style={styles.optionButton}
-                                        source={require('../assets/options.png')}
-                                    />
-                                </TouchableOpacity>
                             </View>
                             <Text style={styles.name} category='h5'>
                                 {this.state.workout.routineDay}

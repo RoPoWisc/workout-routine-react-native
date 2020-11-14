@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Image, FlatList, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, StyleSheet, Image, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchUserObj} from '../actions/user'
 import {
   ApplicationProvider,
-  Button,
   Icon,
   IconRegistry,
   Layout,
@@ -13,8 +12,8 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { initialWindowMetrics } from 'react-native-safe-area-context';
-import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+
+import { vw, vh} from 'react-native-expo-viewport-units'
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
  * https://akveo.github.io/eva-icons
@@ -40,10 +39,10 @@ const images = [
   {name: require('../assets/curls.jpg'), key: 'Workout 3'}
 ];
 
-class Home extends React.Component {
+export class Home extends React.Component {
     componentDidMount = async () => {
       try {
-        console.log(this.props.user);
+        //console.log(this.props.user);
       } catch (e) {
         alert(e);
       }
@@ -57,7 +56,7 @@ class Home extends React.Component {
 
       let bearer = 'Bearer ' + this.props.user.bearerToken;
 
-      let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/prebuilt' , {
+      let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
         method: 'POST',
        headers: {
           Accept: '/',
@@ -72,7 +71,7 @@ class Home extends React.Component {
         let responseJson = await response.json();
         responseJson.routineName = routineNameVar
         responseJson.routineDay = "Pre-built Workout"
-        console.log(responseJson)
+        //console.log(responseJson)
         this.props.navigation.navigate('Workout', { workoutData: responseJson} )
     }
     render() {
@@ -121,14 +120,21 @@ class Home extends React.Component {
 						            )}
 					            />
                     </Layout>
-                    <Layout style={styles.p_workouts}>
-                      <Text style={styles.p_text}>Past Workouts</Text>
+                    <Layout style={styles.carousel}>
                       <FlatList
-                        data={info}
-                        //horizontal
+                        data={images}
+                        horizontal
 						            renderItem={({ item }) => (
 							            <>
-								            <Text style={styles.item}>{item.name}: {item.key}</Text>
+                            <TouchableOpacity style={styles.c_image} onPress={() => this.onPressWorkoutButton(item.key)}>
+                              <Layout style={styles.c_image}>
+                                <ImageBackground
+                                  style={styles.imagebkgnd}
+                                  source={item.name}>
+                                  <Text style={styles.p_text}>{item.key}</Text>
+                                </ImageBackground>
+                              </Layout>
+                            </TouchableOpacity>
 							            </>
 						            )}
 					            />

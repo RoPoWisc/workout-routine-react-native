@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Image, View } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/user'
@@ -13,16 +13,17 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { vw, vh } from 'react-native-expo-viewport-units'
+import { vw, vh} from 'react-native-expo-viewport-units'
 
 
 const AddIcon = (props) => (
   <Icon {...props} name='plus-outline'/>
 );
 
-export class AddWork extends React.Component {
+export class EditWork extends React.Component {
 
     render() {
+      //ADD LIST VIEW LOOK AT FIGMA
         return (
             <>
                 <IconRegistry icons={EvaIconsPack}/>
@@ -30,7 +31,7 @@ export class AddWork extends React.Component {
                   <Layout style={styles.header}>
                     <Layout style={styles.headerLeft}>
                       <Text style={styles.textMain} category='s1'>
-                        Add
+                        Edit
                       </Text>
                       <Text style={styles.textSub} appearance='hint'>
                         Workout
@@ -50,32 +51,7 @@ export class AddWork extends React.Component {
                   </Layout>
                   <Layout style={styles.container}>
                     <Layout style={styles.workout}>
-                      <Layout style={styles.headerLeft}>
-                        <Text style={styles.textMain} category='s1'>
-                          Prebuilt
-                        </Text>
-                        <Text style={styles.textSub} appearance='hint'>
-                          Workout
-                        </Text>
-                      </Layout>
-                      <Layout style={styles.headerRight}>
-                        <Button style={styles.button} size='giant' accessoryLeft={AddIcon}/>
-                    </Layout>
-                    </Layout>
-                    <Layout style={styles.workout}>
-                      <Layout style={styles.headerLeft}>
-                        <Text style={styles.textMain} category='s1'>
-                          Custom
-                        </Text>
-                        <Text style={styles.textSub} appearance='hint'>
-                          Workout
-                        </Text>
-                      </Layout>
-                      <Layout style={styles.headerRight}>
-                        <Button style={styles.button} status='danger' size='giant' accessoryLeft={AddIcon}
-                          onPress={() => this.props.navigation.navigate('CustomWorkout')}
-                        />
-                    </Layout>
+                      
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
@@ -159,4 +135,4 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps
-)(AddWork)
+)(EditWork)

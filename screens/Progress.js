@@ -45,7 +45,7 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
    { date: new Date}
  ]
 
-class Home extends React.Component {
+export class Progress extends React.Component {
 
     render() {
         const verticalContentInset = { top: 10, bottom: 10 }
@@ -191,4 +191,4 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps
-)(Home)
+)(Progress)

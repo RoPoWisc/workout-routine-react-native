@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, updateName, fetchUserObj} from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
-class Signup extends React.Component {
+export class Signup extends React.Component {
 	handleSignUp = async () => {
 		try{
 			if(this.props.user.name === undefined){
@@ -28,7 +28,7 @@ class Signup extends React.Component {
 				password:this.props.user.password,
 			})});
 			let responseJson = await response.json();
-			console.log(JSON.stringify(responseJson))
+			//console.log(JSON.stringify(responseJson))
 			//This saves to this.props.user.userServer
 			//you can refer to data by using this.props.user.userServer
 				//this.props.user.userServer.email
@@ -65,7 +65,6 @@ class Signup extends React.Component {
 				<Text style={styles.subtext}>Start</Text>
 				<TextInput
 					style={styles.inpBx}
-					value={this.props.user.name}
 					onChangeText={name => this.props.updateName(name)}
 					placeholder='Name'
 					placeholderTextColor="#8BB8CE"
@@ -73,7 +72,6 @@ class Signup extends React.Component {
 				/>
 				<TextInput
 					style={styles.inpBxTw}
-					value={this.props.user.email}
 					onChangeText={email => this.props.updateEmail(email)}
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
@@ -81,7 +79,6 @@ class Signup extends React.Component {
 				/>
 				<TextInput
 					style={styles.inpBxThr}
-					value={this.props.user.password}
 					onChangeText={password => this.props.updatePassword(password)}
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"

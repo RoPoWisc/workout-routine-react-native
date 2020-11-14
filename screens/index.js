@@ -1,6 +1,4 @@
 import React from 'react'
-import Home from './Home'
-
 
 export const YourProgress = ({navigation}) => <YourProgress navigation={navigation} name="Your Progress" />
 export const AddWorkout = ({navigation}) => <AddWorkout navigation={navigation} name="Add Workout" />

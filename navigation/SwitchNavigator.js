@@ -5,7 +5,7 @@ import Signup from '../screens/Register'
 import Home from '../screens/Home'
 import ForgotPassword from '../screens/ForgotPassword'
 import PasswordReset from '../screens/PasswordReset'
-import initialScreen from '../screens/initial'
+import Initial from '../screens/initial'
 import Workout from '../screens/Workout'
 import Settings from '../screens/Settings'
 import { createDrawerNavigator } from 'react-navigation-drawer'
@@ -13,6 +13,8 @@ import SideBar from '../components/SideBar'
 import Progress from '../screens/Progress'
 import AddWorkout from '../screens/AddWorkout'
 import CustomWorkout from '../screens/CustomWorkout'
+import ViewPersonalExercise from '../screens/ViewPersonalExercise'
+import PastWorkouts from '../screens/PastWorkouts'
 
 import {
 	EditWorkout,
@@ -33,11 +35,17 @@ const DrawerRouteConfig = {
 			title: "Your Progress",
 		}
 	},
-	Workout: {
-		screen: Workout,
+	ViewPersonalExercise: {
+		screen: ViewPersonalExercise,
 		navigationOptions: {
-			title: 'Workout'
+			title: 'View Exercises'
 		}
+	},
+	PastWorkouts: {
+		screen: PastWorkouts,
+		navigationOptions: {
+			title: 'Past Workouts',
+		},
 	},
 	AddWorkout: {
 		screen: AddWorkout,
@@ -57,6 +65,7 @@ const DrawerRouteConfig = {
 			title: 'Settings',
 		},
 	},
+	
 	// Logout: {
 	// 	screen: Login,
 	// 	navigationOptions: {
@@ -74,7 +83,7 @@ const DrawerNavigator = createDrawerNavigator(DrawerRouteConfig,
 		  },
 		  labelStyle: {
 			  color: 'white',
-			  fontSize: 20,
+			  fontSize: 30,
 		  }
 	  }
   },
@@ -96,7 +105,7 @@ const SwitchNavigator = createSwitchNavigator(
 			screen: Home
 		},
 		Initial: {
-			screen: initialScreen
+			screen: Initial
 		},
 		Workout: {
 			screen: Workout
@@ -117,6 +126,12 @@ const SwitchNavigator = createSwitchNavigator(
 		CustomWorkout: {
 			screen: CustomWorkout
 		},
+		ViewPersonalExercise: {
+			screen: ViewPersonalExercise
+		},
+		PastWorkouts: {
+			screen: PastWorkouts
+		}
 	},
 	{
 		initialRouteName: 'Initial'
