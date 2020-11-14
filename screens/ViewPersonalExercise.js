@@ -84,7 +84,7 @@ export class ViewPersonalExercise extends React.Component {
 
     componentDidMount = async () => {
         // item has name and key
-        console.log(this.props);
+        ////console.log(this.props);
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
             let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/private/' , {
@@ -100,11 +100,11 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
-            console.log(responseJson)
+            ////console.log(responseJson)
             this.setState({exercises: responseJson.success})
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
 
@@ -113,7 +113,7 @@ export class ViewPersonalExercise extends React.Component {
     }
 
     deleteExerciseRequest = async (exercise_id) => {
-        console.log(exercise_id);
+        //console.log(exercise_id);
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
             let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/remove/' , {
@@ -129,74 +129,10 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
-            console.log(responseJson)
+            //console.log(responseJson)
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
-            console.log(error);
-        }
-
-        try {
-            let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/private/' , {
-            method: 'POST',
-            headers: {
-                Accept: '/',
-                'Content-Type': 'application/json',
-                'Authorization': bearer
-            },
-            body: JSON.stringify({
-                _owner: this.props.user.userServer['_id']
-            })
-            });
-        
-            let responseJson = await response.json();
-            console.log(responseJson)
-            this.setState({exercises: responseJson.success})
-            //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    showAddExerciseHandler() {
-        let newShowExercise = !this.state.addExercise;
-
-        this.setState({addExercise: newShowExercise})
-    }
-
-    addExerciseHandler(name, type) {
-        this.showAddExerciseHandler();
-
-        this.addExerciseRequest(name, type);
-    }
-
-    addExerciseRequest = async (name, type) => {
-
-        console.log(name);
-        console.log(type);
-
-        let bearer = 'Bearer ' + this.props.user.bearerToken;
-        try {
-            let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/create/' , {
-            method: 'POST',
-            headers: {
-                Accept: '/',
-                'Content-Type': 'application/json',
-                'Authorization': bearer
-            },
-            body: JSON.stringify({
-                _owner: this.props.user.userServer['_id'],
-                public: false,
-                name: name,
-                totalVolume: type,
-                sets: []
-            })
-            });
-        
-            let responseJson = await response.json();
-            console.log(responseJson)
-            //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
-        } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
 
         try {
@@ -217,7 +153,71 @@ export class ViewPersonalExercise extends React.Component {
             this.setState({exercises: responseJson.success})
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
-            console.log(error);
+            //console.log(error);
+        }
+    }
+
+    showAddExerciseHandler() {
+        let newShowExercise = !this.state.addExercise;
+
+        this.setState({addExercise: newShowExercise})
+    }
+
+    addExerciseHandler(name, type) {
+        this.showAddExerciseHandler();
+
+        this.addExerciseRequest(name, type);
+    }
+
+    addExerciseRequest = async (name, type) => {
+
+        //console.log(name);
+        //console.log(type);
+
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
+        try {
+            let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/create/' , {
+            method: 'POST',
+            headers: {
+                Accept: '/',
+                'Content-Type': 'application/json',
+                'Authorization': bearer
+            },
+            body: JSON.stringify({
+                _owner: this.props.user.userServer['_id'],
+                public: false,
+                name: name,
+                totalVolume: type,
+                sets: []
+            })
+            });
+        
+            let responseJson = await response.json();
+            //console.log(responseJson)
+            //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
+        } catch (error) {
+            //console.log(error);
+        }
+
+        try {
+            let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/private/' , {
+            method: 'POST',
+            headers: {
+                Accept: '/',
+                'Content-Type': 'application/json',
+                'Authorization': bearer
+            },
+            body: JSON.stringify({
+                _owner: this.props.user.userServer['_id']
+            })
+            });
+        
+            let responseJson = await response.json();
+            ////console.log(responseJson)
+            this.setState({exercises: responseJson.success})
+            //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
+        } catch (error) {
+            //console.log(error);
         }
     }
 

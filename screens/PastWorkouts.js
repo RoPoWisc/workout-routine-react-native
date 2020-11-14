@@ -42,7 +42,7 @@ const images = [
 export class PastWorkouts extends React.Component {
     componentDidMount = async () => {
       try {
-        //console.log(this.props.user);
+        ////console.log(this.props.user);
       } catch (e) {
         alert(e);
       }
@@ -71,7 +71,7 @@ export class PastWorkouts extends React.Component {
         let responseJson = await response.json();
         responseJson.routineName = routineNameVar
         responseJson.routineDay = "Pre-built Workout"
-        //console.log(responseJson)
+        ////console.log(responseJson)
         this.props.navigation.navigate('Workout', { workoutData: responseJson} )
     }
     render() {

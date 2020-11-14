@@ -32,7 +32,7 @@ export class PasswordReset extends React.Component {
                     })
                 });
                 let responseJson = await response.json();
-                //console.log(responseJson)
+                ////console.log(responseJson)
                 if (responseJson.success !== undefined)
                 {
                     alert(responseJson.success)

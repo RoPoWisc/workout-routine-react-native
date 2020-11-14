@@ -91,7 +91,7 @@ class CustomWorkout extends React.Component {
         this.saveWorkoutHandler = this.saveWorkoutHandler.bind(this);
         this.getDate = this.getDate.bind(this);
 
-        // console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
+        // //console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
 
         this.state = {
             showExercises: false,
@@ -122,8 +122,8 @@ class CustomWorkout extends React.Component {
             })
         });
         let responseJson = await response.json();
-        console.log("Public");
-        console.log(responseJson.success);
+        ////console.log("Public");
+        ////console.log(responseJson.success);
         if(responseJson.success !== undefined) {
             let temp = [];
             let exerciseList = responseJson.success;
@@ -142,7 +142,7 @@ class CustomWorkout extends React.Component {
                 exercises: temp
             })
         }
-        console.log(this.state.exercises)
+        ////console.log(this.state.exercises)
     }
 
     getDate() {
@@ -188,7 +188,8 @@ class CustomWorkout extends React.Component {
                 exerciseArray: newArray,
             }
         }
-        this.setState({ workout: state.workout }, console.log(this.state.workout.exerciseArray));
+        this.setState({ workout: state.workout }, //console.log(this.state.workout.exerciseArray)
+        );
     }
     addExerciseHandler(exercise) {
 
@@ -230,7 +231,7 @@ class CustomWorkout extends React.Component {
                 body: bodyJSON
             });
             let responseJson = await response.json();
-            console.log(responseJson.message, responseJson.success);
+            ////console.log(responseJson.message, responseJson.success);
         } catch (e) {
             alert(e);
         }
@@ -247,7 +248,7 @@ class CustomWorkout extends React.Component {
     updateName(newName) {
 
         newWorkout = this.state.workout
-        // console.log(newWorkout)
+        // //console.log(newWorkout)
         newWorkout.routineName = newName;
 
         this.setState({
@@ -293,7 +294,7 @@ class CustomWorkout extends React.Component {
     //             }
     //             ++i;
     //         }
-    //         this.setState({ workout: workoutCopy }, () => console.log('updated state\n', workoutCopy));
+    //         this.setState({ workout: workoutCopy }, () => //console.log('updated state\n', workoutCopy));
     //     };
 
     //     return (

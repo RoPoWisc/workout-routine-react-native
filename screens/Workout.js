@@ -65,7 +65,7 @@ export class Workout extends React.Component {
         this.changeRepsHandler = this.changeRepsHandler.bind(this);
         this.getDate = this.getDate.bind(this);
 
-        //console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
+        ////console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
 
         this.state = {
             workout: {
@@ -77,7 +77,7 @@ export class Workout extends React.Component {
     }
 
     componentDidMount = async () => {
-        //console.log(this.props.user);
+        ////console.log(this.props.user);
     }
 
     getDate() {
@@ -124,7 +124,7 @@ export class Workout extends React.Component {
                 exerciseArray: newArray,
             }
         }
-        this.setState({ workout: state.workout }, //console.log(this.state.workout.exerciseArray)
+        this.setState({ workout: state.workout }, ////console.log(this.state.workout.exerciseArray)
         );
     }
 
@@ -166,7 +166,7 @@ export class Workout extends React.Component {
                 }
                 ++i;
             }
-            this.setState({ workout: workoutCopy }, () => {}//console.log('updated state\n', workoutCopy)
+            this.setState({ workout: workoutCopy }, () => {}////console.log('updated state\n', workoutCopy)
             );
         };
 
