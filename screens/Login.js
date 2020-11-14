@@ -92,7 +92,7 @@ export class Login extends React.Component {
 				alert(responseJson.message);
 			}
 			//alert(this.props.user.userServer);
-			if(this.props.user.userServer !== undefined){
+			if(this.props.user.userId!== undefined){
 				this.props.navigation.navigate('Home')
 			}
 		}

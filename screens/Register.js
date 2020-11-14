@@ -41,7 +41,7 @@ export class Signup extends React.Component {
 				alert(responseJson.message);
 			}
 			////console.log(this.props.user.userServer);
-			if(this.props.user.userServer !== undefined){
+			if(this.props.user.userId !== undefined){
 				this.props.navigation.navigate('DrawerNavigator')
 			}
 		}catch(e){

@@ -385,7 +385,7 @@ class CustomWorkout extends React.Component {
                                 </Layout>
                                 <TouchableOpacity
                                     style={styles.optionButton}
-                                    onPress={() => this.props.navigation.navigate('DrawerNavigator')}
+                                    onPress={() => this.props.navigation.openDrawer()}
                                 >
                                     <Image
                                         style={styles.optionButton}
