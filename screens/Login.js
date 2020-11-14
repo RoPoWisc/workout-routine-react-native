@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image, Keyboard, ImageBackground } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateEmail, updatePassword, updateName, fetchUserObj, fetchBearerToken } from '../actions/user'
+import { updateEmail, updatePassword, updateName, fetchUserObj, fetchBearerToken, fetchUserId } from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 
 let userUid;
@@ -39,7 +39,7 @@ export class Login extends React.Component {
 		})});
 		let responseJson = await response.json();
 		// console.log("The following is responseJson:\n")
-		// console.log(JSON.stringify(responseJson))
+		console.log(JSON.stringify(responseJson))
 		//This saves to this.props.user.userServer
 		//you can refer to data by using this.props.user.userServer
 			//this.props.user.userServer.email
@@ -47,18 +47,21 @@ export class Login extends React.Component {
 			//this.props.user.userServer.lastName
 			//this.props.user.userServer.timestamp
 			//console.log(JSON.stringify(responseJson))
-			if(typeof responseJson.userObj != "undefined") {
-				this.props.fetchUserObj(responseJson.userObj);
+			// if(typeof responseJson.userObj != "undefined") {
+				// this.props.fetchUserObj(responseJson.userObj);
 				this.props.fetchBearerToken(responseJson.accessToken);
-				//console.log('\n', this.props.user.bearerToken, '\n');
-			}else{
-				alert(responseJson.message);
-			}
+				this.props.fetchUserId(responseJson.userid);
+				console.log('\n', this.props.user.userId, '\n');
+			// }else{
+			// 	console.log('undefined userObj');
+			// 	alert(responseJson.message);
+			// }
 		//alert(this.props.user.userServer);
-		if(this.props.user.userServer !== undefined){
+		if(this.props.user.userId !== undefined){
 			this.props.navigation.navigate('DrawerNavigator')
 		}
 		} catch (e) {
+			console.log('undefined error');
 			alert(e);
 		}
 	}
@@ -236,7 +239,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj, fetchBearerToken }, dispatch)
+	return bindActionCreators({ updateEmail, updatePassword, updateName, fetchUserObj, fetchBearerToken, fetchUserId }, dispatch)
 }
 
 const mapStateToProps = state => {

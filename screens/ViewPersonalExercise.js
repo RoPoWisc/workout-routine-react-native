@@ -41,37 +41,7 @@ export class ViewPersonalExercise extends React.Component {
             addExercise: false,
             exercises: [
                 {
-                    "__v": 0,
-                    "_id": "5faebda06b8ccd0017fd67b5",
-                    "_owner": "5f9c475ae4e8080017dd41ca",
-                    "name": "Squat",
-                    "public": false,
-                    "sets": [
-                      {
-                        "_id": "5faebda06b8ccd0017fd67b6",
-                        "id": "3rojfkdj389sdfm",
-                        "reps": 12,
-                        "weight": 1,
-                      },
-                    ],
-                    "totalVolume": "Barbell",
-                  },
-                  {
-                    "__v": 0,
-                    "_id": "5faece396b8ccd0017fd67bf",
-                    "_owner": "5f9c475ae4e8080017dd41ca",
-                    "name": "Bench Press",
-                    "public": false,
-                    "sets": [
-                      {
-                        "_id": "5faece396b8ccd0017fd67c0",
-                        "id": "3rojfkdj389sdfm",
-                        "reps": 33,
-                        "weight": 100,
-                      },
-                    ],
-                    "totalVolume": "Dumbbell",
-                  },
+                }
             ]
         }
     }
@@ -84,7 +54,12 @@ export class ViewPersonalExercise extends React.Component {
 
     componentDidMount = async () => {
         // item has name and key
-        console.log(this.props);
+        console.log('mounting component...');
+
+        if (typeof this.props.user.bearerToken === 'undefined') {
+
+        }
+
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
             let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/private/' , {
@@ -100,10 +75,11 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
-            console.log(responseJson)
+            //console.log(responseJson)
             this.setState({exercises: responseJson.success})
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
+            console.log("ERROR");
             console.log(error);
         }
     }
@@ -173,6 +149,7 @@ export class ViewPersonalExercise extends React.Component {
 
         console.log(name);
         console.log(type);
+        console.log('saving new exercise...');
 
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
