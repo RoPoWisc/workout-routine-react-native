@@ -14,66 +14,70 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 
 import { vw, vh} from 'react-native-expo-viewport-units'
-/**
- * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
- * https://akveo.github.io/eva-icons
- */
-const HeartIcon = (props) => (
-  <Icon {...props} name='heart'/>
-);
 
-const info = [
-	{name: 'Workout 1', key: '\nLegz4Dayz'},
-	{name: 'Workout 2', key: '\nChest Day'},
-	{name: 'Workout 3', key: '\nBulk'},
-	{name: 'Workout 4', key: '\nCut'},
-	{name: 'Workout 5', key: '\nSuperset'},
-	{name: 'Workout 6', key: '\nHIIT'},
-	{name: 'Workout 7', key: '\nCore 24/7'},
-	{name: 'Workout 8', key: '\nCardio'},
-];
 
-const images = [
-  {name: require('../assets/home.jpg'), key: 'Workout 1'},
-  {name: require('../assets/home1.jpg'), key: 'Workout 2'},
-  {name: require('../assets/curls.jpg'), key: 'Workout 3'}
-];
+let infoVar = []
 
 export class PastWorkouts extends React.Component {
-    componentDidMount = async () => {
-      try {
-        //console.log(this.props.user);
-      } catch (e) {
-        alert(e);
-      }
-    }
+
     constructor(props) {
       super(props)
       this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this)
-    }
-    onPressWorkoutButton = async (routineNameVar) => {
-      // item has name and key
 
+      this.state = {
+        info: [{name: "Test", key: "test"},{name: "Test 2 ", key: "test 2"}]
+    }
+    }
+
+    componentDidMount = async () => {
+      let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] 
       let bearer = 'Bearer ' + this.props.user.bearerToken;
 
-      let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
-        method: 'POST',
+
+
+      let response = await fetch(url , {
+      method: 'GET',
        headers: {
           Accept: '/',
-          'Content-Type': 'application/json'
-          // 'Authorization': bearer
-        },
-        body: JSON.stringify({
-          routineName: routineNameVar
-        })
+          'Content-Type': 'application/json',
+          'Authorization': bearer
+        }
       });
-
         let responseJson = await response.json();
-        responseJson.routineName = routineNameVar
-        responseJson.routineDay = "Pre-built Workout"
-        //console.log(responseJson)
-        this.props.navigation.navigate('Workout', { workoutData: responseJson} )
+        infoVar = []
+        responseJson.forEach(obj => {
+          infoVar.push({name: obj.routineName, key: obj.routineDay})
+        }) 
+        this.setState = {
+          info: infoVar
+        }
+        console.log(this.state.info)
+        // this.props.navigation.navigate('Workout', { workoutData: responseJson} )
+      //console.log(this.props.user);
     }
+
+
+    onPressWorkoutButton = async (routineNameVar) => {
+      // item has name and key
+      console.log("onPressWorkoutButton hit")
+      let bearer = 'Bearer ' + this.props.user.bearerToken;
+
+    }
+
+    WorkoutList = () => {
+      return(<FlatList
+        data={this.state.info}
+        //horizontal
+        renderItem={({ item }) => (
+          <>
+            <Text style={styles.item}>{item.name}: {item.key}</Text>
+          </>
+        )}
+      />)
+    }
+
+
+
     render() {
         return (
             <>
@@ -102,15 +106,9 @@ export class PastWorkouts extends React.Component {
                   </Layout>
                   <Layout style={styles.container}>
                     <Layout style={styles.p_workouts}>
-                      <FlatList
-                        data={info}
-                        //horizontal
-						            renderItem={({ item }) => (
-							            <>
-								            <Text style={styles.item}>{item.name}: {item.key}</Text>
-							            </>
-						            )}
-					            />
+                    <this.WorkoutList
+                        data={this.state.info}
+					            ></this.WorkoutList>
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
