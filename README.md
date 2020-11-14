@@ -12,3 +12,4 @@
     ->https://docs.expo.io/tutorial/configuration/
     ->https://akveo.github.io/react-native-ui-kitten/docs/components/modal/overview#modal
     ->https://reactnativeelements.com/docs/card
+# For tests run yarn jest --coverage
