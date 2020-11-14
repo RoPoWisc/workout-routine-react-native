@@ -14,24 +14,10 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 
 import { vw, vh} from 'react-native-expo-viewport-units'
-/**
- * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
- * https://akveo.github.io/eva-icons
- */
-const HeartIcon = (props) => (
-  <Icon {...props} name='heart'/>
-);
 
-const info = [
-	{name: 'Workout 1', key: '\nLegz4Dayz'},
-	{name: 'Workout 2', key: '\nChest Day'},
-	{name: 'Workout 3', key: '\nBulk'},
-	{name: 'Workout 4', key: '\nCut'},
-	{name: 'Workout 5', key: '\nSuperset'},
-	{name: 'Workout 6', key: '\nHIIT'},
-	{name: 'Workout 7', key: '\nCore 24/7'},
-	{name: 'Workout 8', key: '\nCardio'},
-];
+
+let infoVar = []
+let data = []
 
 const images = [
   {name: require('../assets/home.jpg'), key: 'Workout 1'},
@@ -39,42 +25,73 @@ const images = [
   {name: require('../assets/curls.jpg'), key: 'Workout 3'}
 ];
 
+
+const Item = ({ item }) => (
+            <>
+              <Text style={styles.item}>{item.name}: {item.key}</Text>
+            </>
+);
+
 export class PastWorkouts extends React.Component {
-    componentDidMount = async () => {
-      try {
-        ////console.log(this.props.user);
-      } catch (e) {
-        alert(e);
-      }
-    }
     constructor(props) {
       super(props)
-      this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this)
-    }
-    onPressWorkoutButton = async (routineNameVar) => {
-      // item has name and key
 
+      this.state = {
+        info: [{name: "Test", key: "test"},{name: "Test 2 ", key: "test 2"}]
+      }
+    }
+
+    componentDidMount = async () => {
+      let url = 'https://workout-routine-builder-api.herokuapp.com/users/current'
       let bearer = 'Bearer ' + this.props.user.bearerToken;
+      
+      try {
+        let response = await fetch(url , {
+          method: 'POST',
+          headers: {
+              Accept: '/',
+              'Content-Type': 'application/json',
+              'Authorization': bearer
+            },
+            body: JSON.stringify({
+              _id : this.props.user.userId
+            })
+          });
+  
+          let responseJson = await response.json();
+          let workoutObj = responseJson['message']['personalWorkout']
+          infoVar = []
+          data = workoutObj
+          workoutObj.forEach((obj,ind) => {
+            infoVar.push({name: obj.routineName, key: obj.routineDay+ind})
+          }) 
+          this.setState({info: infoVar});
 
-      let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
-        method: 'POST',
-       headers: {
-          Accept: '/',
-          'Content-Type': 'application/json'
-          // 'Authorization': bearer
-        },
-        body: JSON.stringify({
-          routineName: routineNameVar
-        })
-      });
-
-        let responseJson = await response.json();
-        responseJson.routineName = routineNameVar
-        responseJson.routineDay = "Pre-built Workout"
-        ////console.log(responseJson)
-        this.props.navigation.navigate('Workout', { workoutData: responseJson} )
+      } catch (e) {
+        console.log(e)
+      }
+        
     }
+
+    WorkoutList = (props) => {
+      return(<FlatList
+        data={props.info}
+        //horizontal
+        renderItem={({ item }) => (
+          <>
+            <Text style={styles.item}>{item.name}: {item.key}</Text>
+          </>
+        )}
+      />)
+    }
+
+    
+
+
+
     render() {
+      console.log(this.state.info)
+      // const renderItem = ({ item }) => <Item title={item.title} />;
         return (
             <>
                 <IconRegistry icons={EvaIconsPack}/>
@@ -102,15 +119,32 @@ export class PastWorkouts extends React.Component {
                   </Layout>
                   <Layout style={styles.container}>
                     <Layout style={styles.p_workouts}>
-                      <FlatList
-                        data={info}
-                        //horizontal
+                    <FlatList
+                      data={this.state.info}
+                      
+                      renderItem={({ item }) => (
+                        <>
+                          <Text style={styles.item}>{item.name}: {item.key}</Text>
+                        </>
+                      )}
+                    /> 
+                    {/* <FlatList
+                        data={infoVar}
+                        horizontal
 						            renderItem={({ item }) => (
 							            <>
-								            <Text style={styles.item}>{item.name}: {item.key}</Text>
+                            <TouchableOpacity style={styles.c_image} onPress={() => this.onPressWorkoutButton(item.key)}>
+                              <Layout style={styles.c_image}>
+                                <ImageBackground
+                                  style={styles.imagebkgnd}
+                                  source={item.name}>
+                                  <Text style={styles.p_text}>{item.key}</Text>
+                                </ImageBackground>
+                              </Layout>
+                            </TouchableOpacity>
 							            </>
 						            )}
-					            />
+					            /> */}
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
