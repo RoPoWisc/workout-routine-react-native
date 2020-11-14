@@ -183,7 +183,7 @@ class CustomWorkout extends React.Component {
 
     saveWorkoutHandler = async() =>{
         let bodyJSON = JSON.stringify({
-                '_owner': this.props.user.userServer['_id'],
+                '_owner': this.props.user.userId,
                 'public': false,
                 'routineName': this.state.workout.routineName,
                 'routineDay': this.state.workout.routineDay,
