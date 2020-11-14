@@ -12,6 +12,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer'
 import SideBar from '../components/SideBar'
 import Progress from '../screens/Progress'
 import AddWorkout from '../screens/AddWorkout'
+import CustomWorkout from '../screens/CustomWorkout'
 
 import {
 	EditWorkout,
@@ -112,7 +113,10 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		PasswordReset: {
 			screen: PasswordReset
-		}
+		},
+		CustomWorkout: {
+			screen: CustomWorkout
+		},
 	},
 	{
 		initialRouteName: 'Initial'

@@ -72,7 +72,9 @@ class Home extends React.Component {
                         </Text>
                       </Layout>
                       <Layout style={styles.headerRight}>
-                        <Button style={styles.button} status='danger' size='giant' accessoryLeft={AddIcon}/>
+                        <Button style={styles.button} status='danger' size='giant' accessoryLeft={AddIcon}
+                          onPress={() => this.props.navigation.navigate('CustomWorkout')}
+                        />
                     </Layout>
                     </Layout>
                   </Layout>
