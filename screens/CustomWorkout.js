@@ -109,6 +109,7 @@ class CustomWorkout extends React.Component {
     }
 
     componentDidMount = async () => {
+        let temp = [];
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/public', {
             method: 'POST',
@@ -122,10 +123,41 @@ class CustomWorkout extends React.Component {
             })
         });
         let responseJson = await response.json();
-        ////console.log("Public");
-        ////console.log(responseJson.success);
+        console.log("Public");
+        console.log(responseJson.success);
         if(responseJson.success !== undefined) {
-            let temp = [];
+            let exerciseList = responseJson.success;
+            exerciseList.forEach(element => {
+                temp.push(
+                    {
+                        exercise_id: element._id,
+                        name: element.name,
+                        totalVolume: element.totalVolume,
+                        show: false,
+                        sets: element.sets,
+                    }
+                )
+            })
+            this.setState({
+                exercises: temp
+            })
+        }
+
+        response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/private', {
+            method: 'POST',
+            headers: {
+                Accept: '*/*',
+                'Content-Type': 'application/json',
+                'Authorization': bearer
+            },
+            body: JSON.stringify({
+                _owner: this.props.user.userId
+            })
+        });
+        responseJson = await response.json();
+        console.log("Private");
+        console.log(responseJson.success);
+        if(responseJson.success !== undefined) {
             let exerciseList = responseJson.success;
             exerciseList.forEach(element => {
                 temp.push(
@@ -183,7 +215,7 @@ class CustomWorkout extends React.Component {
 
     saveWorkoutHandler = async() =>{
         let bodyJSON = JSON.stringify({
-                '_owner': this.props.user.userServer['_id'],
+                '_owner': this.props.user.userId,
                 'public': false,
                 'routineName': this.state.workout.routineName,
                 'routineDay': this.state.workout.routineDay,
@@ -385,7 +417,7 @@ class CustomWorkout extends React.Component {
                                 </Layout>
                                 <TouchableOpacity
                                     style={styles.optionButton}
-                                    onPress={() => this.props.navigation.navigate('DrawerNavigator')}
+                                    onPress={() => this.props.navigation.openDrawer()}
                                 >
                                     <Image
                                         style={styles.optionButton}
