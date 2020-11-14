@@ -21,7 +21,6 @@ let infoVar = []
 export class PastWorkouts extends React.Component {
     constructor(props) {
       super(props)
-      this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this)
 
       this.state = {
         info: [{name: "Test", key: "test"},{name: "Test 2 ", key: "test 2"}]
@@ -41,6 +40,7 @@ export class PastWorkouts extends React.Component {
         }
       });
         let responseJson = await response.json();
+        console.log(responseJson)
         workoutObj = responseJson.personalWorkout
         infoVar = []
         workoutObj.forEach(obj => {
