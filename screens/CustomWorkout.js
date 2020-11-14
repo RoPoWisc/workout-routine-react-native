@@ -109,7 +109,7 @@ class CustomWorkout extends React.Component {
     }
 
     componentDidMount = async () => {
-        let bearer = 'Bearer ' + this.props.user.refreshToken;
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
         let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/public', {
             method: 'POST',
             headers: {
@@ -191,7 +191,7 @@ class CustomWorkout extends React.Component {
         });
 
         let url = 'https://workout-routine-builder-api.herokuapp.com/workouts/create'
-        let bearer = 'Bearer ' + this.props.user.refreshToken;
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
 
         try {
             let response = await fetch(url, {
@@ -377,7 +377,7 @@ class CustomWorkout extends React.Component {
                                 <Layout style={styles.headerLeft}>
                                     <Text style={styles.text} category='h1'>
                                         {/* {this.state.workout.routineName} */}
-                                        Add Custom
+                                        Add
                                     </Text>
                                     <Text style={styles.textSub} appearance='hint'>
                                         Workout
