@@ -28,18 +28,31 @@ export class PastWorkouts extends React.Component {
     }
 
     componentDidMount = async () => {
-      let url = 'https://workout-routine-builder-api.herokuapp.com/users/' + this.props.user.userServer['_id'] 
+      let url = 'https://workout-routine-builder-api.herokuapp.com/users/current'
       let bearer = 'Bearer ' + this.props.user.bearerToken;
 
-      let response = await fetch(url , {
-      method: 'GET',
-       headers: {
-          Accept: '/',
-          'Content-Type': 'application/json',
-          'Authorization': bearer
-        }
-      });
-        let responseJson = await response.json();
+      console.log(bearer,this.props.user.userId,url)
+
+      try {
+        let response = await fetch(url , {
+          method: 'POST',
+          headers: {
+              Accept: '/',
+              'Content-Type': 'application/json',
+              'Authorization': bearer
+            },
+            body: JSON.stringify({
+              _id : this.props.user.userId
+            })
+          });
+  
+          let responseJson = await JSON.stringify(response)
+          console.log(responseJson)
+      } catch (e) {
+        console.log(e)
+      }
+
+        /*
         console.log(responseJson)
         workoutObj = responseJson.personalWorkout
         infoVar = []
@@ -49,6 +62,7 @@ export class PastWorkouts extends React.Component {
         this.setState = {
           info: infoVar
         }
+        */
     }
 
     WorkoutList = (props) => {
