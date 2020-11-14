@@ -31,7 +31,7 @@ export class ForgotPassword extends React.Component {
 				//this.props.user.userServer.firstName
 				//this.props.user.userServer.lastName
 				//this.props.user.userServer.timestamp
-			//console.log(responseJson)
+			////console.log(responseJson)
 			if(responseJson.link !== undefined){
 				this.props.navigation.navigate('PasswordReset', {link: this.props.fetchUserObj(responseJson.link)})
 			}else{

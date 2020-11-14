@@ -75,6 +75,7 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
+
             //console.log(responseJson)
             this.setState({exercises: responseJson.success})
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
@@ -89,7 +90,7 @@ export class ViewPersonalExercise extends React.Component {
     }
 
     deleteExerciseRequest = async (exercise_id) => {
-        console.log(exercise_id);
+        //console.log(exercise_id);
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
             let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/remove/' , {
@@ -105,10 +106,10 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
-            console.log(responseJson)
+            //console.log(responseJson)
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
 
         try {
@@ -125,11 +126,11 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
-            console.log(responseJson)
+            //console.log(responseJson)
             this.setState({exercises: responseJson.success})
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
 
@@ -170,10 +171,10 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
-            console.log(responseJson)
+            //console.log(responseJson)
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
 
         try {
@@ -190,11 +191,11 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
-            //console.log(responseJson)
+            ////console.log(responseJson)
             this.setState({exercises: responseJson.success})
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
 

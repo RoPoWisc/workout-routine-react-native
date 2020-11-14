@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605315661381" clover="3.2.0">
-  <project timestamp="1605315661381" name="All files">
+<coverage generated="1605316365995" clover="3.2.0">
+  <project timestamp="1605316365995" name="All files">
     <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6" elements="24" coveredelements="24" complexity="0" loc="18" ncloc="18" packages="1" files="1" classes="1"/>
     <file name="user.js" path="/Users/rohitpotineni/Desktop/Workout-506/workout-routine-react-native/actions/user.js">
       <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
@@ -16,9 +16,9 @@
       <line num="20" count="1" type="stmt"/>
       <line num="21" count="2" type="stmt"/>
       <line num="27" count="1" type="stmt"/>
-      <line num="28" count="1" type="stmt"/>
+      <line num="28" count="2" type="stmt"/>
       <line num="34" count="1" type="stmt"/>
-      <line num="35" count="1" type="stmt"/>
+      <line num="35" count="4" type="stmt"/>
       <line num="41" count="1" type="stmt"/>
       <line num="46" count="1" type="stmt"/>
       <line num="47" count="1" type="stmt"/>
