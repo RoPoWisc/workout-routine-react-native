@@ -11,7 +11,7 @@ export class Login extends React.Component {
 
 	componentDidMount = async () => {
 		try {
-			if(this.props.user.userServer !== undefined){
+			if(this.props.user.userId !== undefined){
 				this.loginHandler;
 			}
 		} catch (e) {
@@ -51,7 +51,7 @@ export class Login extends React.Component {
 				// this.props.fetchUserObj(responseJson.userObj);
 				this.props.fetchBearerToken(responseJson.accessToken);
 				this.props.fetchUserId(responseJson.userid);
-				console.log('\n', this.props.user, '\n');
+				console.log('\n', this.props.fetchBearerToken, '\n');
 			// }else{
 			// 	console.log('undefined userObj');
 			// 	alert(responseJson.message);
@@ -92,7 +92,7 @@ export class Login extends React.Component {
 				alert(responseJson.message);
 			}
 			//alert(this.props.user.userServer);
-			if(this.props.user.userServer !== undefined){
+			if(this.props.user.userId!== undefined){
 				this.props.navigation.navigate('Home')
 			}
 		}

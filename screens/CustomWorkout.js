@@ -183,7 +183,7 @@ class CustomWorkout extends React.Component {
 
     saveWorkoutHandler = async() =>{
         let bodyJSON = JSON.stringify({
-                '_owner': this.props.user.userServer['_id'],
+                '_owner': this.props.user.userId,
                 'public': false,
                 'routineName': this.state.workout.routineName,
                 'routineDay': this.state.workout.routineDay,
@@ -377,7 +377,7 @@ class CustomWorkout extends React.Component {
                                 <Layout style={styles.headerLeft}>
                                     <Text style={styles.text} category='h1'>
                                         {/* {this.state.workout.routineName} */}
-                                        Add Custom
+                                        Add
                                     </Text>
                                     <Text style={styles.textSub} appearance='hint'>
                                         Workout
@@ -385,7 +385,7 @@ class CustomWorkout extends React.Component {
                                 </Layout>
                                 <TouchableOpacity
                                     style={styles.optionButton}
-                                    onPress={() => this.props.navigation.navigate('DrawerNavigator')}
+                                    onPress={() => this.props.navigation.openDrawer()}
                                 >
                                     <Image
                                         style={styles.optionButton}
