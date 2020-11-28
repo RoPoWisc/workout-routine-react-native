@@ -12,6 +12,7 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
+import { Card, Modal, Spinner } from '@ui-kitten/components';
 
 import { vw, vh} from 'react-native-expo-viewport-units'
 /**
@@ -49,6 +50,9 @@ export class Home extends React.Component {
     }
     constructor(props) {
       super(props)
+      this.state = {
+        loading: false
+      }
       this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this)
     }
     onPressWorkoutButton = async (routineNameVar) => {
@@ -149,6 +153,11 @@ export class Home extends React.Component {
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
+                <Modal visible={true}>
+                  <Card disabled={true}>
+                    <Spinner/>
+                  </Card>
+                </Modal>
             </>
         )
     }

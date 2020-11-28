@@ -17,7 +17,8 @@
       "assets/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dcvgoyoxgbyoukwahs.workout-routine-builder"
     },
     "web": {
       "favicon": "./assets/favicon.png"

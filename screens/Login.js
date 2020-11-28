@@ -47,15 +47,15 @@ export class Login extends React.Component {
 			//this.props.user.userServer.lastName
 			//this.props.user.userServer.timestamp
 			//console.log(JSON.stringify(responseJson))
-			// if(typeof responseJson.userObj != "undefined") {
+			if(typeof responseJson.userObj != "undefined") {
 				// this.props.fetchUserObj(responseJson.userObj);
 				this.props.fetchBearerToken(responseJson.accessToken);
 				this.props.fetchUserId(responseJson.userid);
 				console.log('\n', this.props.fetchBearerToken, '\n');
-			// }else{
-			// 	console.log('undefined userObj');
-			// 	alert(responseJson.message);
-			// }
+			 }else{
+			 	console.log('undefined userObj');
+			 	alert(responseJson.message);
+			 }
 		//alert(this.props.user.userServer);
 		if(this.props.user.userId !== undefined){
 			this.props.navigation.navigate('DrawerNavigator')
