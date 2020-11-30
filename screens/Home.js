@@ -9,10 +9,12 @@ import {
   IconRegistry,
   Layout,
   Text,
+  Card, 
+  Modal, 
+  Spinner
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { Card, Modal, Spinner } from '@ui-kitten/components';
 
 import { vw, vh} from 'react-native-expo-viewport-units'
 /**
@@ -43,7 +45,23 @@ const images = [
 export class Home extends React.Component {
     componentDidMount = async () => {
       try {
-        ////console.log(this.props.user);
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
+        //populate exercises
+        let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/all' , {
+        method: 'POST',
+        headers: {
+            Accept: '/',
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+          },
+          body: JSON.stringify({
+            _owner: this.props.user.userId,
+            limit: 10
+          })
+        });
+
+        let responseJson = await response.json();
+        console.log(responseJson)
       } catch (e) {
         alert(e);
       }
@@ -59,8 +77,6 @@ export class Home extends React.Component {
       // item has name and key
 
       let bearer = 'Bearer ' + this.props.user.bearerToken;
-
-      console.log(this.props.user.bearerToken);
 
       let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
         method: 'POST',
@@ -80,6 +96,7 @@ export class Home extends React.Component {
         ////console.log(responseJson)
         this.props.navigation.navigate('Workout', { workoutData: responseJson} )
     }
+
     render() {
         return (
             <>
@@ -153,7 +170,7 @@ export class Home extends React.Component {
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
-                <Modal visible={true}>
+                <Modal visible={this.state.loading}>
                   <Card disabled={true}>
                     <Spinner/>
                   </Card>

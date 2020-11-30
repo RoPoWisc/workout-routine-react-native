@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, updateName, fetchUserObj, fetchBearerToken, fetchUserId } from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
-
+import { ApplicationProvider, Card, Modal, Spinner } from '@ui-kitten/components';
 let userUid;
 
 export class Login extends React.Component {
@@ -38,65 +38,24 @@ export class Login extends React.Component {
 			password:this.props.user.password
 		})});
 		let responseJson = await response.json();
-
-		console.log(JSON.stringify(responseJson))
-		//This saves to this.props.user.userServer
-		//you can refer to data by using this.props.user.userServer
-			//this.props.user.userServer.email
-			//this.props.user.userServer.firstName
-			//this.props.user.userServer.lastName
-			//this.props.user.userServer.timestamp
-			//console.log(JSON.stringify(responseJson))
-			if(typeof responseJson.userObj != "undefined") {
+			if(responseJson.accessToken != "undefined") {
 				// this.props.fetchUserObj(responseJson.userObj);
 				this.props.fetchBearerToken(responseJson.accessToken);
 				this.props.fetchUserId(responseJson.userid);
 				console.log('\n', this.props.fetchBearerToken, '\n');
 			 }else{
-			 	console.log('undefined userObj');
 			 	alert(responseJson.message);
 			 }
 		//alert(this.props.user.userServer);
-		if(this.props.user.userId !== undefined){
-			this.props.navigation.navigate('DrawerNavigator')
-		}
+			if(this.props.user.userId !== undefined){
+				this.props.navigation.navigate('DrawerNavigator')
+			}
 		} catch (e) {
 			console.log('undefined error');
 			alert(e);
 		}
 	}
 	render() {
-		/*
-		const loginHandler = async () => {
-			Keyboard.dismiss();
-			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
-			method: 'POST',
-			headers: {
-				Accept: '/',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				email:this.props.user.email,
-				password:this.props.user.password
-			})});
-			let responseJson = await response.json();
-			//This saves to this.props.user.userServer
-			//you can refer to data by using this.props.user.userServer
-				//this.props.user.userServer.email
-				//this.props.user.userServer.firstName
-				//this.props.user.userServer.lastName
-				//this.props.user.userServer.timestamp
-			if(responseJson.message.email !== undefined){	
-				this.props.fetchUserObj(responseJson.message);
-			}else{
-				alert(responseJson.message);
-			}
-			//alert(this.props.user.userServer);
-			if(this.props.user.userId!== undefined){
-				this.props.navigation.navigate('Home')
-			}
-		}
-*/
 		return (
 			<View style={styles.container}>
 				<ImageBackground source={require('../assets/loginbackground.jpeg')} style={styles.image}>
