@@ -25,16 +25,9 @@ const HeartIcon = (props) => (
   <Icon {...props} name='heart'/>
 );
 
-const info = [
-	{name: 'Workout 1', key: '\nLegz4Dayz'},
-	{name: 'Workout 2', key: '\nChest Day'},
-	{name: 'Workout 3', key: '\nBulk'},
-	{name: 'Workout 4', key: '\nCut'},
-	{name: 'Workout 5', key: '\nSuperset'},
-	{name: 'Workout 6', key: '\nHIIT'},
-	{name: 'Workout 7', key: '\nCore 24/7'},
-	{name: 'Workout 8', key: '\nCardio'},
-];
+const infoPub = [];
+
+const infoPriv = [];
 
 const images = [
   {name: require('../assets/home.jpg'), key: 'Workout 1'},
@@ -43,6 +36,15 @@ const images = [
 ];
 
 export class Home extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        loading: true,
+        infoPub: [],
+        infoPriv: [],
+      }
+      this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this)
+    }
     componentDidMount = async () => {
       try {
         let bearer = 'Bearer ' + this.props.user.bearerToken;
@@ -62,16 +64,17 @@ export class Home extends React.Component {
 
         let responseJson = await response.json();
         console.log(responseJson)
+        responseJson.forEach((e,inx) => {
+          if(e.public)
+            infoPub.push({name: e.routineName, key:e.routineName+inx});
+          else 
+            infoPriv.push({name: e.routineName, key:e.routineName+inx});
+          this.setState({infoPub: infoPub, infoPriv: infoPriv, loading:false});
+        });
+        //console.log(infoPub)
       } catch (e) {
         alert(e);
       }
-    }
-    constructor(props) {
-      super(props)
-      this.state = {
-        loading: false
-      }
-      this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this)
     }
     onPressWorkoutButton = async (routineNameVar) => {
       // item has name and key
@@ -128,17 +131,18 @@ export class Home extends React.Component {
                     <Text style={styles.textPub} appearance='hint'>
                         Public
                       </Text>
+                      {console.log(this.state.infoPub.length)}
                       <FlatList
-                        data={images}
+                        data={this.state.infoPub}
                         horizontal
 						            renderItem={({ item }) => (
 							            <>
-                            <TouchableOpacity style={styles.c_image} onPress={() => this.onPressWorkoutButton(item.key)}>
+                            <TouchableOpacity onPress={() => this.onPressWorkoutButton(item.key)}>
                               <Layout style={styles.c_image}>
                                 <ImageBackground
                                   style={styles.imagebkgnd}
-                                  source={item.name}>
-                                  <Text style={styles.p_text}>{item.key}</Text>
+                                  source={require('../assets/home.jpg')}>
+                                  <Text style={styles.p_text}>{item.name}</Text>
                                 </ImageBackground>
                               </Layout>
                             </TouchableOpacity>
@@ -146,27 +150,29 @@ export class Home extends React.Component {
 						            )}
 					            />
                     </Layout>
-                    <Layout style={styles.carousel}>
+                    <Layout style={styles.carouselTw}>
                     <Text style={styles.textPrv} appearance='hint'>
                         Custom
                       </Text>
+                      {console.log(this.state.infoPriv.length)}
+                      {(this.state.infoPriv.length > 0) ?
                       <FlatList
-                        data={images}
-                        horizontal
-						            renderItem={({ item }) => (
-							            <>
-                            <TouchableOpacity style={styles.c_image} onPress={() => this.onPressWorkoutButton(item.key)}>
-                              <Layout style={styles.c_image}>
-                                <ImageBackground
-                                  style={styles.imagebkgnd}
-                                  source={item.name}>
-                                  <Text style={styles.p_text}>{item.key}</Text>
-                                </ImageBackground>
-                              </Layout>
-                            </TouchableOpacity>
-							            </>
-						            )}
-					            />
+                      data={this.state.infoPriv}
+                      horizontal
+                      renderItem={({ item }) => (
+                        <>
+                          <TouchableOpacity onPress={() => this.onPressWorkoutButton(item.key)}>
+                            <Layout style={styles.c_image}>
+                              <ImageBackground
+                                style={styles.imagebkgnd}
+                                source={require('../assets/home1.jpg')}>
+                                <Text style={styles.p_text}>{item.name}</Text>
+                              </ImageBackground>
+                            </Layout>
+                          </TouchableOpacity>
+                        </>
+                      )}
+                    />:<Text style={styles.textPrvErr}>Looks like you don't have any custom workouts</Text>}
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
@@ -228,8 +234,14 @@ const styles = StyleSheet.create({
     width: vw(14),
   },
   carousel: {
-    flex: 1,
     marginTop: vh(-3.3),
+    height: vh(30),
+  },
+  carouselTw: {
+    flex: 1,
+    alignSelf: 'flex-start',
+    height: vh(30),
+    marginTop: vh(1),
   },
   c_image: {
     height: vh(25),
@@ -287,6 +299,13 @@ const styles = StyleSheet.create({
     marginBottom: vw(1),
     textAlign: 'left',
     fontSize: vh(2.5),
+  },
+  textPrvErr: {
+    borderColor: 'black',
+    marginLeft: vw(2),
+    marginBottom: vw(1),
+    textAlign: 'left',
+    fontSize: vh(2),
   },
 });
 const mapDispatchToProps = dispatch => {

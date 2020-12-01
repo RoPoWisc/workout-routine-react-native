@@ -19,13 +19,6 @@ import { vw, vh} from 'react-native-expo-viewport-units'
 let infoVar = []
 let data = []
 
-const images = [
-  {name: require('../assets/home.jpg'), key: 'Workout 1'},
-  {name: require('../assets/home1.jpg'), key: 'Workout 2'},
-  {name: require('../assets/curls.jpg'), key: 'Workout 3'}
-];
-
-
 const Item = ({ item }) => (
             <>
               <Text style={styles.item}>{item.name}: {item.key}</Text>
