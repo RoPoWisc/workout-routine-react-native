@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, styleheet, Image, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchUserObj} from '../actions/user'
@@ -15,8 +15,7 @@ import {
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-
-import { vw, vh} from 'react-native-expo-viewport-units'
+const style = require('../styles/global');
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
  * https://akveo.github.io/eva-icons
@@ -105,53 +104,54 @@ export class Home extends React.Component {
             <>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
-                  <Layout style={styles.header}>
-                    <Layout style={styles.headerLeft}>
-                      <Text style={styles.textMain} category='s1'>
+                  <Layout style={style.header}>
+                    <Layout style={style.headerLeft}>
+                      <Text style={style.textMain} category='s1'>
                         Personal
                       </Text>
-                      <Text style={styles.textSub} appearance='hint'>
+                      <Text style={style.textSub} appearance='hint'>
                         Workouts
                       </Text>
                     </Layout>
-                    <Layout style={styles.headerRight}>
+                    <Layout style={style.headerRight}>
                       <TouchableOpacity
-                        style={styles.optionButton}
+                        style={style.optionButton}
                         onPress={() => this.props.navigation.openDrawer()}
                         >
                           <Image
-                            style={styles.optionButton}
+                            style={style.optionButton}
                             source={require('../assets/options.png')}
                           />
                         </TouchableOpacity>
                     </Layout>
                   </Layout>
-                  <Layout style={styles.container}>
-                    <Layout style={styles.carousel}>
-                    <Text style={styles.textPub} appearance='hint'>
+                  <Layout style={style.container}>
+                    <Layout style={style.carousel}>
+                    <Text style={style.textPub} appearance='hint'>
                         Public
                       </Text>
                       {console.log(this.state.infoPub.length)}
+                      {(this.state.infoPub.length > 0) ?
                       <FlatList
                         data={this.state.infoPub}
                         horizontal
 						            renderItem={({ item }) => (
 							            <>
                             <TouchableOpacity onPress={() => this.onPressWorkoutButton(item.key)}>
-                              <Layout style={styles.c_image}>
+                              <Layout style={style.c_image}>
                                 <ImageBackground
-                                  style={styles.imagebkgnd}
+                                  style={style.imagebkgnd}
                                   source={require('../assets/home.jpg')}>
-                                  <Text style={styles.p_text}>{item.name}</Text>
+                                  <Text style={style.p_text}>{item.name}</Text>
                                 </ImageBackground>
                               </Layout>
                             </TouchableOpacity>
 							            </>
 						            )}
-					            />
+                      />:<Text style={style.textPrvErr}>Might need to wait a bit for public workouts</Text>}
                     </Layout>
-                    <Layout style={styles.carouselTw}>
-                    <Text style={styles.textPrv} appearance='hint'>
+                    <Layout style={style.carouselTw}>
+                    <Text style={style.textPrv} appearance='hint'>
                         Custom
                       </Text>
                       {console.log(this.state.infoPriv.length)}
@@ -162,17 +162,17 @@ export class Home extends React.Component {
                       renderItem={({ item }) => (
                         <>
                           <TouchableOpacity onPress={() => this.onPressWorkoutButton(item.key)}>
-                            <Layout style={styles.c_image}>
+                            <Layout style={style.c_image}>
                               <ImageBackground
-                                style={styles.imagebkgnd}
+                                style={style.imagebkgnd}
                                 source={require('../assets/home1.jpg')}>
-                                <Text style={styles.p_text}>{item.name}</Text>
+                                <Text style={style.p_text}>{item.name}</Text>
                               </ImageBackground>
                             </Layout>
                           </TouchableOpacity>
                         </>
                       )}
-                    />:<Text style={styles.textPrvErr}>Looks like you don't have any custom workouts</Text>}
+                    />:<Text style={style.textPrvErr}>Looks like you don't have any custom workouts or its loading :)</Text>}
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
@@ -186,128 +186,7 @@ export class Home extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: vw(2),
-  },
-  imagebkgnd: {
-    flex: 1,
-    alignSelf: 'stretch', 
-    borderRadius: vw(10), 
-    overflow: 'hidden', 
-    justifyContent: 'flex-end', 
-    alignItems: 'center',
-		resizeMode: 'cover',
-		opacity:.9,
-	  },
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: vh(2),
-    alignItems: 'center',
-  },
-  headerLeft: {
-    flex: 3,
-    alignItems: 'flex-start',
-    marginBottom: vh(2),
-    marginLeft: vw(2),
-  },
-  headerRight: {
-    flex: 1,
-    flexDirection: 'row',
-    alignSelf: 'flex-start',
-    justifyContent: 'flex-end',
-    marginRight: vw(.5),
-  },
-  textMain: {
-    marginLeft: vw(2),
-    fontSize: vh(6.5),
-    fontWeight: "bold",
-  },
-  optionButton: {
-    marginTop: vh(1.2),
-    marginRight: vw(2),
-    height: vh(7),
-    width: vw(14),
-  },
-  carousel: {
-    marginTop: vh(-3.3),
-    height: vh(30),
-  },
-  carouselTw: {
-    flex: 1,
-    alignSelf: 'flex-start',
-    height: vh(30),
-    marginTop: vh(1),
-  },
-  c_image: {
-    height: vh(25),
-    width: vw(43),
-    marginBottom: vh(1.5),
-    borderWidth: 5,
-    borderRadius: 40,
-    borderColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  p_workouts: {
-    flex: 1,
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    backgroundColor: '#013A73',
-    borderTopEndRadius: 30,
-    borderTopStartRadius: 30,
-    marginTop: vh(10),
-    marginHorizontal: vw(-2),
-  },
-  p_text: {
-    fontSize: 30,
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  item: {
-    paddingVertical: vh(3),
-    paddingHorizontal: vw(18),
-    alignSelf: 'center',
-    borderWidth: 2,
-    borderRadius: 40,
-		borderColor: 'black',
-		backgroundColor: 'white',
-		fontSize: 24
-	},
-  textSub: {
-    marginLeft: vw(2),
-    textAlign: 'center',
-    fontSize: vh(4.5),
-  },
-  likeButton: {
-    marginVertical: 16,
-  },
-  textPub: {
-    borderColor: 'black',
-    marginLeft: vw(2),
-    marginBottom: vw(1),
-    textAlign: 'left',
-    fontSize: vh(2.5),
-  },
-  textPrv: {
-    borderColor: 'black',
-    marginLeft: vw(2),
-    marginBottom: vw(1),
-    textAlign: 'left',
-    fontSize: vh(2.5),
-  },
-  textPrvErr: {
-    borderColor: 'black',
-    marginLeft: vw(2),
-    marginBottom: vw(1),
-    textAlign: 'left',
-    fontSize: vh(2),
-  },
-});
+
 const mapDispatchToProps = dispatch => {
 	return bindActionCreators({ fetchUserObj }, dispatch)
 }

@@ -21,7 +21,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 
 import { vw, vh} from 'react-native-expo-viewport-units'
-
+const style = require('../styles/global');
 const CloseIcon = (props) => (
     <Icon {...props} name='close-square-outline'/>
 );
@@ -256,23 +256,28 @@ export class ViewPersonalExercise extends React.Component {
 
         return (
             <ApplicationProvider {...eva} theme={eva.light}>
-                <Layout style={styles.container}>
-                    <View style={{flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'space-between'}}>
-                        <Text category='h1' style={{
-                            fontWeight: '500',
-                            marginLeft: 12
-                        }}>Your Exercises</Text>
-                        <TouchableOpacity
-                            style={{marginRight: 12}}
-                            onPress={() => this.props.navigation.openDrawer()}
+                  <Layout style={style.header}>
+                    <Layout style={style.headerLeft}>
+                      <Text style={style.textMain} category='s1'>
+                        Your
+                      </Text>
+                      <Text style={style.textSub} appearance='hint'>
+                        Exercises
+                      </Text>
+                    </Layout>
+                    <Layout style={style.headerRight}>
+                      <TouchableOpacity
+                        style={style.optionButton}
+                        onPress={() => this.props.navigation.openDrawer()}
                         >
-                            <Image
-                                style={styles.optionButton}
-                                source={require('../assets/options.png')}
-                            />
+                          <Image
+                            style={style.optionButton}
+                            source={require('../assets/options.png')}
+                          />
                         </TouchableOpacity>
-                    </View>
-                    
+                    </Layout>
+                  </Layout>
+                <Layout style={style.container}>
                     <List
                         style={{
                             backgroundColor: 'white',
@@ -339,7 +344,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: 30,
         //justifyContent: 'center',
         alignItems: 'center',
     },

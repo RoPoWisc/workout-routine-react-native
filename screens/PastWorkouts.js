@@ -14,7 +14,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 
 import { vw, vh} from 'react-native-expo-viewport-units'
-
+const style = require('../styles/global');
 
 let infoVar = []
 let data = []
@@ -89,28 +89,28 @@ export class PastWorkouts extends React.Component {
             <>
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
-                  <Layout style={styles.header}>
-                    <Layout style={styles.headerLeft}>
-                      <Text style={styles.textMain} category='s1'>
-                        Previous
+                  <Layout style={style.header}>
+                    <Layout style={style.headerLeft}>
+                      <Text style={style.textMain} category='s1'>
+                        Past
                       </Text>
-                      <Text style={styles.textSub} appearance='hint'>
+                      <Text style={style.textSub} appearance='hint'>
                         Workouts
                       </Text>
                     </Layout>
-                    <Layout style={styles.headerRight}>
+                    <Layout style={style.headerRight}>
                       <TouchableOpacity
-                        style={styles.optionButton}
+                        style={style.optionButton}
                         onPress={() => this.props.navigation.openDrawer()}
                         >
                           <Image
-                            style={styles.optionButton}
+                            style={style.optionButton}
                             source={require('../assets/options.png')}
                           />
                         </TouchableOpacity>
                     </Layout>
                   </Layout>
-                  <Layout style={styles.container}>
+                  <Layout style={style.container}>
                     <Layout style={styles.p_workouts}>
                     <FlatList
                       data={this.state.info}
@@ -121,23 +121,6 @@ export class PastWorkouts extends React.Component {
                         </>
                       )}
                     /> 
-                    {/* <FlatList
-                        data={infoVar}
-                        horizontal
-						            renderItem={({ item }) => (
-							            <>
-                            <TouchableOpacity style={styles.c_image} onPress={() => this.onPressWorkoutButton(item.key)}>
-                              <Layout style={styles.c_image}>
-                                <ImageBackground
-                                  style={styles.imagebkgnd}
-                                  source={item.name}>
-                                  <Text style={styles.p_text}>{item.key}</Text>
-                                </ImageBackground>
-                              </Layout>
-                            </TouchableOpacity>
-							            </>
-						            )}
-					            /> */}
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
@@ -147,12 +130,6 @@ export class PastWorkouts extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: vw(2),
-  },
   imagebkgnd: {
     flex: 1,
     alignSelf: 'stretch', 
@@ -163,50 +140,6 @@ const styles = StyleSheet.create({
 		resizeMode: 'cover',
 		opacity:.9,
 	  },
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: vh(2),
-    alignItems: 'center',
-  },
-  headerLeft: {
-    flex: 3,
-    alignItems: 'flex-start',
-    marginBottom: vh(2),
-    marginLeft: vw(2),
-  },
-  headerRight: {
-    flex: 1,
-    flexDirection: 'row',
-    alignSelf: 'flex-start',
-    justifyContent: 'flex-end',
-    marginRight: vw(.5),
-  },
-  textMain: {
-    marginLeft: vw(2),
-    fontSize: vh(6.5),
-    fontWeight: "bold",
-  },
-  optionButton: {
-    marginTop: vh(1.2),
-    marginRight: vw(2),
-    height: vh(7),
-    width: vw(14),
-  },
-  carousel: {
-    flex: 1,
-    marginTop: vh(-3.3),
-  },
-  c_image: {
-    height: vh(35),
-    width: vw(53),
-    marginBottom: vh(1.5),
-    borderWidth: 5,
-    borderRadius: 40,
-    borderColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   p_workouts: {
     flex: 1,
     alignItems: 'center',

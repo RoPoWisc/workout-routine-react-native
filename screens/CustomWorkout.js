@@ -18,6 +18,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 import { set } from 'react-native-reanimated';
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+const style = require('../styles/global');
 
 // const exerciseList = [
 //     {_id: 1, name: 'Exercise 1', sets: [], show: true, totalVolume: 'Total Volume'},
@@ -409,34 +410,30 @@ class CustomWorkout extends React.Component {
 
         return (
             <>
-                <IconRegistry icons={EvaIconsPack} />
+                <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={eva.light}>
-                    <Layout style={styles.container}>
-                        <View style={styles.header}>
-                            <View style={styles.topBar}>
-                                <Layout style={styles.headerLeft}>
-                                    <Text style={styles.text} category='h1'>
-                                        {/* {this.state.workout.routineName} */}
-                                        Add
-                                    </Text>
-                                    <Text style={styles.textSub} appearance='hint'>
-                                        Workout
-                                    </Text>
-                                </Layout>
-                                <TouchableOpacity
-                                    style={styles.optionButton}
-                                    onPress={() => this.props.navigation.openDrawer()}
-                                >
-                                    <Image
-                                        style={styles.optionButton}
-                                        source={require('../assets/options.png')}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                            {/* <Text style={styles.name} category='h2'>
-                                {this.state.workout.routineDay}
-                            </Text> */}
-                        </View>
+                  <Layout style={style.header}>
+                    <Layout style={style.headerLeft}>
+                      <Text style={style.textMain} category='s1'>
+                        Add
+                      </Text>
+                      <Text style={style.textSub} appearance='hint'>
+                        Workout
+                      </Text>
+                    </Layout>
+                    <Layout style={style.headerRight}>
+                      <TouchableOpacity
+                        style={style.optionButton}
+                        onPress={() => this.props.navigation.openDrawer()}
+                        >
+                          <Image
+                            style={style.optionButton}
+                            source={require('../assets/options.png')}
+                          />
+                        </TouchableOpacity>
+                    </Layout>
+                  </Layout>
+                    <Layout style={style.container}>
                     {!this.state.showExercises &&
                     <TextInput 
                         style={{

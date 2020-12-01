@@ -1,0 +1,125 @@
+import { vw, vh} from 'react-native-expo-viewport-units'
+const React = require('react-native');
+const {StyleSheet} = React;
+module.exports = StyleSheet.create({
+    container: {
+      flex: 3,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: vw(2),
+    },
+    imagebkgnd: {
+      flex: 1,
+      alignSelf: 'stretch', 
+      borderRadius: vw(10), 
+      overflow: 'hidden', 
+      justifyContent: 'flex-end', 
+      alignItems: 'center',
+          resizeMode: 'cover',
+          opacity:.9,
+        },
+    header: {
+      flex: 1,
+      flexDirection: 'row',
+      marginTop: vh(2),
+      alignItems: 'center',
+    },
+    headerLeft: {
+      flex: 3,
+      alignItems: 'flex-start',
+      marginBottom: vh(2),
+      marginLeft: vw(2),
+    },
+    headerRight: {
+      flex: 1,
+      flexDirection: 'row',
+      alignSelf: 'flex-start',
+      justifyContent: 'flex-end',
+      marginRight: vw(.5),
+    },
+    textMain: {
+      marginLeft: vw(2),
+      fontSize: vh(6.5),
+      fontWeight: "bold",
+    },
+    optionButton: {
+      marginTop: vh(1.2),
+      marginRight: vw(2),
+      height: vh(7),
+      width: vw(14),
+    },
+    carousel: {
+      flex: 1,
+      alignSelf: 'flex-start',
+      marginTop: vh(-3.3),
+    },
+    carouselTw: {
+      flex: 1,
+      alignSelf: 'flex-start',
+      height: vh(30),
+    },
+    c_image: {
+      height: vh(25),
+      width: vw(43),
+      marginBottom: vh(1.5),
+      borderWidth: 5,
+      borderRadius: 40,
+      borderColor: 'white',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    p_workouts: {
+      flex: 1,
+      alignItems: 'center',
+      alignSelf: 'stretch',
+      backgroundColor: '#013A73',
+      borderTopEndRadius: 30,
+      borderTopStartRadius: 30,
+      marginTop: vh(10),
+      marginHorizontal: vw(-2),
+    },
+    p_text: {
+      fontSize: 30,
+      color: 'white',
+      fontWeight: 'bold',
+    },
+    item: {
+      paddingVertical: vh(3),
+      paddingHorizontal: vw(18),
+      alignSelf: 'center',
+      borderWidth: 2,
+      borderRadius: 40,
+          borderColor: 'black',
+          backgroundColor: 'white',
+          fontSize: 24
+      },
+    textSub: {
+      marginLeft: vw(2),
+      textAlign: 'center',
+      fontSize: vh(4.5),
+    },
+    likeButton: {
+      marginVertical: 16,
+    },
+    textPub: {
+      borderColor: 'black',
+      marginLeft: vw(2),
+      marginBottom: vw(1),
+      textAlign: 'left',
+      fontSize: vh(2.5),
+    },
+    textPrv: {
+      borderColor: 'black',
+      marginLeft: vw(2),
+      marginBottom: vw(1),
+      textAlign: 'left',
+      fontSize: vh(2.5),
+    },
+    textPrvErr: {
+      borderColor: 'black',
+      marginLeft: vw(2),
+      marginBottom: vw(1),
+      textAlign: 'left',
+      fontSize: vh(2),
+    },
+  });
