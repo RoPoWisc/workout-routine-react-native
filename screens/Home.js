@@ -63,7 +63,6 @@ export class Home extends React.Component {
         });
 
         let responseJson = await response.json();
-        console.log(responseJson)
         responseJson.forEach((e,inx) => {
           if(e.public)
             infoPub.push({name: e.routineName, key:e.routineName+inx});
@@ -131,7 +130,6 @@ export class Home extends React.Component {
                     <Text style={style.textPub} appearance='hint'>
                         Public
                       </Text>
-                      {console.log(this.state.infoPub.length)}
                       {(this.state.infoPub.length > 0) ?
                       <FlatList
                         data={this.state.infoPub}
@@ -155,7 +153,6 @@ export class Home extends React.Component {
                     <Text style={style.textPrv} appearance='hint'>
                         Custom
                       </Text>
-                      {console.log(this.state.infoPriv.length)}
                       {(this.state.infoPriv.length > 0) ?
                       <FlatList
                       data={this.state.infoPriv}
