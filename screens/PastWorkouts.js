@@ -161,8 +161,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderWidth: 2,
     borderRadius: 40,
-		borderColor: 'black',
-		backgroundColor: 'white',
+    color:'white',
+    marginBottom: vh(1),
+		borderColor: 'white',
 		fontSize: 24
 	},
   textSub: {

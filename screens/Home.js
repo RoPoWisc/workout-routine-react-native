@@ -46,6 +46,7 @@ export class Home extends React.Component {
     }
     componentDidMount = async () => {
       try {
+        this.setState({infoPub: [], infoPriv: [], loading:false});
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         //populate exercises
         let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/all' , {
