@@ -7,13 +7,24 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 import { ApplicationProvider, Card, Modal, Spinner } from '@ui-kitten/components';
 let userUid;
 
+const log = [];
+
 export class Login extends React.Component {
 
+	constructor(props) {
+		super(props)
+		this.state = {
+		  loading: true,
+		  log: [],
+		}
+	}
 	componentDidMount = async () => {
 		try {
 			if(this.props.user.userId !== undefined){
 				this.loginHandler;
 			}
+
+			  //console.log(infoPub)
 		} catch (e) {
 			alert(e);
 		}
@@ -21,12 +32,16 @@ export class Login extends React.Component {
 	
 	loginHandler = async () => {
 		try{
+			log.push({email: updateEmail});	
+			this.setState({log: log, loading:false});
 			if(this.props.user.email === undefined){
 				throw "Email is Required!"
 			}
 			if(this.props.user.password === undefined){
+				//log.pop;
 				throw "Password is Required!"
 			}
+			
 		let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
 		method: 'POST',
 		headers: {
@@ -43,13 +58,17 @@ export class Login extends React.Component {
 				this.props.fetchBearerToken(responseJson.accessToken);
 				this.props.fetchUserId(responseJson.userid);
 				console.log('\n', this.props.fetchBearerToken, '\n');
+				//log.pop
 			 }else{
+				 //log.pop;
 			 	alert(responseJson.message);
 			 }
 		//alert(this.props.user.userServer);
 			if(this.props.user.userId !== undefined){
 				this.props.navigation.navigate('DrawerNavigator')
 			}
+			
+			  
 		} catch (e) {
 			console.log('undefined error');
 			alert(e);
@@ -81,9 +100,11 @@ export class Login extends React.Component {
 					autoCapitalize='none'
 					secureTextEntry={true}
 				/>
+				{(this.state.log.length <= 0) ?
 				<TouchableOpacity style={styles.button} onPress={this.loginHandler}>
 					<Text style={styles.buttonText}>Login</Text>
-				</TouchableOpacity>
+				</TouchableOpacity>:
+				<Text style={styles.buttonload}>Loading...</Text>}
 				<TouchableOpacity style={styles.btnTw} onPress={() => this.props.navigation.navigate('Signup')}>
 					<Text style={styles.btnTxt}>Don't have an account yet? Sign up</Text>
 				</TouchableOpacity>
@@ -194,6 +215,17 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontWeight: '300',
 		fontSize: vw(6),
+	},
+	buttonload: {
+		position: 'absolute',
+		color: "white",
+		top: vh(63),
+		left: vw(7),
+		width: "40%",
+		borderRadius: 20,
+		height: vh(7),
+		alignItems: "center",
+		justifyContent: "center",
 	},
 });
 
