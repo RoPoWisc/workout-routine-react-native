@@ -47,7 +47,7 @@ export class Signup extends React.Component {
 					// this.props.fetchUserObj(responseJson.userObj);
 					this.props.fetchBearerToken(responseJson.accessToken);
 					this.props.fetchUserId(responseJson.userid);
-					console.log('\n', this.props.fetchBearerToken, '\n');
+					//console.log('\n', this.props.fetchBearerToken, '\n');
 					//log.pop
 				}else{
 				this.setState({loading: false});
@@ -59,7 +59,7 @@ export class Signup extends React.Component {
 			}
 		}catch(e){
 			this.setState({loading: false});
-			console.log('error caught from post request');
+			//console.log('error caught from post request');
 			alert(e);
 		}
 
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
 	buttonload: {
 		position: 'absolute',
 		color: "white",
-		top: vh(63),
+		top: vh(71),
 		left: vw(7),
 		width: "40%",
 		borderRadius: 20,
