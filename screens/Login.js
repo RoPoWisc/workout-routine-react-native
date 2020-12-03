@@ -23,8 +23,6 @@ export class Login extends React.Component {
 			if(this.props.user.userId !== undefined){
 				this.loginHandler;
 			}
-
-			  //console.log(infoPub)
 		} catch (e) {
 			alert(e);
 		}
@@ -42,33 +40,31 @@ export class Login extends React.Component {
 				throw "Password is Required!"
 			}
 			
-		let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
-		method: 'POST',
-		headers: {
-			Accept: '/',
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			email:this.props.user.email,
-			password:this.props.user.password
-		})});
-		let responseJson = await response.json();
-			if(responseJson.accessToken != "undefined") {
-				// this.props.fetchUserObj(responseJson.userObj);
-				this.props.fetchBearerToken(responseJson.accessToken);
-				this.props.fetchUserId(responseJson.userid);
-				console.log('\n', this.props.fetchBearerToken, '\n');
-				//log.pop
-			 }else{
-				 //log.pop;
-			 	alert(responseJson.message);
-			 }
-		//alert(this.props.user.userServer);
-			if(this.props.user.userId !== undefined){
-				this.props.navigation.navigate('DrawerNavigator')
-			}
-			
-			  
+			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
+			method: 'POST',
+			headers: {
+				Accept: '/',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email:this.props.user.email,
+				password:this.props.user.password
+			})});
+			let responseJson = await response.json();
+				if(responseJson.accessToken) {
+					// this.props.fetchUserObj(responseJson.userObj);
+					this.props.fetchBearerToken(responseJson.accessToken);
+					this.props.fetchUserId(responseJson.userid);
+					console.log('\n', this.props.fetchBearerToken, '\n');
+					//log.pop
+				}else{
+					//log.pop;
+					alert(responseJson.message);
+				}
+			//alert(this.props.user.userServer);
+				if(this.props.user.userId !== undefined){
+					this.props.navigation.navigate('DrawerNavigator')
+				}
 		} catch (e) {
 			console.log('undefined error');
 			alert(e);
