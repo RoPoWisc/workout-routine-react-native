@@ -5,8 +5,15 @@ import { connect } from 'react-redux'
 import { updateEmail, updatePassword, updateName, fetchUserObj, fetchUserId, fetchBearerToken} from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 export class Signup extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+		  loading: false,
+		}
+	}
 	handleSignUp = async () => {
 		try{
+			this.setState({loading: true});
 			if(this.props.user.name === undefined){
 					throw "Name is Required!"
 			}
@@ -36,16 +43,22 @@ export class Signup extends React.Component {
 				//this.props.user.userServer.firstName
 				//this.props.user.userServer.lastName
 				//this.props.user.userServer.timestamp
-			if(responseJson.userid !== undefined){
-				this.props.fetchUserId(responseJson.userid);
-				this.props.fetchBearerToken(responseJson.accessToken);
-			}else{
+				if(responseJson.accessToken) {
+					// this.props.fetchUserObj(responseJson.userObj);
+					this.props.fetchBearerToken(responseJson.accessToken);
+					this.props.fetchUserId(responseJson.userid);
+					console.log('\n', this.props.fetchBearerToken, '\n');
+					//log.pop
+				}else{
+				this.setState({loading: false});
 				//console.log('response json userid undefined');
 				alert(responseJson.message);
 			}
-      
-			this.props.navigation.navigate('DrawerNavigator');
+			if(this.props.user.userId !== undefined){
+				this.props.navigation.navigate('DrawerNavigator')
+			}
 		}catch(e){
+			this.setState({loading: false});
 			console.log('error caught from post request');
 			alert(e);
 		}
@@ -86,9 +99,11 @@ export class Signup extends React.Component {
 					placeholderTextColor="#8BB8CE"
 					secureTextEntry={true}
 				/>
+				{(this.state.loading == false) ?
 				<TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
 					<Text style={styles.buttonText}>Create Account</Text>
-				</TouchableOpacity>
+				</TouchableOpacity>:
+				<Text style={styles.buttonload}>Loading...</Text>}
 				<TouchableOpacity style={styles.btnTw} onPress={() => this.props.navigation.navigate('Login')}>
 					<Text style={styles.btnTxt}>Have an account? Login</Text>
 				</TouchableOpacity>
@@ -205,6 +220,17 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontWeight: '300',
 		fontSize: vw(6),
+	},
+	buttonload: {
+		position: 'absolute',
+		color: "white",
+		top: vh(63),
+		left: vw(7),
+		width: "40%",
+		borderRadius: 20,
+		height: vh(7),
+		alignItems: "center",
+		justifyContent: "center",
 	},
 });
 
