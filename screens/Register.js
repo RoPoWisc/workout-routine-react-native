@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
 	  },
 	text: {
 		position: 'absolute',
-		top: vh(25),
+		top: vh(24),
 		marginLeft:20,
 		fontWeight: '800',
 		fontSize: vw(17),
