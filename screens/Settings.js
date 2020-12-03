@@ -29,8 +29,8 @@ export class Settings extends React.Component {
   render() {
     const logoutHandler = async () => {
       this.props.fetchUserObj(undefined);
-      this.props.updateEmail("");
-      this.props.updatePassword("");
+      this.props.updateEmail(undefined);
+      this.props.updatePassword(undefined);
       this.props.navigation.navigate('Login')
     };
 
