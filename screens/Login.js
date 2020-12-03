@@ -106,6 +106,11 @@ export class Login extends React.Component {
 				<TouchableOpacity style={styles.forgotTw} onPress={() => this.props.navigation.navigate('ForgotPwd')}>
 					<Text style={styles.btnTxt}>Forgot Password?</Text>
 				</TouchableOpacity>
+				<Modal visible={this.state.loading}>
+                  <Card disabled={true}>
+                    <Spinner/>
+                  </Card>
+                </Modal>
 			</View>
 		)
 	}
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
 	  },
 	text: {
 		position: 'absolute',
-		top: vh(23),
+		top: vh(24),
 		marginLeft:20,
 		fontWeight: '800',
 		fontSize: vw(17),
