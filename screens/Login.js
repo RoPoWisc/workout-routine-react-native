@@ -7,15 +7,12 @@ import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 import { ApplicationProvider, Card, Modal, Spinner } from '@ui-kitten/components';
 let userUid;
 
-const log = [];
-
 export class Login extends React.Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-		  loading: true,
-		  log: [],
+		  loading: false,
 		}
 	}
 	componentDidMount = async () => {
@@ -30,10 +27,10 @@ export class Login extends React.Component {
 	
 	loginHandler = async () => {
 		try{
-			log.push({email: updateEmail});	
-			this.setState({log: log, loading:false});
+			this.setState({loading:true});
 			if(this.props.user.email === undefined){
 				throw "Email is Required!"
+
 			}
 			if(this.props.user.password === undefined){
 				//log.pop;
@@ -58,6 +55,7 @@ export class Login extends React.Component {
 					console.log('\n', this.props.fetchBearerToken, '\n');
 					//log.pop
 				}else{
+					this.setState({loading:false});
 					//log.pop;
 					alert(responseJson.message);
 				}
@@ -66,8 +64,9 @@ export class Login extends React.Component {
 					this.props.navigation.navigate('DrawerNavigator')
 				}
 		} catch (e) {
-			console.log('undefined error');
+			
 			alert(e);
+			this.setState({loading:false});
 		}
 	}
 	render() {
@@ -96,7 +95,7 @@ export class Login extends React.Component {
 					autoCapitalize='none'
 					secureTextEntry={true}
 				/>
-				{(this.state.log.length <= 0) ?
+				{(this.state.loading == false) ?
 				<TouchableOpacity style={styles.button} onPress={this.loginHandler}>
 					<Text style={styles.buttonText}>Login</Text>
 				</TouchableOpacity>:
@@ -107,6 +106,11 @@ export class Login extends React.Component {
 				<TouchableOpacity style={styles.forgotTw} onPress={() => this.props.navigation.navigate('ForgotPwd')}>
 					<Text style={styles.btnTxt}>Forgot Password?</Text>
 				</TouchableOpacity>
+				<Modal visible={this.state.loading}>
+                  <Card disabled={true}>
+                    <Spinner/>
+                  </Card>
+                </Modal>
 			</View>
 		)
 	}

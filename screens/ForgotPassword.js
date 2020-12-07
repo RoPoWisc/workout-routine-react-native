@@ -7,8 +7,15 @@ import { updateEmail, fetchUserObj} from '../actions/user'
 
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 export class ForgotPassword extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+		  loading: false,
+		}
+	}
     handleReset = async () => {
 		try{
+			this.setState({loading:true});
 			if(this.props.user.email === undefined){
 					throw "Email is Required!"
 			}
@@ -35,6 +42,7 @@ export class ForgotPassword extends React.Component {
 			if(responseJson.link !== undefined){
 				this.props.navigation.navigate('PasswordReset', {link: this.props.fetchUserObj(responseJson.link)})
 			}else{
+				this.setState({loading:false});
 				alert(responseJson.message);
 			}
 		}catch(e){
@@ -61,9 +69,11 @@ export class ForgotPassword extends React.Component {
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
 				/>
+				{(this.state.loading == false) ?
 				<TouchableOpacity style={styles.button} onPress={this.handleReset}>
 					<Text style={styles.buttonText}>Reset Password</Text>
-				</TouchableOpacity>
+				</TouchableOpacity>: 
+				<Text style={styles.buttonload}>Loading...</Text>}
 				<TouchableOpacity style={styles.btnTw} onPress={() => this.props.navigation.navigate('Login')}>
 					<Text style={styles.btnTxt}>Remember your password? Login</Text>
 				</TouchableOpacity>
@@ -73,7 +83,18 @@ export class ForgotPassword extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    positLogo: {
+	buttonload: {
+		position: 'absolute',
+		color: "white",
+		top: vh(63),
+		left: vw(7),
+		width: "40%",
+		borderRadius: 20,
+		height: vh(7),
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	positLogo: {
 		position: 'absolute',
 		top: vh(5),
 	},
@@ -95,7 +116,7 @@ const styles = StyleSheet.create({
 	inpBx:{
 		position: 'absolute',
 		left: vw(4),
-		top:vh(48),
+		top:vh(45),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
@@ -112,7 +133,7 @@ const styles = StyleSheet.create({
     },
 	button: {
 		position: 'absolute',
-		top: vh(56),
+		top: vh(53),
 		left: vw(4),
 		width: "40%",
 		backgroundColor: "#0466C8",
@@ -123,14 +144,14 @@ const styles = StyleSheet.create({
 	},
 	btnTw: {
 		position: 'absolute',
-		top: vh(64),
+		top: vh(63),
 		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	text: {
 		position: 'absolute',
-		top: vh(30),
+		top: vh(24),
 		marginLeft:20,
 		fontWeight: '800',
 		fontSize: vw(17),
@@ -138,7 +159,7 @@ const styles = StyleSheet.create({
 	},
 	subtext: {
 		position: 'absolute',
-		top: vh(39),
+		top: vh(35),
 		marginLeft:20,
 		fontWeight: '400',
 		fontSize: vw(10),
