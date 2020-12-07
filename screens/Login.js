@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
 	  },
 	text: {
 		position: 'absolute',
-		top: vh(23),
+		top: vh(25),
 		marginLeft:20,
 		fontWeight: '800',
 		fontSize: vw(17),
@@ -192,15 +192,15 @@ const styles = StyleSheet.create({
 	},
 	btnTw: {
 		position: 'absolute',
-		top: vh(70),
+		top: vh(69),
 		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	forgotTw: {
 		position: 'absolute',
-		top: vh(86),
-		left: vw(4),
+		top: vh(60),
+		left: vw(50),
 		alignItems: "center",
 		justifyContent: "center",
 	},
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
 	btnTxt: {
 		color: "white",
 		fontWeight: '300',
-		fontSize: vw(6),
+		fontSize: vw(4),
 	},
 	buttonload: {
 		position: 'absolute',

@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
 	btnTxt: {
 		color: "white",
 		fontWeight: '300',
-		fontSize: vw(6),
+		fontSize: vw(4),
 	},
 })
 const mapDispatchToProps = dispatch => {

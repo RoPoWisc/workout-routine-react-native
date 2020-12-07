@@ -8,8 +8,6 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 
 
-let userUid;
-
 function cacheImages(images) {
 	return images.map(image => {
 	  if (typeof image === 'string') {
