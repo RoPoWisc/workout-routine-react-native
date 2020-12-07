@@ -83,7 +83,6 @@ export class PastWorkouts extends React.Component {
 
 
     render() {
-      console.log(this.state.info)
       // const renderItem = ({ item }) => <Item title={item.title} />;
         return (
             <>

@@ -16,18 +16,6 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 const style = require('../styles/global');
-/**
- * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
- * https://akveo.github.io/eva-icons
- */
-const HeartIcon = (props) => (
-  <Icon {...props} name='heart'/>
-);
-
-const infoPub = [];
-
-const infoPriv = [];
-
 const images = [
   {name: require('../assets/home.jpg'), key: 'Workout 1'},
   {name: require('../assets/home1.jpg'), key: 'Workout 2'},
@@ -46,7 +34,6 @@ export class Home extends React.Component {
     }
     componentDidMount = async () => {
       try {
-        this.setState({infoPub: [], infoPriv: [], loading:false});
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         //populate exercises
         let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/all' , {
@@ -61,8 +48,9 @@ export class Home extends React.Component {
             limit: 10
           })
         });
-
         let responseJson = await response.json();
+        let infoPub = [];
+        let infoPriv = [];
         responseJson.forEach((e,inx) => {
           if(e.public)
             infoPub.push({name: e.routineName, key:e.routineName+inx});

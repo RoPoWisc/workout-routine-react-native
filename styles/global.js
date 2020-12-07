@@ -2,11 +2,14 @@ import { vw, vh} from 'react-native-expo-viewport-units'
 const React = require('react-native');
 const {StyleSheet} = React;
 module.exports = StyleSheet.create({
+    default: {
+      backgroundColor: '#2E3A59',
+    },
     container: {
       flex: 3,
       justifyContent: 'center',
       alignItems: 'center',
-      marginHorizontal: vw(2),
+      paddingHorizontal: vw(2),
     },
     imagebkgnd: {
       flex: 1,
@@ -21,37 +24,37 @@ module.exports = StyleSheet.create({
     header: {
       flex: 1,
       flexDirection: 'row',
-      marginTop: vh(2),
+      paddingTop: vh(2),
       alignItems: 'center',
     },
     headerLeft: {
       flex: 3,
       alignItems: 'flex-start',
-      marginBottom: vh(2),
-      marginLeft: vw(2),
+      paddingBottom: vh(2),
+      paddingLeft: vw(2),
     },
     headerRight: {
       flex: 1,
       flexDirection: 'row',
       alignSelf: 'flex-start',
       justifyContent: 'flex-end',
-      marginRight: vw(.5),
+      paddingRight: vw(.5),
     },
     textMain: {
-      marginLeft: vw(2),
+      paddingLeft: vw(2),
       fontSize: vh(6.5),
       fontWeight: "bold",
     },
     optionButton: {
-      marginTop: vh(1.2),
-      marginRight: vw(2),
+      paddingTop: vh(1.2),
+      paddingRight: vw(2),
       height: vh(7),
       width: vw(14),
     },
     carousel: {
       flex: 1,
       alignSelf: 'flex-start',
-      marginTop: vh(-3.3),
+      paddingTop: vh(-3.3),
     },
     carouselTw: {
       flex: 1,
@@ -61,10 +64,7 @@ module.exports = StyleSheet.create({
     c_image: {
       height: vh(25),
       width: vw(43),
-      marginBottom: vh(1.5),
-      borderWidth: 5,
-      borderRadius: 40,
-      borderColor: 'white',
+      paddingRight: vw(2),
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -75,8 +75,8 @@ module.exports = StyleSheet.create({
       backgroundColor: '#013A73',
       borderTopEndRadius: 30,
       borderTopStartRadius: 30,
-      marginTop: vh(10),
-      marginHorizontal: vw(-2),
+      paddingTop: vh(10),
+      paddingHorizontal: vw(-2),
     },
     p_text: {
       fontSize: 30,
@@ -94,31 +94,31 @@ module.exports = StyleSheet.create({
           fontSize: 24
       },
     textSub: {
-      marginLeft: vw(2),
+      paddingLeft: vw(2),
       textAlign: 'center',
       fontSize: vh(4.5),
     },
     likeButton: {
-      marginVertical: 16,
+      paddingVertical: 16,
     },
     textPub: {
       borderColor: 'black',
-      marginLeft: vw(2),
-      marginBottom: vw(1),
+      paddingLeft: vw(2),
+      paddingBottom: vw(1),
       textAlign: 'left',
       fontSize: vh(2.5),
     },
     textPrv: {
       borderColor: 'black',
-      marginLeft: vw(2),
-      marginBottom: vw(1),
+      paddingLeft: vw(2),
+      paddingBottom: vw(1),
       textAlign: 'left',
       fontSize: vh(2.5),
     },
     textPrvErr: {
       borderColor: 'black',
-      marginLeft: vw(2),
-      marginBottom: vw(1),
+      paddingLeft: vw(2),
+      paddingBottom: vw(1),
       textAlign: 'left',
       fontSize: vh(2),
     },
