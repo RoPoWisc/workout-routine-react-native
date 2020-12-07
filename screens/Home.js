@@ -63,11 +63,11 @@ export class Home extends React.Component {
         alert(e);
       }
     }
-    onPressWorkoutButton = async (routineNameVar) => {
+    onPressWorkoutButton = async (routineNameVar,type) => {
       // item has name and key
 
       let bearer = 'Bearer ' + this.props.user.bearerToken;
-
+      routineNameVar = routineNameVar.slice(0,-1);
       let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
         method: 'POST',
        headers: {
@@ -82,8 +82,7 @@ export class Home extends React.Component {
 
         let responseJson = await response.json();
         responseJson.routineName = routineNameVar
-        responseJson.routineDay = "Pre-built Workout"
-        ////console.log(responseJson)
+        responseJson.routineDay = type+" Workout"
         this.props.navigation.navigate('Workout', { workoutData: responseJson} )
     }
 
@@ -124,7 +123,7 @@ export class Home extends React.Component {
                         horizontal
 						            renderItem={({ item }) => (
 							            <>
-                            <TouchableOpacity onPress={() => this.onPressWorkoutButton(item.key)}>
+                            <TouchableOpacity onPress={() => this.onPressWorkoutButton(item.key,'Public')}>
                               <Layout style={style.c_image}>
                                 <ImageBackground
                                   style={style.imagebkgnd}
@@ -147,7 +146,7 @@ export class Home extends React.Component {
                       horizontal
                       renderItem={({ item }) => (
                         <>
-                          <TouchableOpacity onPress={() => this.onPressWorkoutButton(item.key)}>
+                          <TouchableOpacity onPress={() => this.onPressWorkoutButton(item.key,'Pre-built')}>
                             <Layout style={style.c_image}>
                               <ImageBackground
                                 style={style.imagebkgnd}

@@ -30,32 +30,6 @@ const ExpandIcon = (props) => (
     <Icon {...props} name='arrow-ios-downward-outline' />
 );
 
-const exerciseStyles = StyleSheet.create({
-    exercise: {
-        backgroundColor: '#E5E5E5',
-        width: '93%',
-        borderRadius: 10,
-        padding: 5,
-        margin: 5
-    },
-    header: {
-        fontSize: 30
-    },
-    exerciseInfo: {
-        fontSize: 20
-    },
-    weight: {
-        fontSize: 20,
-        paddingLeft: 10
-    },
-    reps: {
-        position: 'absolute',
-        top: '12%',
-        fontSize: 20,
-        left: '38%'
-    }
-});
-
 export class Workout extends React.Component {
 
     constructor(props) {
@@ -65,7 +39,7 @@ export class Workout extends React.Component {
         this.changeRepsHandler = this.changeRepsHandler.bind(this);
         this.getDate = this.getDate.bind(this);
 
-        ////console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
+        //console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
 
         this.state = {
             workout: {
@@ -111,7 +85,11 @@ export class Workout extends React.Component {
         }
 
         this.props.navigation.navigate('DrawerNavigator')
-	}
+    }
+    
+    cancelWorkout = async () =>{
+        this.props.navigation.navigate('DrawerNavigator')
+    }
 
     addSetHandler(exercise_object) {
         exercise_object.sets.push({weight: 0, reps: 0, checked: 'false', id: this.getDate()});
@@ -298,7 +276,7 @@ export class Workout extends React.Component {
                                 <ExerciseEntry weight={item.weight} reps={item.reps} checked={item.checked} id={item.id} exercise_id={exercise_object.exercise_id}></ExerciseEntry>
                             )}
                         />
-                        <Button style={{ marginVertical: 3 }} appearance={'outline'} size={'small'} onPress={() => this.addSetHandler(exercise_object)}>Add Set</Button>
+                        <Button style={{ marginVertical: 3, borderColor: 'white', backgroundColor: 'white' }} appearance={'outline'} size={'small'} onPress={() => this.addSetHandler(exercise_object)}>Add Set</Button>
                     </View>}
                     <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{ margin: -8 }} onPress={() => showElementHandler(exercise_object.exercise_id)}></Button>
                 </View>
@@ -322,11 +300,9 @@ export class Workout extends React.Component {
                         </View>
                     <List
                         style={{
-                            backgroundColor: '#FFFFFF',
-                            width: '100%',
-                            marginLeft: 15,
+                            width: '93%',
                             alignSelf: 'center',
-                            borderRadius: 5
+                            borderRadius: 10,
                         }}
                         data={this.state.workout.exerciseArray}
                         renderItem={({ item }) => (
@@ -341,9 +317,14 @@ export class Workout extends React.Component {
                             </Exercise>
                         )}
                     />
+                    <Layout style={{flexDirection: 'row', height:vh(5),marginTop:vh(2),marginBottom:vh(2)}}>
                     <Button style={styles.button} onPress={() => this.endWorkoutHandler()}>
                         End Workout
                     </Button>
+                    <Button style={styles.button} onPress={()=>this.cancelWorkout()}>
+                        Cancel
+                    </Button>
+                    </Layout>
                     </Layout>
                 </ApplicationProvider>
             </>
@@ -359,8 +340,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     button: {
-        margin: 20,
-        width: '80%',
+        width: vw(40),
+        marginLeft: vw(2),
+        marginRight: vw(2),
         backgroundColor: '#DB504A',
         borderColor: '#DB504A',
         borderRadius: 8
@@ -394,6 +376,30 @@ const styles = StyleSheet.create({
         height: vh(7),
         width: vw(14),
     },
+});
+const exerciseStyles = StyleSheet.create({
+    exercise: {
+        backgroundColor: 'rgba(98, 153, 209, 1)',
+        width: '90%',
+        borderRadius: 10,
+        alignSelf: 'center',
+    },
+    header: {
+        fontSize: 30
+    },
+    exerciseInfo: {
+        fontSize: 20
+    },
+    weight: {
+        fontSize: 20,
+        paddingLeft: 10
+    },
+    reps: {
+        position: 'absolute',
+        top: '12%',
+        fontSize: 20,
+        left: '38%'
+    }
 });
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({}, dispatch)

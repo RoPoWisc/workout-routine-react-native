@@ -17,7 +17,6 @@ import {
     Modal,
     Input
 } from '@ui-kitten/components';
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 
 import { vw, vh} from 'react-native-expo-viewport-units'
@@ -25,7 +24,6 @@ const style = require('../styles/global');
 const CloseIcon = (props) => (
     <Icon {...props} name='close-square-outline'/>
 );
-
 
 export class ViewPersonalExercise extends React.Component {
 
@@ -210,8 +208,8 @@ export class ViewPersonalExercise extends React.Component {
             const [type, setType] = React.useState('');
 
             return (
-                <View style={{ alignItems: 'center', padding: 10, backgroundColor: '#DEDEDE', borderRadius: 10}}>
-                    <Text category='h2' style={{color: '#266199'}}>Create New Exercise!</Text>
+                <View style={{ alignItems: 'center', padding: 10, backgroundColor: 'rgba(98, 153, 209, 0.95)', borderRadius: 10}}>
+                    <Text category='h2' style={{color: 'white'}}>Create New Exercise!</Text>
                     <Input 
                         placeholder='Exercise Name'
                         value={name}
@@ -233,19 +231,19 @@ export class ViewPersonalExercise extends React.Component {
         }
 
         const Exercise2 = (exercise_object) => {
-
+            const clr = (this.props.user['darkMode']) ?'white':'black';
             return (
                 <View style={exerciseStyles.exercise}>
                     <View style={{
                         justifyContent: 'space-between',
                         flexDirection: 'column',
-                        borderBottomColor: '#002855',
-                        borderBottomWidth: 1,
+                        borderBottomColor: clr,
+                        borderBottomWidth: 2,
                     }}>
                         <View style={{flexDirection: 'row', justifyContent:'space-between', paddingRight: 10}}>
                             <Text category='p2' style={exerciseStyles.header}>{exercise_object.name}</Text>
                             {this.state.showDelete && <Button accessoryLeft={CloseIcon} onPress={() => this.deleteExerciseHandler(exercise_object.id)} size='small' style={{
-                                width: 32, height: 32, position: 'absolute', right: 10, top: 5, backgroundColor: '#DB504A', borderColor: '#DB504A', borderRadius: 8}}/>}
+                                width: 32, height: 32, position: 'absolute', right: 10, top: 5, backgroundColor: '#DB504A',}}/>}
                             
                         </View>
                         <Text category='p2' style={exerciseStyles.volume}>{exercise_object.totalVolume}</Text>
@@ -280,11 +278,9 @@ export class ViewPersonalExercise extends React.Component {
                 <Layout style={style.container}>
                     <List
                         style={{
-                            backgroundColor: 'white',
-                            width: '100%',
-                            marginLeft: 15,
+                            width: '93%',
                             alignSelf: 'center',
-                            borderRadius: 5,
+                            borderRadius: 10,
                         }}
                         data={this.state.exercises}
                         ItemSeparatorComponent={Divider}
@@ -308,7 +304,6 @@ export class ViewPersonalExercise extends React.Component {
 
 const exerciseStyles = StyleSheet.create({
     exercise: {
-        backgroundColor: '#E5E5E5',
         width: '93%',
         borderRadius: 10,
         padding: 5,
@@ -352,7 +347,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     backdrop: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     optionButton: {
         marginTop: vh(1.2),
@@ -362,9 +356,9 @@ const styles = StyleSheet.create({
     },
 });
 
-// const mapDispatchToProps = dispatch => {
-// 	return bindActionCreators({ fetchUserObj }, dispatch)
-// }
+const mapDispatchToProps = dispatch => {
+ 	return bindActionCreators({ fetchUserObj }, dispatch)
+ }
 
 const mapStateToProps = state => {
 	return {
