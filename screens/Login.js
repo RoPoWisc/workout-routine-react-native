@@ -14,6 +14,8 @@ export class Login extends React.Component {
 		this.state = {
 		  loading: false,
 		}
+		this.props.user.email = undefined;
+		this.props.user.password = undefined;
 	}
 	componentDidMount = async () => {
 		try {
@@ -28,11 +30,11 @@ export class Login extends React.Component {
 	loginHandler = async () => {
 		try{
 			this.setState({loading:true});
-			if(this.props.user.email === undefined){
+			if(!this.props.user.email){
 				throw "Email is Required!"
 
 			}
-			if(this.props.user.password === undefined){
+			if(!this.props.user.password){
 				//log.pop;
 				throw "Password is Required!"
 			}
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
 	  },
 	text: {
 		position: 'absolute',
-		top: vh(25),
+		top: vh(20),
 		marginLeft:20,
 		fontWeight: '800',
 		fontSize: vw(17),
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
 	},
 	subtext: {
 		position: 'absolute',
-		top: vh(35),
+		top: vh(28),
 		marginLeft:20,
 		fontWeight: '400',
 		fontSize: vw(10),
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
 	inpBx:{
 		position: 'absolute',
 		left: vw(4),
-		top:vh(45),
+		top:vh(38),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
 	inpBxTw:{
 		position: 'absolute',
 		left: vw(4),
-		top:vh(53),
+		top:vh(46),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
     },
 	button: {
 		position: 'absolute',
-		top: vh(61),
+		top: vh(54),
 		left: vw(4),
 		width: "40%",
 		backgroundColor: "#0466C8",
@@ -196,14 +198,14 @@ const styles = StyleSheet.create({
 	},
 	btnTw: {
 		position: 'absolute',
-		top: vh(69),
+		top: vh(62),
 		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	forgotTw: {
 		position: 'absolute',
-		top: vh(60),
+		top: vh(53),
 		left: vw(50),
 		alignItems: "center",
 		justifyContent: "center",

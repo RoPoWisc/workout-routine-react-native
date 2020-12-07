@@ -10,17 +10,20 @@ export class Signup extends React.Component {
 		this.state = {
 		  loading: false,
 		}
+		this.props.user.email = undefined;
+		this.props.user.name = undefined;
+		this.props.user.password = undefined;
 	}
 	handleSignUp = async () => {
 		try{
 			this.setState({loading: true});
-			if(this.props.user.name === undefined){
+			if(!this.props.user.name){
 					throw "Name is Required!"
 			}
-			if(this.props.user.email === undefined){
+			if(!this.props.user.email){
 					throw "Email is Required!"
 			}
-			if(this.props.user.password === undefined){
+			if(!this.props.user.password){
 					throw "Password is Required!"
 			}
 			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/users/create', {
@@ -35,23 +38,11 @@ export class Signup extends React.Component {
 				password:this.props.user.password,
 			})});
 			let responseJson = await response.json();
-			// console.log(responseJson);
-			////console.log(JSON.stringify(responseJson))
-			//This saves to this.props.user.userServer
-			//you can refer to data by using this.props.user.userServer
-				//this.props.user.userServer.email
-				//this.props.user.userServer.firstName
-				//this.props.user.userServer.lastName
-				//this.props.user.userServer.timestamp
 				if(responseJson.accessToken) {
-					// this.props.fetchUserObj(responseJson.userObj);
 					this.props.fetchBearerToken(responseJson.accessToken);
 					this.props.fetchUserId(responseJson.userid);
-					//console.log('\n', this.props.fetchBearerToken, '\n');
-					//log.pop
 				}else{
 				this.setState({loading: false});
-				//console.log('response json userid undefined');
 				alert(responseJson.message);
 			}
 			if(this.props.user.userId !== undefined){
@@ -59,7 +50,6 @@ export class Signup extends React.Component {
 			}
 		}catch(e){
 			this.setState({loading: false});
-			//console.log('error caught from post request');
 			alert(e);
 		}
 
@@ -134,7 +124,7 @@ const styles = StyleSheet.create({
 	  },
 	text: {
 		position: 'absolute',
-		top: vh(24),
+		top: vh(20),
 		marginLeft:20,
 		fontWeight: '800',
 		fontSize: vw(17),
@@ -142,7 +132,7 @@ const styles = StyleSheet.create({
 	},
 	subtext: {
 		position: 'absolute',
-		top: vh(35),
+		top: vh(28),
 		marginLeft:20,
 		fontWeight: '400',
 		fontSize: vw(10),
@@ -152,7 +142,7 @@ const styles = StyleSheet.create({
 	inpBx:{
 		position: 'absolute',
 		left: vw(4),
-		top:vh(45),
+		top:vh(36),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
@@ -166,7 +156,7 @@ const styles = StyleSheet.create({
 	inpBxTw:{
 		position: 'absolute',
 		left: vw(4),
-		top:vh(53),
+		top:vh(44),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
@@ -180,7 +170,7 @@ const styles = StyleSheet.create({
 	inpBxThr:{
 		position: 'absolute',
 		left: vw(4),
-		top:vh(61),
+		top:vh(52),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
@@ -197,7 +187,7 @@ const styles = StyleSheet.create({
     },
 	button: {
 		position: 'absolute',
-		top: vh(70),
+		top: vh(60),
 		left: vw(4),
 		width: "40%",
 		backgroundColor: "#0466C8",
@@ -208,7 +198,7 @@ const styles = StyleSheet.create({
 	},
 	btnTw: {
 		position: 'absolute',
-		top: vh(78),
+		top: vh(68),
 		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
@@ -224,7 +214,7 @@ const styles = StyleSheet.create({
 	buttonload: {
 		position: 'absolute',
 		color: "white",
-		top: vh(71),
+		top: vh(62),
 		left: vw(7),
 		width: "40%",
 		borderRadius: 20,

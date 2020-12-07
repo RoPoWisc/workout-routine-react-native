@@ -12,11 +12,13 @@ export class ForgotPassword extends React.Component {
 		this.state = {
 		  loading: false,
 		}
+		this.props.user.email = undefined;
 	}
     handleReset = async () => {
 		try{
 			this.setState({loading:true});
-			if(this.props.user.email === undefined){
+			console.log(this.props.user.email);
+			if(!this.props.user.email){
 					throw "Email is Required!"
 			}
 			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/users/forgotPassword/reset', {
@@ -32,13 +34,6 @@ export class ForgotPassword extends React.Component {
 				lname:this.props.user.name
 			})});
 			let responseJson = await response.json();
-			//This saves to this.props.user.userServer
-			//you can refer to data by using this.props.user.userServer
-				//this.props.user.userServer.email
-				//this.props.user.userServer.firstName
-				//this.props.user.userServer.lastName
-				//this.props.user.userServer.timestamp
-			////console.log(responseJson)
 			if(responseJson.link !== undefined){
 				this.props.navigation.navigate('PasswordReset', {link: this.props.fetchUserObj(responseJson.link)})
 			}else{
@@ -47,6 +42,7 @@ export class ForgotPassword extends React.Component {
 			}
 		}catch(e){
 			alert(e);
+			this.setState({loading:false});
 		}
     }
     render() {
@@ -86,7 +82,7 @@ const styles = StyleSheet.create({
 	buttonload: {
 		position: 'absolute',
 		color: "white",
-		top: vh(63),
+		top: vh(46),
 		left: vw(7),
 		width: "40%",
 		borderRadius: 20,
@@ -116,7 +112,7 @@ const styles = StyleSheet.create({
 	inpBx:{
 		position: 'absolute',
 		left: vw(4),
-		top:vh(45),
+		top:vh(36),
         width:"80%",
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
@@ -133,7 +129,7 @@ const styles = StyleSheet.create({
     },
 	button: {
 		position: 'absolute',
-		top: vh(53),
+		top: vh(44),
 		left: vw(4),
 		width: "40%",
 		backgroundColor: "#0466C8",
@@ -144,14 +140,14 @@ const styles = StyleSheet.create({
 	},
 	btnTw: {
 		position: 'absolute',
-		top: vh(63),
+		top: vh(52),
 		left: vw(4),
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	text: {
 		position: 'absolute',
-		top: vh(24),
+		top: vh(20),
 		marginLeft:20,
 		fontWeight: '800',
 		fontSize: vw(17),
@@ -159,7 +155,7 @@ const styles = StyleSheet.create({
 	},
 	subtext: {
 		position: 'absolute',
-		top: vh(35),
+		top: vh(28),
 		marginLeft:20,
 		fontWeight: '400',
 		fontSize: vw(10),
