@@ -5,7 +5,8 @@ import mockStore from 'redux-mock-store';
 import {
     updateEmail, updatePassword, 
     updateConfirmPassword,updateName,
-    fetchUserObj,fetchBearerToken
+    fetchUserObj,fetchBearerToken,
+    updateDarkMode,CustomToken
 } from '../actions/user';
 
 
@@ -73,4 +74,17 @@ describe('Users.js TESTS', () => {
     it('fetchUserObj', () => {
         expect(fetchUserObj('ASLDKJFOWAIEJFAWOE').payload.userServer).toEqual('ASLDKJFOWAIEJFAWOE');
     });
+    it('updateDarkMode', () => {
+        expect(updateDarkMode(true).payload).toEqual(true);
+    });
+    it('updateDarkMode_empty', () => {
+        expect(updateDarkMode().payload).toEqual();
+    });
+    it('CustomToken', () => {
+        expect(CustomToken('ASLDKJFOWAIEJFAWOEASLDKJFOWAIEJFAWOEASLDKJFOWAIEJFAWOE').payload).toEqual('ASLDKJFOWAIEJFAWOEASLDKJFOWAIEJFAWOEASLDKJFOWAIEJFAWOE');
+    });
+    it('CustomToken_empty', () => {
+        expect(CustomToken().payload).toEqual();
+    });
+    
 });

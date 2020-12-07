@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605316365995" clover="3.2.0">
-  <project timestamp="1605316365995" name="All files">
-    <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6" elements="24" coveredelements="24" complexity="0" loc="18" ncloc="18" packages="1" files="1" classes="1"/>
-    <file name="user.js" path="/Users/rohitpotineni/Desktop/Workout-506/workout-routine-react-native/actions/user.js">
-      <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
-      <line num="4" count="1" type="stmt"/>
+<coverage generated="1607384144499" clover="3.2.0">
+  <project timestamp="1607384144499" name="All files">
+    <metrics statements="25" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8" elements="34" coveredelements="33" complexity="0" loc="25" ncloc="25" packages="1" files="1" classes="1"/>
+    <file name="user.js" path="/Users/rohitpotineni/Desktop/zzz_folder/Workout-506/workout-routine-react-native/actions/user.js">
+      <metrics statements="25" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8"/>
       <line num="5" count="1" type="stmt"/>
       <line num="6" count="1" type="stmt"/>
       <line num="7" count="1" type="stmt"/>
       <line num="8" count="1" type="stmt"/>
       <line num="9" count="1" type="stmt"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="11" count="1" type="stmt"/>
       <line num="12" count="1" type="stmt"/>
       <line num="13" count="1" type="stmt"/>
-      <line num="14" count="2" type="stmt"/>
-      <line num="20" count="1" type="stmt"/>
-      <line num="21" count="2" type="stmt"/>
-      <line num="27" count="1" type="stmt"/>
-      <line num="28" count="2" type="stmt"/>
-      <line num="34" count="1" type="stmt"/>
-      <line num="35" count="4" type="stmt"/>
-      <line num="41" count="1" type="stmt"/>
-      <line num="46" count="1" type="stmt"/>
-      <line num="47" count="1" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="18" count="4" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="25" count="4" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="32" count="4" type="stmt"/>
+      <line num="38" count="1" type="stmt"/>
+      <line num="39" count="6" type="stmt"/>
+      <line num="45" count="2" type="stmt"/>
+      <line num="50" count="2" type="stmt"/>
+      <line num="55" count="1" type="stmt"/>
+      <line num="56" count="1" type="stmt"/>
+      <line num="62" count="1" type="stmt"/>
+      <line num="63" count="2" type="stmt"/>
+      <line num="69" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
