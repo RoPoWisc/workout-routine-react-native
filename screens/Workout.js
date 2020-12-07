@@ -383,6 +383,7 @@ const exerciseStyles = StyleSheet.create({
         width: '90%',
         borderRadius: 10,
         alignSelf: 'center',
+        marginBottom:vh(2)
     },
     header: {
         fontSize: 30

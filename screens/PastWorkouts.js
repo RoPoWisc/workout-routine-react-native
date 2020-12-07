@@ -155,6 +155,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   item: {
+    width:vw(90),
+    height:vh(14),
     paddingVertical: vh(3),
     paddingHorizontal: vw(18),
     alignSelf: 'center',

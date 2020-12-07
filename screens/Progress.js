@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { StackedAreaChart, YAxis, Grid } from 'react-native-svg-charts'
+import { ProgressCircle } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
 import { } from '../actions/user'
 import {
@@ -11,59 +11,58 @@ import {
   IconRegistry,
   Layout,
   Text,
+  Card, 
+  Modal, 
+  Spinner
 } from '@ui-kitten/components';
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 const style = require('../styles/global');
-let inx = -1;
+const datesAreOnSameMonth = (first, second) =>
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth()
+const datesAreOnSameDay = (first, second) =>
+    datesAreOnSameMonth(first,second) &&
+    first.getDate() === second.getDate();
+const now = new Date();
 export class Progress extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        data: {},
+        loading: true
+      }
+    }
+    componentDidMount = async () => {
+      try {
+        let bearer = 'Bearer ' + this.props.user.bearerToken;
+        //populate exercises
+        let response = await fetch('https://workout-routine-builder-api.herokuapp.com/users/stats' , {
+        method: 'POST',
+        headers: {
+            Accept: '/',
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+          },
+          body: JSON.stringify({
+            _owner: this.props.user.userId,
+          })
+        });
+        let data = {month:0,daily:0};
+        let responseJson = await response.json();
+        responseJson = responseJson.success;
+        responseJson[0]["completed"].forEach((itm)=>{
+          data.month = datesAreOnSameMonth(now,new Date(itm))?data.month+1:data.month;
+          data.daily = datesAreOnSameDay(now,new Date(itm))?data.daily+1:data.daily;
+        });
+        this.setState({data:data, loading:false});
+      } catch (e) {
+        alert(e);
+      }
+    }
     render() {
-      const data = [
-        {
-            month: new Date(2015, 0, 1),
-            apples: 38,
-            bananas: 19,
-            cherries: 9,
-            dates: 4,
-        },
-        {
-            month: new Date(2015, 1, 1),
-            apples: 15,
-            bananas: 5,
-            cherries: 2,
-            dates: 1,
-        },
-        {
-            month: new Date(2015, 2, 1),
-            apples: 6,
-            bananas: 9,
-            cherries: 36,
-            dates: 40,
-        },
-        {
-            month: new Date(2015, 3, 1),
-            apples: 33,
-            bananas: 4,
-            cherries: 6,
-            dates: 4,
-        },
-    ]
-
-    const colors = [
-        'rgba(98, 153, 209, 1)',
-        'rgba(98, 153, 209, 0.8)',
-        'rgba(98, 153, 209, 0.6)',
-        'rgba(98, 153, 209, 0.4)',
-    ]
-    const displColors = [
-      {key:'rgba(98, 153, 209, 1)'},
-      {key:'rgba(98, 153, 209, 0.8)'},
-      {key:'rgba(98, 153, 209, 0.6)'},
-      {key:'rgba(98, 153, 209, 0.4)'},
-  ]
     const clr = (this.props.user['darkMode']) ?'white':'black';
-    const keys = ['apples', 'bananas', 'cherries', 'dates']
         return (
             <>
                 <IconRegistry icons={EvaIconsPack}/>
@@ -92,51 +91,50 @@ export class Progress extends React.Component {
                   <Layout style={style.container}>
                     <Layout style={styles.bodyWeight}>
                       <Text style={styles.chartTitle}>
-                        Most Recent Workout
+                        Monthly Workout Goal
                       </Text>
                     </Layout>
+                    {(this.state.loading) ? 
+                  <Modal visible={this.state.loading}>
+                    <Card disabled={true}>
+                      <Spinner/>
+                    </Card>
+                  </Modal>:
                     <Layout style={styles.chartLayout}>
-                      <StackedAreaChart
-                      style={styles.chart}
-                      contentInset={{ top: 10, bottom: 10 }}
-                      data={data}
-                      keys={keys}
-                      colors={colors}
-                      curve={shape.curveNatural}
+                      <ProgressCircle
+                          style={ styles.chart }
+                          progress={ this.state.data.month/30 }
+                          progressColor={'rgba(98, 153, 209, 1)'}
+                          startAngle={ -Math.PI * 0.8 }
+                          endAngle={ Math.PI * 0.8 }
                       >
-                      </StackedAreaChart>
-                      <YAxis
-                          style={{ position: 'absolute', color: 'black', top: 0, bottom: 0 }}
-                          data={StackedAreaChart.extractDataPoints(data, keys)}
-                          contentInset={{ top: 10, bottom: 10 }}
-                          svg={{
-                              fontSize: vh(0.9),
-                              fill: clr,
-                              stroke: clr,
-                              strokeWidth: 0.1,
-                              alignmentBaseline: 'baseline',
-                              baselineShift: '3',
-                          }}
-                      />
+                      </ProgressCircle>
+                      <Text style={styles.chartInner}>{this.state.data.month}</Text>
                     </Layout>
-                    <Layout style={styles.legend}>
-                    <Text style={styles.legendTitle}>
-                        Legend
+                    }
+                    <Layout style={styles.bodyWeight}>
+                      <Text style={styles.chartDailyTitle}>
+                        Daily Workout Goal
                       </Text>
-                      {colors.map((prop, key) => {
-                        //defaultBox.backgroundColor = itm;
-                        inx++;
-                        return (
-                          <View style={{flex: 1,flexDirection: 'row',alignSelf: 'flex-start',}}>
-                          <View style={{marginBottom: vh(2),
-                            width: vw(5),
-                            height: vw(5),
-                            backgroundColor: prop}}/>
-                            <Text style={{paddingLeft:vw(4)}}>{keys[inx]}</Text>
-                          </View>
-                        );
-                      })}
                     </Layout>
+                    {(this.state.loading) ? 
+                    <Modal visible={this.state.loading}>
+                      <Card disabled={true}>
+                        <Spinner/>
+                      </Card>
+                    </Modal>:                    
+                    <Layout style={styles.chartDailyLayout}>
+                      <ProgressCircle
+                          style={ styles.chart }
+                          progress={ this.state.data.daily }
+                          progressColor={'rgba(98, 153, 209, 1)'}
+                          startAngle={ -Math.PI * 0.8 }
+                          endAngle={ Math.PI * 0.8 }
+                      >
+                      </ProgressCircle>
+                      <Text style={styles.chartDailyInner}>{this.state.data.daily}</Text>
+                    </Layout>
+                  }
                   </Layout>
                 </ApplicationProvider>
             </>
@@ -153,10 +151,8 @@ const styles = StyleSheet.create({
   },
   chartTitle: {
     fontSize: vh(3.5),
-  },
-  legendTitle:{
-    paddingBottom: vh(2),
-    fontSize: vh(2.5),
+    width:vw(100),
+    left: vw(10)
   },
   chartLayout: {
     paddingLeft: vw(3),
@@ -164,20 +160,30 @@ const styles = StyleSheet.create({
     position: 'absolute',
 		top: vh(10),
   },
-  legend: {
-    position: 'absolute',
-    top: vh(30),
-    left: vw(4)
+  chartDailyTitle: {
+    fontSize: vh(3.5),
+    width:vw(100),
+    left: vw(15)
   },
-  legendBox:{
-    marginBottom: vh(2),
-    width: vw(5),
-    height: vw(5),
-    backgroundColor: 'rgba(1, 58, 115, 1)'
+  chartDailyLayout: {
+    position: 'absolute',
+    top: vh(45),
   },
   chart: {
     height: vh(15), 
     width: vw(85)
+  },
+  chartInner: {
+    fontSize: vh(3.5),
+    position:'absolute',
+    marginLeft:vw(43),
+    marginTop:vh(10)
+  },
+  chartDailyInner: {
+    fontSize: vh(3.5),
+    position:'absolute',
+    marginLeft:vw(41),
+    marginTop:vh(10)
   },
   graphBack: {
     backgroundColor: '#C4C4C4',

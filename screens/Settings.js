@@ -9,7 +9,8 @@ import {
   Layout,
   Text,
   Toggle,
-  Button
+  Button,
+  Input
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
@@ -27,7 +28,6 @@ export class Settings extends React.Component {
     this.state = {
       darkmode: this.props.user['darkMode']
     }
-    console.log(this.props.user['darkMode'])
   };
   render() {
     const logoutHandler = async () => {
@@ -65,12 +65,25 @@ export class Settings extends React.Component {
                     </Layout>
                   </Layout>
           <Layout style={style.container}>
+            <Layout style={styles.goals}>
+              <Input
+                style={{paddingBottom:vh(2)}}
+                label='Monthly Goal'
+                placeholder='30'
+                disabled
+              />
+              <Input
+                label='Daily Goal'
+                placeholder='1'
+                disabled
+              />
+              </Layout>
             <Layout style={styles.inputFlds}>
-            <Toggle
-              checked={this.state.darkmode}
-              onChange={onActiveCheckedChange}>
-              Dark Mode
-            </Toggle>
+              <Toggle
+                checked={this.state.darkmode}
+                onChange={onActiveCheckedChange}>
+                Dark Mode
+              </Toggle>
               <Button style={styles.logout} onPress={logoutHandler}>
                 <Text style={{color:'white'}}>Logout</Text>
               </Button>
@@ -83,8 +96,14 @@ export class Settings extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  goals:{
+    width:vw(70),
+    marginBottom:vh(5),
+    marginLeft:vw(-5)
+  },
   inputFlds: {
-    flex: 1
+    flex: 1,
+    height: vh(10)
   },
   logout: {
     justifyContent: 'center',
