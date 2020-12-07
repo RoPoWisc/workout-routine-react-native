@@ -10,6 +10,7 @@ export const FETCH_USER_OBJ = 'FETCH_USER_OBJ';
 export const BEARER_TOKEN = 'BEARER_TOKEN';
 export const USER_ID = 'USER_ID';
 export const CUSTOM_TOKEN = 'CUSTOM_TOKEN';
+export const DARK_MODE = 'DARK_MODE';
 
 // actions
 const date = moment().format('YYYY-MM-DD hh:mm:ss')
@@ -44,6 +45,11 @@ export const updateName = name => {
 export const fetchUserObj = userServer => ({
 	type: FETCH_USER_OBJ,
 	payload: { userServer }
+});
+
+export const updateDarkMode = darkmode => ({
+	type: DARK_MODE,
+	payload: darkmode
 });
 
 export const fetchBearerToken = bearerToken => {

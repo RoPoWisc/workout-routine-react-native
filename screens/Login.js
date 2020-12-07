@@ -52,7 +52,7 @@ export class Login extends React.Component {
 					// this.props.fetchUserObj(responseJson.userObj);
 					this.props.fetchBearerToken(responseJson.accessToken);
 					this.props.fetchUserId(responseJson.userid);
-					console.log('\n', this.props.fetchBearerToken, '\n');
+					//console.log('\n', this.props.fetchBearerToken, '\n');
 					//log.pop
 				}else{
 					this.setState({loading:false});

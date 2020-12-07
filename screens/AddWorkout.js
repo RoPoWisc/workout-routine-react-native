@@ -26,7 +26,7 @@ export class AddWork extends React.Component {
         return (
             <>
                 <IconRegistry icons={EvaIconsPack}/>
-                <ApplicationProvider {...eva} theme={eva.light}>
+                <ApplicationProvider {...eva} theme={(this.props.user['darkMode']) ? eva.dark : eva.light}>
                   <Layout style={style.header}>
                     <Layout style={style.headerLeft}>
                       <Text style={style.textMain} category='s1'>

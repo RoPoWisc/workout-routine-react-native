@@ -56,11 +56,18 @@ export class Progress extends React.Component {
         'rgba(98, 153, 209, 0.6)',
         'rgba(98, 153, 209, 0.4)',
     ]
+    const displColors = [
+      {key:'rgba(98, 153, 209, 1)'},
+      {key:'rgba(98, 153, 209, 0.8)'},
+      {key:'rgba(98, 153, 209, 0.6)'},
+      {key:'rgba(98, 153, 209, 0.4)'},
+  ]
+    const clr = (this.props.user['darkMode']) ?'white':'black';
     const keys = ['apples', 'bananas', 'cherries', 'dates']
         return (
             <>
                 <IconRegistry icons={EvaIconsPack}/>
-                <ApplicationProvider {...eva} theme={eva.light}>
+                <ApplicationProvider {...eva} theme={(this.props.user['darkMode']) ? eva.dark : eva.light}>
                   <Layout style={style.header}>
                     <Layout style={style.headerLeft}>
                       <Text style={style.textMain} category='s1'>
@@ -104,8 +111,8 @@ export class Progress extends React.Component {
                           contentInset={{ top: 10, bottom: 10 }}
                           svg={{
                               fontSize: vh(0.9),
-                              fill: 'black',
-                              stroke: 'black',
+                              fill: clr,
+                              stroke: clr,
                               strokeWidth: 0.1,
                               alignmentBaseline: 'baseline',
                               baselineShift: '3',

@@ -308,7 +308,7 @@ export class Workout extends React.Component {
         return (
             <>
                 <IconRegistry icons={EvaIconsPack} />
-                <ApplicationProvider {...eva} theme={eva.light}>
+                <ApplicationProvider {...eva} theme={(this.props.user['darkMode']) ? eva.dark : eva.light}>
                     <Layout style={styles.container}>
                         <View style={styles.header}>
                             <View style={styles.topBar}>

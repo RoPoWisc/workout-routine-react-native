@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateEmail, updatePassword, fetchUserObj } from '../actions/user'
+import { updateEmail, updatePassword, fetchUserObj, updateDarkMode } from '../actions/user'
 import {
   ApplicationProvider,
   IconRegistry,
@@ -24,8 +24,11 @@ const style = require('../styles/global');
 export class Settings extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      darkmode: this.props.user['darkMode']
+    }
+    console.log(this.props.user['darkMode'])
   };
-
   render() {
     const logoutHandler = async () => {
       this.props.fetchUserObj(undefined);
@@ -34,10 +37,15 @@ export class Settings extends React.Component {
       this.props.navigation.navigate('Login')
     };
 
+    const onActiveCheckedChange = (isChecked) => {
+      this.props.updateDarkMode(!this.state.darkmode)
+      this.setState({darkmode:!this.state.darkmode})
+    };
+
     return (
       <>
         <IconRegistry icons={EvaIconsPack}/>
-                <ApplicationProvider {...eva} theme={eva.light}>
+                <ApplicationProvider {...eva} theme={(this.props.user['darkMode']) ? eva.dark : eva.light}>
                   <Layout style={style.header}>
                     <Layout style={style.headerLeft}>
                       <Text style={style.textMain} category='s1'>
@@ -58,11 +66,13 @@ export class Settings extends React.Component {
                   </Layout>
           <Layout style={style.container}>
             <Layout style={styles.inputFlds}>
-            <Toggle>
+            <Toggle
+              checked={this.state.darkmode}
+              onChange={onActiveCheckedChange}>
               Dark Mode
             </Toggle>
               <Button style={styles.logout} onPress={logoutHandler}>
-                <Text>Logout</Text>
+                <Text style={{color:'white'}}>Logout</Text>
               </Button>
             </Layout>
           </Layout>
@@ -86,7 +96,7 @@ const styles = StyleSheet.create({
 	},
 });
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({ updateEmail, updatePassword, fetchUserObj }, dispatch)
+	return bindActionCreators({ updateEmail, updatePassword, fetchUserObj, updateDarkMode }, dispatch)
 }
 
 const mapStateToProps = state => {

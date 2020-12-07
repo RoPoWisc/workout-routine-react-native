@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { UPDATE_EMAIL, UPDATE_PASSWORD, UPDATE_NAME, UPDATE_CONFIRM_PASSWORD, FETCH_USER_OBJ, BEARER_TOKEN, USER_ID } from '../actions/user'
+import { UPDATE_EMAIL, UPDATE_PASSWORD, UPDATE_NAME, UPDATE_CONFIRM_PASSWORD, FETCH_USER_OBJ, BEARER_TOKEN, USER_ID, DARK_MODE } from '../actions/user'
 
 const user = (state = {}, action) => {
 	switch (action.type) {
@@ -17,6 +17,8 @@ const user = (state = {}, action) => {
 			return {...state, bearerToken: action.payload}
 		case USER_ID:
 			return {...state, userId: action.payload}
+		case DARK_MODE:
+			return {...state, darkMode: action.payload}
 		default:
 			return state
 	}
