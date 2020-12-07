@@ -2,54 +2,61 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts'
+import { StackedAreaChart, YAxis, Grid } from 'react-native-svg-charts'
+import * as shape from 'd3-shape'
 import { } from '../actions/user'
 import {
   ApplicationProvider,
-  Button,
   Icon,
   IconRegistry,
   Layout,
-  Menu,
   Text,
-  TopNavigation,
-  TopNavigationAction,
 } from '@ui-kitten/components';
+import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
-import { isRequired } from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType';
 const style = require('../styles/global');
-/**
- * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
- * https:akveo.github.io/eva-icons
- */
- const MenuIcon = (props) => (
-   <React.Fragment>
-     <Icon {...props} name='menu-outline'/>
-   </React.Fragment>
- );
-
- const TopText = () => (
-   <React.Fragment>
-     <View style={styles.headerRow}>
-       <Text style={styles.text} category = 'h1'>Your</Text>
-     </View>
-     <View style={styles.headerRow}>
-     <Text style={styles.text} category = 's1'>Progress</Text>
-     </View>
-   </React.Fragment>
- )
-
- const data = [
-   { date: new Date}
- ]
-
+let inx = -1;
 export class Progress extends React.Component {
-
     render() {
-        const verticalContentInset = { top: 10, bottom: 10 }
-        const axesSvg = { fontSize: 10, fill: 'grey' };
-        
+      const data = [
+        {
+            month: new Date(2015, 0, 1),
+            apples: 38,
+            bananas: 19,
+            cherries: 9,
+            dates: 4,
+        },
+        {
+            month: new Date(2015, 1, 1),
+            apples: 15,
+            bananas: 5,
+            cherries: 2,
+            dates: 1,
+        },
+        {
+            month: new Date(2015, 2, 1),
+            apples: 6,
+            bananas: 9,
+            cherries: 36,
+            dates: 40,
+        },
+        {
+            month: new Date(2015, 3, 1),
+            apples: 33,
+            bananas: 4,
+            cherries: 6,
+            dates: 4,
+        },
+    ]
+
+    const colors = [
+        'rgba(98, 153, 209, 1)',
+        'rgba(98, 153, 209, 0.8)',
+        'rgba(98, 153, 209, 0.6)',
+        'rgba(98, 153, 209, 0.4)',
+    ]
+    const keys = ['apples', 'bananas', 'cherries', 'dates']
         return (
             <>
                 <IconRegistry icons={EvaIconsPack}/>
@@ -77,36 +84,51 @@ export class Progress extends React.Component {
                   </Layout>
                   <Layout style={style.container}>
                     <Layout style={styles.bodyWeight}>
-                      <Text style={styles.text}>
-                        Body Weight
+                      <Text style={styles.chartTitle}>
+                        Most Recent Workout
                       </Text>
                     </Layout>
-                    <Layout style={{ height: 200, padding: 20, flexDirection: 'row' }}>
+                    <Layout style={styles.chartLayout}>
+                      <StackedAreaChart
+                      style={styles.chart}
+                      contentInset={{ top: 10, bottom: 10 }}
+                      data={data}
+                      keys={keys}
+                      colors={colors}
+                      curve={shape.curveNatural}
+                      >
+                      </StackedAreaChart>
                       <YAxis
-                        data={data}
-                        style={{marginBottom: 30}}
-                        contentInset={verticalContentInset}
-                        svg={axesSvg}
-                        numberOfTicks={10}
-                        formatLabel={(value) => `${value}ºC`}
+                          style={{ position: 'absolute', color: 'black', top: 0, bottom: 0 }}
+                          data={StackedAreaChart.extractDataPoints(data, keys)}
+                          contentInset={{ top: 10, bottom: 10 }}
+                          svg={{
+                              fontSize: vh(0.9),
+                              fill: 'black',
+                              stroke: 'black',
+                              strokeWidth: 0.1,
+                              alignmentBaseline: 'baseline',
+                              baselineShift: '3',
+                          }}
                       />
-                      <Layout style={{ flex: 1, marginLeft: 10 }}>
-                        <LineChart
-                          style={{ flex: 1 }}
-                          data={data}
-                          svg={{ stroke: 'rgb(134, 65, 244)' }}
-                          contentInset={verticalContentInset}
-                        >
-                          <Grid />
-                        </LineChart>
-                        <XAxis
-                          style={{marginHorizontal: -10, height: 30}}
-                          data={data}
-                          formatLabel={(value, index) => index}
-                          contentInset={{ left: 10, right: 10 }}
-                          svg={axesSvg}
-                        />
-                      </Layout>
+                    </Layout>
+                    <Layout style={styles.legend}>
+                    <Text style={styles.legendTitle}>
+                        Legend
+                      </Text>
+                      {colors.map((prop, key) => {
+                        //defaultBox.backgroundColor = itm;
+                        inx++;
+                        return (
+                          <View style={{flex: 1,flexDirection: 'row',alignSelf: 'flex-start',}}>
+                          <View style={{marginBottom: vh(2),
+                            width: vw(5),
+                            height: vw(5),
+                            backgroundColor: prop}}/>
+                            <Text style={{paddingLeft:vw(4)}}>{keys[inx]}</Text>
+                          </View>
+                        );
+                      })}
                     </Layout>
                   </Layout>
                 </ApplicationProvider>
@@ -117,16 +139,41 @@ export class Progress extends React.Component {
 
 const styles = StyleSheet.create({
   bodyWeight: {
-    //borderWidth: 1,
+    paddingLeft: vw(2),
     flex: 1,
     flexDirection: 'row',
     alignSelf: 'flex-start',
   },
+  chartTitle: {
+    fontSize: vh(3.5),
+  },
+  legendTitle:{
+    paddingBottom: vh(2),
+    fontSize: vh(2.5),
+  },
+  chartLayout: {
+    paddingLeft: vw(3),
+    paddingRight: vw(2),
+    position: 'absolute',
+		top: vh(10),
+  },
+  legend: {
+    position: 'absolute',
+    top: vh(30),
+    left: vw(4)
+  },
+  legendBox:{
+    marginBottom: vh(2),
+    width: vw(5),
+    height: vw(5),
+    backgroundColor: 'rgba(1, 58, 115, 1)'
+  },
+  chart: {
+    height: vh(15), 
+    width: vw(85)
+  },
   graphBack: {
     backgroundColor: '#C4C4C4',
-  },
-  likeButton: {
-    marginVertical: 16,
   },
 });
 const mapDispatchToProps = dispatch => {
