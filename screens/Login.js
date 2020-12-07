@@ -30,13 +30,12 @@ export class Login extends React.Component {
 	loginHandler = async () => {
 		try{
 			this.setState({loading:true});
-			if(!this.props.user.email){
-				throw "Email is Required!"
-
+			if(!this.props.user.email || !(this.props.user.email).includes('@') || !(this.props.user.email).includes('.')){
+				throw "Email is Missing or is invalid!"
 			}
 			if(!this.props.user.password){
 				//log.pop;
-				throw "Password is Required!"
+				throw "Password is Missing!"
 			}
 			
 			let response = await fetch('https://workout-routine-builder-api.herokuapp.com/auth' , {
@@ -221,7 +220,7 @@ const styles = StyleSheet.create({
 	buttonload: {
 		position: 'absolute',
 		color: "white",
-		top: vh(63),
+		top: vh(56),
 		left: vw(7),
 		width: "40%",
 		borderRadius: 20,

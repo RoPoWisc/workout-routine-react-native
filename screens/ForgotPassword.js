@@ -17,7 +17,6 @@ export class ForgotPassword extends React.Component {
     handleReset = async () => {
 		try{
 			this.setState({loading:true});
-			console.log(this.props.user.email);
 			if(!this.props.user.email){
 					throw "Email is Required!"
 			}
@@ -29,9 +28,6 @@ export class ForgotPassword extends React.Component {
 			},
 			body: JSON.stringify({
 				email:this.props.user.email,
-				password:this.props.user.password,
-				fname:this.props.user.name,
-				lname:this.props.user.name
 			})});
 			let responseJson = await response.json();
 			if(responseJson.link !== undefined){

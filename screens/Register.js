@@ -20,8 +20,8 @@ export class Signup extends React.Component {
 			if(!this.props.user.name){
 					throw "Name is Required!"
 			}
-			if(!this.props.user.email){
-					throw "Email is Required!"
+			if(!this.props.user.email || !(this.props.user.email).includes('@') || !(this.props.user.email).includes('.')){
+				throw "Email is Missing or is invalid!"
 			}
 			if(!this.props.user.password){
 					throw "Password is Required!"
