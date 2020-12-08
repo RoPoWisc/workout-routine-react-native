@@ -98,6 +98,7 @@ export class ViewPersonalExercise extends React.Component {
 
     deleteExerciseRequest = async (exercise_id) => {
         //console.log(exercise_id);
+        this.setState({loading: true});
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
             let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/remove/' , {
@@ -134,7 +135,7 @@ export class ViewPersonalExercise extends React.Component {
         
             let responseJson = await response.json();
             //console.log(responseJson)
-            this.setState({exercises: responseJson.success})
+            this.setState({loading: false, exercises: responseJson.success})
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
             //console.log(error);
@@ -158,6 +159,15 @@ export class ViewPersonalExercise extends React.Component {
         console.log(name);
         console.log(type);
         console.log('saving new exercise...');
+
+        if (name == '') {
+            alert('Exercise must have a name!');
+            return;
+        } else if (type == '') {
+            alert('Exercise must have a type!');
+            return;
+        }
+
         this.setState({loading: true});
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
@@ -213,9 +223,11 @@ export class ViewPersonalExercise extends React.Component {
             const [name, setName] = React.useState('');
             const [type, setType] = React.useState('');
 
+            const backgroundColor = (this.props.user['darkMode']) ? '#58688F' : '#DEDEDE';
+            const textColor = (this.props.user['darkMode']) ? 'white' : '#266199';
             return (
-                <View style={{ alignItems: 'center', padding: 10, backgroundColor: 'rgba(98, 153, 209, 0.95)', borderRadius: 10}}>
-                    <Text category='h2' style={{color: 'white'}}>Create New Exercise!</Text>
+                <View style={{ alignItems: 'center', padding: 10, backgroundColor: backgroundColor, borderRadius: 10}}>
+                    <Text category='h2' style={{color: textColor}}>Create New Exercise!</Text>
                     <Input 
                         placeholder='Exercise Name'
                         value={name}
@@ -238,18 +250,20 @@ export class ViewPersonalExercise extends React.Component {
 
         const Exercise2 = (exercise_object) => {
             const clr = (this.props.user['darkMode']) ?'white':'black';
+            const backgroundColor = (this.props.user['darkMode']) ? '#58688F' : '#E5E5E5';
             return (
-                <View style={exerciseStyles.exercise}>
+                <View style={[exerciseStyles.exercise, {backgroundColor: backgroundColor}]}>
                     <View style={{
                         justifyContent: 'space-between',
                         flexDirection: 'column',
                         borderBottomColor: clr,
                         borderBottomWidth: 2,
+                        backgroundColor: backgroundColor,
                     }}>
                         <View style={{flexDirection: 'row', justifyContent:'space-between', paddingRight: 10}}>
                             <Text category='p2' style={exerciseStyles.header}>{exercise_object.name}</Text>
                             {this.state.showDelete && <Button accessoryLeft={CloseIcon} onPress={() => this.deleteExerciseHandler(exercise_object.id)} size='small' style={{
-                                width: 32, height: 32, position: 'absolute', right: 10, top: 5, backgroundColor: '#DB504A',}}/>}
+                                width: 32, height: 32, position: 'absolute', right: 10, top: 5, backgroundColor: '#DB504A', borderColor: '#DB504A'}}/>}
                             
                         </View>
                         <Text category='p2' style={exerciseStyles.volume}>{exercise_object.totalVolume}</Text>
@@ -257,6 +271,8 @@ export class ViewPersonalExercise extends React.Component {
                 </View>
             );
         };
+
+        const addExerciseBackground = (this.props.user['darkMode']) ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.5)';
 
         return (
             
@@ -288,6 +304,7 @@ export class ViewPersonalExercise extends React.Component {
                             width: '93%',
                             alignSelf: 'center',
                             borderRadius: 10,
+                            
                         }}
                         data={this.state.exercises}
                         ItemSeparatorComponent={Divider}
@@ -298,7 +315,7 @@ export class ViewPersonalExercise extends React.Component {
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Button style={{width: '40%', margin: 10, backgroundColor: '#DB504A', borderColor: '#DB504A'}} onPress={() => this.showDeleteExerciseHandler()}>Delete Exercise</Button>
                         <Button style={{width: '40%', margin: 10, backgroundColor: '#013A73', borderColor: '#013A73'}} onPress={() => this.showAddExerciseHandler()}>Add Exercise</Button>
-                        <Modal visible={this.state.addExercise} backdropStyle={styles.backdrop}>
+                        <Modal visible={this.state.addExercise} backdropStyle={{backgroundColor: addExerciseBackground}}>
                             <AddExercise/>
                         </Modal>
                     </View>
@@ -316,10 +333,11 @@ export class ViewPersonalExercise extends React.Component {
 
 const exerciseStyles = StyleSheet.create({
     exercise: {
-        width: '93%',
+        width: '100%',
         borderRadius: 10,
         padding: 5,
-        margin: 5
+        marginBottom: 3,
+        marginTop: 3
     },
     header: {
         fontSize: 28,
@@ -359,6 +377,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     backdrop: {
+        
     },
     optionButton: {
         marginTop: vh(1.2),
