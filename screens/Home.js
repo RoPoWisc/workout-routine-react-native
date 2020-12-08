@@ -65,7 +65,7 @@ export class Home extends React.Component {
     }
     onPressWorkoutButton = async (routineNameVar,type) => {
       // item has name and key
-
+      this.setState({loading: true});
       let bearer = 'Bearer ' + this.props.user.bearerToken;
       routineNameVar = routineNameVar.slice(0,-1);
       let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
@@ -157,7 +157,7 @@ export class Home extends React.Component {
                           </TouchableOpacity>
                         </>
                       )}
-                    />:<Text style={style.textPrvErr}>Looks like you don't have any custom workouts or its loading :)</Text>}
+                    />:<Text style={style.textPrvErr}>Looks like you don't have any custom workouts or it's loading :)</Text>}
                     </Layout>
                   </Layout>
                 </ApplicationProvider>

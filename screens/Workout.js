@@ -11,7 +11,10 @@ import {
     Layout,
     Text,
     CheckBox,
-    List
+    List,
+    Modal,
+    Spinner,
+    Card
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
@@ -42,6 +45,7 @@ export class Workout extends React.Component {
         //console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
 
         this.state = {
+            loading: false,
             workout: {
                 routineName: this.props.navigation.state.params.workoutData.routineName,
                 routineDay: this.props.navigation.state.params.workoutData.routineDay,
@@ -51,7 +55,7 @@ export class Workout extends React.Component {
     }
 
     componentDidMount = async () => {
-        ////console.log(this.props.user);
+        console.log(this.state.loading);
     }
 
     getDate() {
@@ -61,6 +65,8 @@ export class Workout extends React.Component {
     }
 
     endWorkoutHandler = async () => {
+        await new Promise(resolve => this.setState({ loading: true }, () => resolve()))
+        console.log(this.state.loading);
         let bodyJSON = JSON.stringify({
             'routineName': this.state.workout.routineName,
                     'routineDay': this.state.workout.routineDay,
@@ -88,6 +94,7 @@ export class Workout extends React.Component {
     }
     
     cancelWorkout = async () =>{
+        this.setState({loading: true});
         this.props.navigation.navigate('DrawerNavigator')
     }
 
@@ -326,7 +333,13 @@ export class Workout extends React.Component {
                     </Button>
                     </Layout>
                     </Layout>
+                    
                 </ApplicationProvider>
+                <Modal visible={this.state.loading}>
+                    <Card disabled={true}>
+                        <Spinner/>
+                    </Card> 
+                </Modal>
             </>
         )
     }
