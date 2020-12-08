@@ -20,6 +20,7 @@ import {
 import * as eva from '@eva-design/eva';
 
 import { vw, vh} from 'react-native-expo-viewport-units'
+import {lightColors, darkColors} from '../themes/colorThemes';
 const style = require('../styles/global');
 const CloseIcon = (props) => (
     <Icon {...props} name='close-square-outline'/>
@@ -40,7 +41,8 @@ export class ViewPersonalExercise extends React.Component {
             exercises: [
                 {
                 }
-            ]
+            ],
+            colors: (this.props.user['darkMode']) ? darkColors : lightColors,
         }
     }
 

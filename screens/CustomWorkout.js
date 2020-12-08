@@ -18,6 +18,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 import { set } from 'react-native-reanimated';
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
+import {lightColors, darkColors} from '../themes/colorThemes';
 const style = require('../styles/global');
 
 // const exerciseList = [
@@ -50,7 +51,7 @@ const ExpandIcon = (props) => (
 
 const exerciseStyles = StyleSheet.create({
     exercise: {
-        backgroundColor: '#E5E5E5',
+        backgroundColor: 'blue',
         width: '93%',
         borderRadius: 10,
         padding: 5,
@@ -106,6 +107,7 @@ class CustomWorkout extends React.Component {
                 routineName: 'Workout Name',
             },
             exercises: [],
+            //colors: (this.props.user['darkMode']) ? darkColors : lightColors,
         }
     }
 
@@ -140,7 +142,7 @@ class CustomWorkout extends React.Component {
                 )
             })
             this.setState({
-                exercises: temp
+                exercises: temp,
             })
         }
 
@@ -175,6 +177,10 @@ class CustomWorkout extends React.Component {
                 exercises: temp
             })
         }
+        // this.setState({
+        //     colors: (this.props.user['darkMode']) ? darkColors : lightColors,
+        // })
+        //console.log(this.state.colors)
         ////console.log(this.state.exercises)
     }
 
@@ -343,9 +349,10 @@ class CustomWorkout extends React.Component {
 
     render() {
 
+        const colors = (this.props.user['darkMode']) ? darkColors : lightColors
         const ExerciseEntry = (exercise_entry, exercise_id) => {
             const [weightText, setWeight] = React.useState('Weight');
-            const [repText, setRep] = React.useState('Reps');
+            const [repText, setRep] = React.useState('Reps')
 
             return (
                 <View style={{
@@ -373,7 +380,13 @@ class CustomWorkout extends React.Component {
             };
 
             return (
-                <View style={exerciseStyles.exercise}>
+                <View style={{
+                    backgroundColor: colors.exercise,
+                    width: '93%',
+                    borderRadius: 10,
+                    padding: 5,
+                    margin: 5
+                }}>
                     <View style={{
                         justifyContent: 'space-between',
                         flexDirection: 'row',
@@ -436,13 +449,7 @@ class CustomWorkout extends React.Component {
                     <Layout style={style.container}>
                     {!this.state.showExercises &&
                     <TextInput 
-                        style={{
-                            fontSize: vh(4),
-                            backgroundColor:"#EFEFEF",
-                            color:"#032c8e",
-                            borderRadius:20,
-                            padding: vh(.5),
-                        }}
+                        style={style.textIn}
                         category='h1'
                         //value={}
                         onChangeText={text => this.updateName(text)}
@@ -451,7 +458,7 @@ class CustomWorkout extends React.Component {
                     {!this.state.showExercises &&
                     <List
                         style={{
-                            backgroundColor: '#FFFFFF',
+                            backgroundColor: colors.background,
                             width: '100%',
                             marginLeft: 15,
                             alignSelf: 'center',
@@ -471,7 +478,14 @@ class CustomWorkout extends React.Component {
                         )}
                     />}
                     {!this.state.showExercises &&
-                        <Button style={styles.button1} onPress={() => this.viewExerciseHandler()}>
+                        <Button style={{
+                            marginTop: 20,
+                            marginBottom: 20,
+                            width: '80%',
+                            backgroundColor: colors.button,
+                            borderColor: colors.button,
+                            borderRadius: 8
+                        }} onPress={() => this.viewExerciseHandler()}>
                             Add Exercise
                         </Button>}
                     {this.state.showExercises &&
@@ -488,7 +502,7 @@ class CustomWorkout extends React.Component {
                     {this.state.showExercises &&
                         <List
                             style={{
-                                backgroundColor: '#FFFFFF',
+                                backgroundColor: colors.background,
                                 width: '100%',
                                 marginLeft: 15,
                                 alignSelf: 'center',
@@ -497,7 +511,14 @@ class CustomWorkout extends React.Component {
                             data={this.state.exercises}
                             renderItem={({ item }) => (
                                 <>
-                                    <TouchableOpacity style={styles.exercise} onPress={() => this.addExerciseHandler(item)}>
+                                    <TouchableOpacity style={{
+                                        alignSelf: 'center',
+                                        backgroundColor: colors.exercise,
+                                        width: '80%',
+                                        borderRadius: 10,
+                                        padding: 5,
+                                        margin: 5
+                                    }} onPress={() => this.addExerciseHandler(item)}>
                                         <Text style={styles.item}>{item.name}</Text>
                                     </TouchableOpacity>
                                 </>
