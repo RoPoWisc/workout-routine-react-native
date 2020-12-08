@@ -12,7 +12,10 @@ import {
     Text,
     CheckBox,
     List,
-    Select
+    Select,
+    Modal,
+    Card,
+    Spinner
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
@@ -96,6 +99,7 @@ class CustomWorkout extends React.Component {
         // //console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
 
         this.state = {
+            loading: false,
             showExercises: false,
             workout: {
                 exercise_id: this.getDate(),
@@ -221,6 +225,7 @@ class CustomWorkout extends React.Component {
     }
 
     saveWorkoutHandler = async() =>{
+        this.setState({loading: true})
         let bodyJSON = JSON.stringify({
                 '_owner': this.props.user.userId,
                 'public': false,
@@ -246,7 +251,7 @@ class CustomWorkout extends React.Component {
             ////console.log(responseJson.message, responseJson.success);
             if(responseJson.success !== undefined)
             {
-                alert('Workout Saved')
+                this.props.navigation.navigate('Home');
             }
             else
             {
@@ -529,6 +534,11 @@ class CustomWorkout extends React.Component {
                         Save Workout
                     </Button>}
                     </Layout>
+                    <Modal visible={this.state.loading}>
+                        <Card disabled={true}>
+                            <Spinner/>
+                        </Card>
+                    </Modal>
                 </ApplicationProvider>
             </>
         )

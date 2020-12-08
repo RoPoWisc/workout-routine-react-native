@@ -15,7 +15,9 @@ import {
     ListItem,
     Divider,
     Modal,
-    Input
+    Input,
+    Card,
+    Spinner
 } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 
@@ -36,6 +38,7 @@ export class ViewPersonalExercise extends React.Component {
         this.addExerciseHandler = this.addExerciseHandler.bind(this);
 
         this.state = {
+            loading: false,
             showDelete: false,
             addExercise: false,
             exercises: [
@@ -155,7 +158,7 @@ export class ViewPersonalExercise extends React.Component {
         console.log(name);
         console.log(type);
         console.log('saving new exercise...');
-
+        this.setState({loading: true});
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         try {
             let response = await fetch('https://workout-routine-builder-api.herokuapp.com/exercises/create/' , {
@@ -175,6 +178,7 @@ export class ViewPersonalExercise extends React.Component {
             });
         
             let responseJson = await response.json();
+            this.setState({loading: false});
             //console.log(responseJson)
             //this.props.navigation.navigate('Workout', { workoutData: responseJson} )
         } catch (error) {
@@ -255,6 +259,7 @@ export class ViewPersonalExercise extends React.Component {
         };
 
         return (
+            
             <ApplicationProvider {...eva} theme={(this.props.user['darkMode']) ? eva.dark : eva.light}>
                   <Layout style={style.header}>
                     <Layout style={style.headerLeft}>
@@ -298,8 +303,13 @@ export class ViewPersonalExercise extends React.Component {
                         </Modal>
                     </View>
                 </Layout>
-                
+                <Modal visible={this.state.loading}>
+                  <Card disabled={true}>
+                    <Spinner/>
+                  </Card>
+                </Modal>
             </ApplicationProvider>
+            
         )
     }
 }
