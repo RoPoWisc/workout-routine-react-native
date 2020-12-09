@@ -61,6 +61,7 @@ export class Home extends React.Component {
           })
         });
         let responseJson = await response.json();
+        console.log(responseJson);
         let infoPub = [];
         let infoPriv = [];
         responseJson.forEach((e,inx) => {
@@ -82,7 +83,7 @@ export class Home extends React.Component {
       // console.log('called update');
       if (this.props.navigation.getParam('update', false)) {
         // console.log('updating...');
-        await new Promise(resolve => this.setState({ loading: true }, () => resolve()))
+        // await new Promise(resolve => this.setState({ loading: true }, () => resolve()))
 
         this.setState({loading: true});
 
@@ -116,7 +117,7 @@ export class Home extends React.Component {
         } catch (e) {
           alert(e);
         }
-        this.setState({loading: false});
+        // this.setState({loading: false});
       }
     }
 
