@@ -141,7 +141,8 @@ export class Home extends React.Component {
           'Authorization': bearer
         },
         body: JSON.stringify({
-          routineName: routineNameVar
+          routineName: routineNameVar,
+          _owner: this.props.user.userId
         })
       });
 

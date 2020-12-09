@@ -16,7 +16,6 @@ import ViewPersonalExercise from '../screens/ViewPersonalExercise'
 import PastWorkouts from '../screens/PastWorkouts'
 
 import {
-	EditWorkout,
 	Logout
   } from '../screens'
 
@@ -52,12 +51,6 @@ const DrawerRouteConfig = {
 			title: 'Add Workouts',
 		}
 	},
-	// EditWorkout: {
-	// 	screen: EditWorkout,
-	// 	navigationOptions: {
-	// 		title: 'Edit Workouts',
-	// 	}
-	// },
 	Settings: {
 		screen: Settings,
 		navigationOptions: {
