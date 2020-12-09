@@ -56,7 +56,7 @@ export class PastWorkouts extends React.Component {
           infoVar = []
           data = workoutObj
           workoutObj.forEach((obj,ind) => {
-            infoVar.push({name: obj.routineName, key: obj.routineDay+ind})
+            infoVar.push({name: obj.routineName, key: obj.completed})
           }) 
           this.setState({info: infoVar});
 
@@ -116,7 +116,7 @@ export class PastWorkouts extends React.Component {
                       
                       renderItem={({ item }) => (
                         <>
-                          <Text style={styles.item}>{item.name}: {item.key}</Text>
+                          <Text style={styles.item}>{item.name}: {item.key.substring(0,10)}</Text>
                         </>
                       )}
                     /> 
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   item: {
     width:vw(90),
     height:vh(14),
-    paddingVertical: vh(3),
+    paddingVertical: vh(1),
     paddingHorizontal: vw(18),
     alignSelf: 'center',
     borderWidth: 2,

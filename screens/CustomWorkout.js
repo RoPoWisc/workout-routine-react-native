@@ -251,6 +251,7 @@ class CustomWorkout extends React.Component {
             ////console.log(responseJson.message, responseJson.success);
             if(responseJson.success !== undefined)
             {
+                this.setState({loading: false})
                 this.props.navigation.navigate('Home', {update: true});
                 // this.props.navigation.navigate('Workout', { workoutData: responseJson} )
                 // alert('Workout saved!');
