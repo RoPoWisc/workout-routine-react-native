@@ -45,6 +45,13 @@ module.exports = StyleSheet.create({
       fontSize: vh(6.5),
       fontWeight: "bold",
     },
+    textIn: {
+      fontSize: vh(4),
+      backgroundColor:"#EFEFEF",
+      color:"#032c8e",
+      borderRadius:20,
+      padding: vh(.5),
+    },
     optionButton: {
       paddingTop: vh(1.2),
       paddingRight: vw(2),

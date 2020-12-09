@@ -11,7 +11,10 @@ import {
     Layout,
     Text,
     CheckBox,
-    List
+    List,
+    Modal,
+    Spinner,
+    Card
 } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
@@ -38,10 +41,12 @@ export class Workout extends React.Component {
         this.changeTextHandler = this.changeWeightHandler.bind(this);
         this.changeRepsHandler = this.changeRepsHandler.bind(this);
         this.getDate = this.getDate.bind(this);
+        this.getBackgroundStyles = this.getBackgroundStyles.bind(this);
 
         //console.log(JSON.stringify(this.props.navigation.state.params.workoutData))
 
         this.state = {
+            loading: false,
             workout: {
                 routineName: this.props.navigation.state.params.workoutData.routineName,
                 routineDay: this.props.navigation.state.params.workoutData.routineDay,
@@ -50,8 +55,46 @@ export class Workout extends React.Component {
         }
     }
 
+    getBackgroundStyles() {
+        if (this.props.user['darkMode']) {
+            return {backgroundColor: '#58688F'}
+        } else {
+            return {backgroundColor: '#E5E5E5'}
+        }
+    }
+
+    getAddSetStatus() {
+        if (this.props.user['darkMode']) {
+            return 'control';
+        }
+    }
+
+    getEntryStyle() {
+        if (this.props.user['darkMode']) {
+            return {
+                backgroundColor: '#8A9DC7',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                borderRadius: 8,
+                paddingTop: 3,
+                paddingBottom: 3,
+                marginVertical: 3
+            }
+        } else {
+            return {
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                backgroundColor: '#0466C880',
+                borderRadius: 8,
+                paddingTop: 3,
+                paddingBottom: 3,
+                marginVertical: 3
+            }
+        }
+    }
+
     componentDidMount = async () => {
-        ////console.log(this.props.user);
+        console.log(this.state.loading);
     }
 
     getDate() {
@@ -61,6 +104,8 @@ export class Workout extends React.Component {
     }
 
     endWorkoutHandler = async () => {
+        await new Promise(resolve => this.setState({ loading: true }, () => resolve()))
+        console.log(this.state.loading);
         let bodyJSON = JSON.stringify({
             'routineName': this.state.workout.routineName,
                     'routineDay': this.state.workout.routineDay,
@@ -88,6 +133,7 @@ export class Workout extends React.Component {
     }
     
     cancelWorkout = async () =>{
+        this.setState({loading: true});
         this.props.navigation.navigate('DrawerNavigator')
     }
 
@@ -223,7 +269,7 @@ export class Workout extends React.Component {
             const [repText, setRep] = React.useState('Reps');
 
             return (
-                <View style={{
+                <View style={[{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     backgroundColor: '#0466C880',
@@ -231,7 +277,7 @@ export class Workout extends React.Component {
                     paddingTop: 3,
                     paddingBottom: 3,
                     marginVertical: 3
-                }}>
+                }], this.getEntryStyle()}>
                     <TextInput category='s1' style={exerciseStyles.weight} onChangeText={text => setWeight(text)} onSubmitEditing={() => this.changeWeightHandler(exercise_entry, weightText)} >{exercise_entry.weight}</TextInput>
                     <TextInput category='s1' style={exerciseStyles.reps} onChangeText={text => setRep(text)} onSubmitEditing={() => this.changeRepsHandler(exercise_entry, repText)}>{exercise_entry.reps}</TextInput>
                     <this.Check checked={exercise_entry.checked} id={exercise_entry.id} exercise_id={exercise_entry.exercise_id}></this.Check>
@@ -248,7 +294,7 @@ export class Workout extends React.Component {
             };
 
             return (
-                <View style={exerciseStyles.exercise}>
+                <View style={[exerciseStyles.exercise, this.getBackgroundStyles()]}>
                     <View style={{
                         justifyContent: 'space-between',
                         flexDirection: 'row',
@@ -270,15 +316,15 @@ export class Workout extends React.Component {
                         </View>
 
                         <List
-                            style={{ backgroundColor: '#E5E5E5' }}
+                            style={this.getBackgroundStyles()}
                             data={exercise_object.sets}
                             renderItem={({ item }) => (
                                 <ExerciseEntry weight={item.weight} reps={item.reps} checked={item.checked} id={item.id} exercise_id={exercise_object.exercise_id}></ExerciseEntry>
                             )}
                         />
-                        <Button style={{ marginVertical: 3, borderColor: 'white', backgroundColor: 'white' }} appearance={'outline'} size={'small'} onPress={() => this.addSetHandler(exercise_object)}>Add Set</Button>
+                        <Button style={[{marginVertical: 3}]} status={this.getAddSetStatus()} appearance={'outline'} size={'small'} onPress={() => this.addSetHandler(exercise_object)}>Add Set</Button>
                     </View>}
-                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} size='small' style={{ margin: -8 }} onPress={() => showElementHandler(exercise_object.exercise_id)}></Button>
+                    <Button appearance='ghost' accessoryLeft={showList ? CollapseIcon : ExpandIcon} status={this.getAddSetStatus()} size='small' style={{ margin: -8 }} onPress={() => showElementHandler(exercise_object.exercise_id)}></Button>
                 </View>
             );
         };
@@ -326,7 +372,13 @@ export class Workout extends React.Component {
                     </Button>
                     </Layout>
                     </Layout>
+                    
                 </ApplicationProvider>
+                <Modal visible={this.state.loading}>
+                    <Card disabled={true}>
+                        <Spinner/>
+                    </Card> 
+                </Modal>
             </>
         )
     }
@@ -380,9 +432,10 @@ const styles = StyleSheet.create({
 const exerciseStyles = StyleSheet.create({
     exercise: {
         backgroundColor: 'rgba(98, 153, 209, 1)',
-        width: '90%',
+        width: '100%',
         borderRadius: 10,
         alignSelf: 'center',
+        padding: 5,
         marginBottom:vh(2)
     },
     header: {

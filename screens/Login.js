@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { updateEmail, updatePassword, updateName, fetchUserObj, fetchBearerToken, fetchUserId } from '../actions/user'
 import { vw, vh, vmin, vmax } from 'react-native-expo-viewport-units'
 import { ApplicationProvider, Card, Modal, Spinner } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
 let userUid;
 
 export class Login extends React.Component {
