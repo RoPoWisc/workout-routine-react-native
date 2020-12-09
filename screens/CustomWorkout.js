@@ -251,12 +251,15 @@ class CustomWorkout extends React.Component {
             ////console.log(responseJson.message, responseJson.success);
             if(responseJson.success !== undefined)
             {
-                this.props.navigation.navigate('Home');
+                this.props.navigation.navigate('Home', {update: true});
+                // this.props.navigation.navigate('Workout', { workoutData: responseJson} )
+                // alert('Workout saved!');
             }
             else
             {
                 alert('Workout not Saved')
             }
+            this.setState({loading: false})
         } catch (e) {
             alert(e);
         }
@@ -272,7 +275,7 @@ class CustomWorkout extends React.Component {
 
     updateName(newName) {
 
-        newWorkout = this.state.workout
+        let newWorkout = this.state.workout
         // //console.log(newWorkout)
         newWorkout.routineName = newName;
 

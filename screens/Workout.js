@@ -53,6 +53,8 @@ export class Workout extends React.Component {
                 exerciseArray: this.props.navigation.state.params.workoutData.exerciseArray
             }
         }
+
+        console.log(this.state);
     }
 
     getBackgroundStyles() {
@@ -94,7 +96,7 @@ export class Workout extends React.Component {
     }
 
     componentDidMount = async () => {
-        console.log(this.state.loading);
+        
     }
 
     getDate() {
@@ -105,7 +107,6 @@ export class Workout extends React.Component {
 
     endWorkoutHandler = async () => {
         await new Promise(resolve => this.setState({ loading: true }, () => resolve()))
-        console.log(this.state.loading);
         let bodyJSON = JSON.stringify({
             'routineName': this.state.workout.routineName,
                     'routineDay': this.state.workout.routineDay,
