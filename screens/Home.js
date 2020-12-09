@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, styleheet, Image, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { useIsFocused, NavigationEvents } from 'react-navigation';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchUserObj} from '../actions/user'
@@ -22,17 +23,28 @@ const images = [
   {name: require('../assets/curls.jpg'), key: 'Workout 3'}
 ];
 
+function isFocused() {
+  const isFocused = useIsFocused();
+
+  console.log(isFocused);
+}
+
 export class Home extends React.Component {
+
     constructor(props) {
       super(props)
       this.state = {
+        update: false,
         loading: true,
         infoPub: [],
         infoPriv: [],
       }
-      this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this)
+      this.onPressWorkoutButton = this.onPressWorkoutButton.bind(this);
+      this.update = this.update.bind(this);
     }
+
     componentDidMount = async () => {
+
       try {
         let bearer = 'Bearer ' + this.props.user.bearerToken;
         //populate exercises
@@ -63,11 +75,64 @@ export class Home extends React.Component {
         alert(e);
       }
     }
+
+    
+
+    update = async () => {
+      // console.log('called update');
+      if (this.props.navigation.getParam('update', false)) {
+        // console.log('updating...');
+        await new Promise(resolve => this.setState({ loading: true }, () => resolve()))
+
+        this.setState({loading: true});
+
+        // request new workout data
+        try {
+          let bearer = 'Bearer ' + this.props.user.bearerToken;
+          //populate exercises
+          let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/all' , {
+          method: 'POST',
+          headers: {
+              Accept: '/',
+              'Content-Type': 'application/json',
+              'Authorization': bearer
+            },
+            body: JSON.stringify({
+              _owner: this.props.user.userId,
+              limit: 10
+            })
+          });
+          let responseJson = await response.json();
+          let infoPub = [];
+          let infoPriv = [];
+          responseJson.forEach((e,inx) => {
+            if(e.public)
+              infoPub.push({name: e.routineName, key:e.routineName+inx});
+            else 
+              infoPriv.push({name: e.routineName, key:e.routineName+inx});
+            this.setState({infoPub: infoPub, infoPriv: infoPriv, loading:false});
+          });
+          //console.log(infoPub)
+        } catch (e) {
+          alert(e);
+        }
+        this.setState({loading: false});
+      }
+    }
+
+    componentWillUnmount = async () => {
+      console.log('unmounted component');
+    }
+
     onPressWorkoutButton = async (routineNameVar,type) => {
       // item has name and key
       this.setState({loading: true});
+      
+      console.log(routineNameVar);
       let bearer = 'Bearer ' + this.props.user.bearerToken;
+      console.log(bearer);
       routineNameVar = routineNameVar.slice(0,-1);
+      console.log(routineNameVar);
       let response = await fetch('https://workout-routine-builder-api.herokuapp.com/workouts/prebuilt' , {
         method: 'POST',
        headers: {
@@ -87,8 +152,14 @@ export class Home extends React.Component {
     }
 
     render() {
+
+        
+
         return (
             <>
+                <NavigationEvents
+                  onDidFocus={() => this.update()} // 
+                />
                 <IconRegistry icons={EvaIconsPack}/>
                 <ApplicationProvider {...eva} theme={(this.props.user['darkMode']) ? eva.dark : eva.light}>
                   <Layout style={style.header}>
