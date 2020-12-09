@@ -85,7 +85,7 @@ export class Home extends React.Component {
         // console.log('updating...');
         // await new Promise(resolve => this.setState({ loading: true }, () => resolve()))
 
-        this.setState({loading: true});
+        // this.setState({loading: true});
 
         // request new workout data
         try {
