@@ -13,3 +13,8 @@
     ->https://akveo.github.io/react-native-ui-kitten/docs/components/modal/overview#modal
     ->https://reactnativeelements.com/docs/card
 # For tests run yarn jest --coverage
+
+
+# For UI tests, checkout this repo https://github.com/eestevez123/workout-routine-builder-ui-testing.git
+### This repo runs tests using Espresso on Android Studio
+### Video of tests running: https://drive.google.com/file/d/1wamFwY21aGm3vTzVA5DtFVREkQ8BsSZh/view?usp=sharing 
