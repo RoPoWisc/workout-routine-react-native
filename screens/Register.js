@@ -74,6 +74,7 @@ export class Signup extends React.Component {
 					placeholder='Name'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
+					accessibilityLabel="nameTextBoxRegister"
 				/>
 				<TextInput
 					style={styles.inpBxTw}
@@ -81,6 +82,7 @@ export class Signup extends React.Component {
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
+					accessibilityLabel="createEmailTextBox"
 				/>
 				<TextInput
 					style={styles.inpBxThr}
@@ -88,9 +90,10 @@ export class Signup extends React.Component {
 					placeholder='Password'
 					placeholderTextColor="#8BB8CE"
 					secureTextEntry={true}
+					accessibilityLabel="createPasswordTextBox"
 				/>
 				{(this.state.loading == false) ?
-				<TouchableOpacity style={styles.button} onPress={this.handleSignUp}>
+				<TouchableOpacity style={styles.button} onPress={this.handleSignUp} accessibilityLabel="createAccountButton">
 					<Text style={styles.buttonText}>Create Account</Text>
 				</TouchableOpacity>:
 				<Text style={styles.buttonload}>Loading...</Text>}

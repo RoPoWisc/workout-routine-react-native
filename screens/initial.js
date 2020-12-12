@@ -69,10 +69,10 @@ export class Initial extends React.Component {
 				/>
 				<Text style={styles.text}>Let's Build</Text>
 				<Text style={styles.subtext}>A Workout</Text>
-				<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Login')}>
+				<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Login')} accessibilityLabel="LoginButton">
 					<Text style={styles.buttonText}>Login</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.buttonRight} onPress={() => this.props.navigation.navigate('Signup')}>
+				<TouchableOpacity style={styles.buttonRight} onPress={() => this.props.navigation.navigate('Signup')} accessibilityLabel="signUpButton">
 					<Text style={styles.buttonText}>Register</Text>
 				</TouchableOpacity>
 			</View>

@@ -88,6 +88,7 @@ export class Login extends React.Component {
 					placeholder='Email'
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
+					accessibilityLabel="emailTextBox"
 				/>
 				<TextInput
 					style={styles.inpBxTw}
@@ -96,9 +97,10 @@ export class Login extends React.Component {
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
 					secureTextEntry={true}
+					accessibilityLabel="passwordTextBox"
 				/>
 				{(this.state.loading == false) ?
-				<TouchableOpacity style={styles.button} onPress={this.loginHandler}>
+				<TouchableOpacity style={styles.button} onPress={this.loginHandler} accessibilityLabel="loginButtonInLoginScreen">
 					<Text style={styles.buttonText}>Login</Text>
 				</TouchableOpacity>:
 				<Text style={styles.buttonload}>Loading...</Text>}
