@@ -1,5 +1,8 @@
 # workout-routine-react-native
-![alt text](https://github.com/ropowisc/workout-routine-react-native/assets/logo1.png "Workout routine builder logo")
+![alt text](https://github.com/RoPoWisc/workout-routine-react-native/blob/88498f87d18b569380865c56ff889b16fb4c7f35/assets/logo1.png "Workout routine builder logo")
+
+## Current UI
+![alt text](https://github.com/RoPoWisc/workout-routine-react-native/blob/0ca57e7c5827e3d2623dd11b10f64ea1f8e77941/assets/workout_UI.png "Workout routine builder logo")
 ## Project Abstract
 While researching different strength training programs, we’ve found that many recommended routines have weight progression schemes that are a bit math intensive to conveniently do on the fly. To solve this problem, some have made excel spreadsheets that calculate the weight progression scheme for the next period of workout training, generally around 6-8 weeks. While this is easy to use on the computer,manipulating excel spreadsheets on a mobile device is not very convenient, and requires separately inputting exercises performed and weights done in a separate tracking app to track progress with more metrics than simply weights and reps done over a specific training period. We would like to build a mobile app that users can build workout routines in, inputting any formulas needed to calculate each day’s workout automatically, that also tracks metrics more inline with conventional workout planner apps, such as bodyweight graphs over time.
 
